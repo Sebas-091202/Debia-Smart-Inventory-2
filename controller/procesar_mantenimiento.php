@@ -61,9 +61,9 @@ if (!empty($_POST['nombre_repuesto'])) {
                 // INSERTAR NUEVO
                 $conn->prepare("
                     INSERT INTO repuestos 
-                    (nombre, serial, capacidad, tipo, descripcion, valor, stock, estado)
+                    (nombre, serial, capacidad, valor, tipo, descripcion, stock, estado)
                     VALUES (?, ?, ?, ?, ?, ?, ?, 'Disponible')
-                ")->execute([$nombre, $serial, $capacidad, $tipo_r, $descripcion_r, $valor, $cantidad]);
+                ")->execute([$nombre, $serial, $capacidad, $valor, $tipo_r, $descripcion_r, $cantidad]);
 
                 $repuesto_id = $conn->lastInsertId();
             }

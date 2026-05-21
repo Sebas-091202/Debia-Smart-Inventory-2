@@ -56,4 +56,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "<script>alert('Error al registrar.'); window.location.href='../views/index_Login.php';</script>";
     }
+}
 ?>
