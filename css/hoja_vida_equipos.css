@@ -1,0 +1,356 @@
+        * {
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+            background-size: 600% 600%;
+            animation: gradientAnimation 22s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 35px;
+            transition: .3s;
+        }
+
+        body.sidebar-collapsed .main-content {
+            margin-left: 70px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(18px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        /* TITULOS */
+        h2,
+        h4 {
+            text-align: center;
+            margin-bottom: 12px;
+            padding-top: 20px;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            margin-top: 57px;
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            transition: .3s;
+        }
+
+        /* Normal */
+        .logo-full {
+            display: inline;
+        }
+
+        .logo-short {
+            display: none;
+        }
+
+        /* ===============================
+SIDEBAR BASE
+=============================== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: #111827;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-x: hidden;
+        }
+
+        /* CONTENIDO */
+        .container {
+            margin-left: 260px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===============================
+SIDEBAR COLAPSADO (ESCRITORIO)
+=============================== */
+        body.sidebar-collapsed .sidebar {
+            width: 70px;
+        }
+
+        body.sidebar-collapsed .container {
+            margin-left: 70px;
+        }
+
+        /* Ocultar texto */
+        body.sidebar-collapsed .sidebar a span {
+            display: none;
+        }
+
+        /* Centrar iconos */
+        body.sidebar-collapsed .sidebar a {
+            justify-content: center;
+        }
+
+        body.sidebar-collapsed .logo-full {
+            display: none;
+        }
+
+        body.sidebar-collapsed .logo-short {
+            display: inline;
+        }
+
+
+        /* ===============================
+MODO MÓVIL
+=============================== */
+        @media (max-width: 768px) {
+
+            /* Sidebar oculto por defecto */
+            .sidebar {
+                left: -260px;
+                width: 260px;
+            }
+
+            /* Sidebar activo */
+            body.sidebar-open .sidebar {
+                left: 0;
+            }
+
+            /* Contenido ocupa todo */
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            /* SIEMPRE ocultar texto en móvil */
+            /* MÓVIL: texto oculto por defecto */
+            .sidebar a span {
+                display: none;
+            }
+
+            /* MÓVIL: mostrar texto cuando sidebar está abierto */
+            body.sidebar-open .sidebar a span {
+                display: inline;
+            }
+
+            /* En móvil, cuando está abierto, alinear icono + texto */
+            body.sidebar-open .sidebar a {
+                justify-content: flex-start;
+                padding-left: 20px;
+            }
+
+            /* Iconos centrados */
+            .sidebar a {
+                justify-content: center;
+            }
+
+            /* Fondo oscuro al abrir sidebar */
+            body.sidebar-open::before {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+
+            /* TABLA SCROLL */
+            .card table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            /* ===============================
+            LOGOS EN MÓVIL
+            =============================== */
+
+            /* En móvil: nunca mostrar logo-full */
+            .logo-full {
+                display: none !important;
+            }
+
+            /* En móvil: ocultar logo-short por defecto */
+            .logo-short {
+                display: none;
+            }
+
+            /* En móvil: mostrar logo-short SOLO cuando sidebar está abierto */
+            body.sidebar-open .logo-short {
+                display: inline;
+            }
+        }
+
+
+
+        .filtros {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn-delete {
+            color: white;
+            border: none;
+            display: flex;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        .btn-add {
+            color: white;
+            border: none;
+            display: flex;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #25cf64, #15803d);
+        }
+
+        .btn-save {
+            color: white;
+            border: none;
+            display: flex;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+        }
+
+        .btn-pdf {
+            color: white;
+            border: none;
+            display: flex;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #0ea144, #15803d);
+
+        }
+
+        .btn-search {
+            width: 65%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            cursor: pointer;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 15px;
+
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+        }
+
+        .bx-home,
+        .bx-list-ul,
+        .bx-plus-circle,
+        .bx-edit-alt,
+        .bx-check-square,
+        .bx-calendar,
+        .bx-refresh,
+        .bx-bar-chart,
+        .bx-cog,
+        .bx-file {
+            font-size: 28px;
+            color: #60a5fa;
+            margin-right: 9px;
+
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, .94);
+            color: #111;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #111827;
+            color: #fff;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* BADGES ESTADO */
+        .badgeEstado {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .activo {
+            background: #16a34a;
+            color: white;
+        }
+
+        .reparacion {
+            background: #d97706;
+            color: white;
+        }
+
+        .baja {
+            background: #dc2626;
+            color: white;
+        }
+
+        @media(max-width:768px) {
+            .main-content {
+                margin-left: 70px;
+                padding: 20px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }

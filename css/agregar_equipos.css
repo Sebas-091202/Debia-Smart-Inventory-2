@@ -1,0 +1,188 @@
+        * {
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: block;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+            background-size: 600% 600%;
+            animation: gradientAnimation 22s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        placeholder {
+            color: #bebebe;
+            opacity: 1;
+        }
+
+        /* CONTENIDO */
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+
+        /* FORM */
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        /* TITULOS */
+        h2,
+        h4 {
+            text-align: center;
+            margin-bottom: 12px;
+            padding-top: 20px;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            margin-top: 57px;
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            transition: .3s;
+        }
+
+        /* Normal */
+        .logo-full {
+            display: inline;
+        }
+
+        .logo-short {
+            display: none;
+        }
+
+
+        /* Cuando sidebar se colapsa */
+
+        body.sidebar-collapsed .logo-full {
+            display: none !important;
+        }
+
+        body.sidebar-collapsed .logo-short {
+            display: inline !important;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+
+        /* MUY IMPORTANTE:
+evita que la regla general oculte el span DSI */
+        body.sidebar-collapsed .sidebar .logo-short {
+            display: inline !important;
+        }
+
+        
+                /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
+        .sidebar a span {
+            display: flex;
+            transition: .3s;
+        }
+
+        body.sidebar-collapsed .sidebar a span {
+            display: none !important;
+        }
+
+        /* Centrar iconos cuando se colapsa */
+        body.sidebar-collapsed .sidebar a {
+            justify-content: center;
+            padding-left: 0;
+        }
+        
+        /* INPUTS */
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .bx-home,
+        .bx-list-ul,
+        .bx-plus-circle,
+        .bx-edit-alt,
+        .bx-check-square,
+        .bx-calendar,
+        .bx-refresh,
+        .bx-bar-chart,
+        .bx-cog,
+        .bx-file {
+            font-size: 28px;
+            color: #60a5fa;
+            margin-right: 9px;
+
+        }
+
+
+        /* BOTÓN GUARDAR */
+        button.submit-btn {
+            width: 100%;
+            padding: 14px;
+
+            background: linear-gradient(135deg, #60a5fa, #2563eb);
+            color: #fff;
+
+            border: none;
+            border-radius: 12px;
+
+            font-weight: 600;
+            letter-spacing: 0.5px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+        /* HOVER */
+        button:hover {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* CLICK */
+        button:active {
+            transform: scale(0.97);
+            box-shadow: none;
+        }
+
+        .activo {
+            background: #16a34a;
+            color: white;
+        }
+
+        .reparacion {
+            background: #d97706;
+            color: white;
+        }
+
+        .baja {
+            background: #dc2626;
+            color: white;
+        }

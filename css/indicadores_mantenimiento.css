@@ -1,0 +1,244 @@
+        * {
+            box-sizing: border-box;
+            font-family: Montserrat;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+            background-size: 600% 600%;
+            animation: gradientAnimation 20s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .main {
+            padding: 35px;
+            margin-left: 260px;
+        }
+
+        body.sidebar-collapsed .main {
+            margin-left: 70px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(16px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .30);
+        }
+
+        /* TITULOS */
+        h2,
+        h4 {
+            text-align: center;
+            margin-bottom: 12px;
+            padding-top: 20px;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            margin-top: 57px;
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            transition: .3s;
+        }
+
+        /* Normal */
+        .logo-full {
+            display: inline;
+        }
+
+        .logo-short {
+            display: none;
+        }
+
+
+        /* Cuando sidebar se colapsa */
+
+        body.sidebar-collapsed .logo-full {
+            display: none !important;
+        }
+
+        body.sidebar-collapsed .logo-short {
+            display: inline !important;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+
+        /* MUY IMPORTANTE:
+evita que la regla general oculte el span DSI */
+        body.sidebar-collapsed .sidebar .logo-short {
+            display: inline !important;
+        }
+
+        
+                /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
+        .sidebar a span {
+            display: flex;
+            transition: .3s;
+        }
+
+        body.sidebar-collapsed .sidebar a span {
+            display: none !important;
+        }
+
+        /* Centrar iconos cuando se colapsa */
+        body.sidebar-collapsed .sidebar a {
+            justify-content: center;
+            padding-left: 0;
+        }
+
+        .bx-home,
+        .bx-list-ul,
+        .bx-plus-circle,
+        .bx-edit-alt,
+        .bx-check-square,
+        .bx-calendar,
+        .bx-refresh,
+        .bx-bar-chart,
+        .bx-cog,
+        .bx-file {
+            font-size: 28px;
+            color: #60a5fa;
+            margin-right: 9px;
+
+        }
+
+        .filtros {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        select {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        canvas {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            color: #111;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .paginacion {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .paginacion a {
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: white;
+            text-decoration: none;
+            font-weight: 600;
+            color: #111827;
+            transition: 0.2s;
+        }
+
+        .paginacion a:hover {
+            transform: translateY(-4px);
+        }
+
+        .activo-pagina {
+            background: #2563eb !important;
+            color: white !important;
+        }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .kpi {
+            background: rgba(255, 255, 255, .15);
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .kpi h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .badge-blue {
+            background: #2563eb;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-weight: 600;
+        }
+
+        .badge-red {
+            background: #dc2626;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-weight: 600;
+        }
+
+        @media(max-width:900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
