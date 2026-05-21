@@ -309,7 +309,7 @@ if ($id_equipo) {
         <?php if ($equipo): ?>
 
             <div class="card">
-                <h2>Hoja de Vida Equipo <?= $equipo['identificador'] ?></h2>
+                <h2>Hoja de Vida Equipo <?= $equipo['tipo'] ?> - <?= $equipo['marca'] ?> - <?= $equipo['identificador'] ?></h2>
                 <h3>Ficha Técnica del Equipo</h3>
                 <table style="margin-bottom:25px;">
                     <tr>
@@ -617,7 +617,7 @@ if ($id_equipo) {
                 body: filas
             });
 
-            doc.save("Hoja_Vida_" + identificador + ".pdf");
+            doc.save("Hoja_Vida_" +  $tipo + "_" + $marca + "_"  + identificador + ".pdf");
         }
 
 

@@ -128,8 +128,8 @@ if (!$equipo) {
                     <option value="MOT" <?= ($equipo['marca'] == 'MOT') ? 'selected' : ''; ?>>Motorola</option>
 
                     <option value="X" <?= ($equipo['marca'] == 'X') ? 'selected' : ''; ?>>Xiaomi</option>
-                    
-                    <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>  
+
+                    <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
                 </select>
 
 
@@ -157,32 +157,48 @@ if (!$equipo) {
                     name="procesador"
                     value="<?= $equipo['procesador'] ?>">
 
-
                 <label>RAM</label>
                 <select name="ram" required>
                     <option value="">Seleccione RAM</option>
-                    <option value="4GB">4GB</option>
-                    <option value="8GB">8GB</option>
-                    <option value="16GB">16GB</option>
-                    <option value="32GB">32GB</option>
-                    <option value="64GB">64GB</option>
+
+                    <option value="4GB" <?= ($equipo['ram'] == '4GB') ? 'selected' : '' ?>>4GB</option>
+                    <option value="8GB" <?= ($equipo['ram'] == '8GB') ? 'selected' : '' ?>>8GB</option>
+                    <option value="16GB" <?= ($equipo['ram'] == '16GB') ? 'selected' : '' ?>>16GB</option>
+                    <option value="32GB" <?= ($equipo['ram'] == '32GB') ? 'selected' : '' ?>>32GB</option>
+                    <option value="64GB" <?= ($equipo['ram'] == '64GB') ? 'selected' : '' ?>>64GB</option>
                 </select>
 
 
-                <label>Disco</label>
+                <label>Disco C:</label>
                 <select name="disco" required>
                     <option value="">Seleccione Disco</option>
 
-                    <!-- SSD -->
-                    <option value="256GB SSD">256GB SSD</option>
-                    <option value="512GB SSD">512GB SSD</option>
-                    <option value="1TB SSD">1TB SSD</option>
+                    <option value="256GB SSD" <?= ($equipo['disco'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
+                    <option value="512GB SSD" <?= ($equipo['disco'] == '512GB SSD') ? 'selected' : '' ?>>512GB SSD</option>
+                    <option value="1TB SSD" <?= ($equipo['disco'] == '1TB SSD') ? 'selected' : '' ?>>1TB SSD</option>
 
-                    <!-- HDD -->
-                    <option value="500GB HDD">500GB HDD</option>
-                    <option value="1TB HDD">1TB HDD</option>
-                    <option value="2TB HDD">2TB HDD</option>
+                    <option value="500GB HDD" <?= ($equipo['disco'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
+                    <option value="1TB HDD" <?= ($equipo['disco'] == '1TB HDD') ? 'selected' : '' ?>>1TB HDD</option>
+                    <option value="2TB HDD" <?= ($equipo['disco'] == '2TB HDD') ? 'selected' : '' ?>>2TB HDD</option>
                 </select>
+
+
+
+                <label>Disco D:</label>
+                <select name="disco2" required>
+                    <option value="">Seleccione Disco D:</option>
+
+                    <option value="Ninguno" <?= ($equipo['disco2'] == 'Ninguno') ? 'selected' : '' ?>>Ninguno</option>
+
+                    <option value="256GB SSD" <?= ($equipo['disco2'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
+                    <option value="512GB SSD" <?= ($equipo['disco2'] == '512GB SSD') ? 'selected' : '' ?>>512GB SSD</option>
+                    <option value="1TB SSD" <?= ($equipo['disco2'] == '1TB SSD') ? 'selected' : '' ?>>1TB SSD</option>
+
+                    <option value="500GB HDD" <?= ($equipo['disco2'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
+                    <option value="1TB HDD" <?= ($equipo['disco2'] == '1TB HDD') ? 'selected' : '' ?>>1TB HDD</option>
+                    <option value="2TB HDD" <?= ($equipo['disco2'] == '2TB HDD') ? 'selected' : '' ?>>2TB HDD</option>
+                </select>
+
 
                 <label>Estado</label>
                 <select name="estado">
@@ -229,11 +245,18 @@ if (!$equipo) {
                         Directores Operativos
                     </option>
 
-                        <option value="Bodega"
-                            <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>>
-                            Bodega
-                        </option>
+                    <option value="Bodega"
+                        <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>>
+                        Bodega
+                    </option>
                 </select>
+
+                <label>Código de Barras</label>
+                <input type="text"
+                    name="codigo_barras"
+                    value="<?= $equipo['codigo_barras'] ?>"
+                    placeholder="Escanear o escribir">
+                
 
                 <button
                     type="submit"

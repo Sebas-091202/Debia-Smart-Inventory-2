@@ -1,44 +1,67 @@
 <?php
-
 require '../bd/conn.php';
+require_once '../lib/phpqrcode/qrlib.php';
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
+$id = $_POST['id'];
+$codigo = $_POST['codigo_barras'];
 
-$sql="UPDATE equipos SET
+/* 🔥 1. OBTENER CÓDIGO ANTERIOR */
+$old = $conn->prepare("SELECT codigo_barras FROM equipos WHERE id=?");
+$old->execute([$id]);
+$oldCodigo = $old->fetchColumn();
 
-tipo=?,
-marca=?,
-identificador=?,
-asignado_a=?,
-serial=?,
-procesador=?,
-ram=?,
-disco=?,
-estado=?,
-ubicacion=?
 
-WHERE id=?";
+/* 🔥 2. ACTUALIZAR EQUIPO */
+$sql = "
+UPDATE equipos SET 
+    tipo=?, marca=?, identificador=?, asignado_a=?, serial=?,
+    procesador=?, ram=?, disco=?, disco2=?, estado=?, ubicacion=?, codigo_barras=?
+WHERE id=?
+";
 
-$stmt=$conn->prepare($sql);
-
+$stmt = $conn->prepare($sql);
 $stmt->execute([
-
-$_POST['tipo'],
-$_POST['marca'],
-$_POST['identificador'],
-$_POST['asignado_a'],
-$_POST['serial'],
-$_POST['procesador'],
-$_POST['ram'],
-$_POST['disco'],
-$_POST['estado'],
-$_POST['ubicacion'],
-$_POST['id']
-
+    $_POST['tipo'],
+    $_POST['marca'],
+    $_POST['identificador'],
+    $_POST['asignado_a'],
+    $_POST['serial'],
+    $_POST['procesador'],
+    $_POST['ram'],
+    $_POST['disco'],
+    $_POST['disco2'],
+    $_POST['estado'],
+    $_POST['ubicacion'],
+    $codigo,
+    $id
 ]);
 
-header("Location: ../views/ver_equipos.php");
-exit();
 
+/* 3. GENERAR QR */
+$rutaQR = "../qrs/";
+
+if (!file_exists($rutaQR)) {
+    mkdir($rutaQR);
 }
+
+/* eliminar QR viejo */
+if ($oldCodigo && $oldCodigo != $codigo) {
+    $archivoViejo = $rutaQR . $oldCodigo . ".png";
+    if (file_exists($archivoViejo)) {
+        unlink($archivoViejo);
+    }
+}
+
+/* crear nuevo QR */
+$archivoQR = $rutaQR . $codigo . ".png";
+
+$url = "http://localhost/ConsulSoft/views/hoja_vida_equipos.php?codigo=" . $codigo;
+
+QRcode::png($url, $archivoQR, QR_ECLEVEL_L, 4);
+
+
+/* 🔥 4. REDIRECCIÓN */
+header("Location: ../views/ver_qr.php?codigo=" . $codigo);
+exit;
+
 ?>

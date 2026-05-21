@@ -154,7 +154,7 @@ h2{
 
                 <div>
 
-                    <h3><?= htmlspecialchars($equipo['tipo'] . ', ' . $equipo['marca'] . ', ' . $equipo['identificador']) ?></h3>
+                    <h3><?= htmlspecialchars($equipo['tipo'] . ' - ' . $equipo['marca'] . ' - ' . $equipo['identificador']) ?></h3>
 
                     <div class="qr-img">
                         <img src="../qrs/<?= htmlspecialchars($codigo) ?>.png" width="200">

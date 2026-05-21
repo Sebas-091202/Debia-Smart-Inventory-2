@@ -53,7 +53,7 @@ $stmt->execute([
 // GENERAR QR
 $rutaQR = "../qrs/" . $codigo . ".png";
 
-include("../lib/phpqrcode/qrlib.php");
+require_once("../lib/phpqrcode/qrlib.php");
 
 $url = "http://localhost/ConsulSoft/views/hoja_vida_equipos.php?codigo=" . $codigo;
 
