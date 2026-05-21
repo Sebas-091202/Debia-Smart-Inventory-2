@@ -3,7 +3,7 @@
 // config/database.php
 
 $host = "localhost";
-$dbname = "consulsoft";
+$dbname = "debia_smart_inventory"; // nombre de tu base de datos
 $username = "root";
 $password = ""; // por defecto en XAMPP
 
