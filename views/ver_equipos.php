@@ -378,6 +378,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Procesador</th>
                         <th>RAM</th>
                         <th>Disco</th>
+                        <th>Disco 2</th>
                         <th>Estado</th>
                         <th>Ubicación</th>
                         <th>Acción</th>
@@ -395,6 +396,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= $equipo['procesador'] ?></td>
                             <td><?= $equipo['ram'] ?></td>
                             <td><?= $equipo['disco'] ?></td>
+                            <td><?= $equipo['disco2'] ?></td>
                             <td>
                                 <?php
                                 $clase = 'activo';

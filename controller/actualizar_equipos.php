@@ -2,16 +2,23 @@
 require '../bd/conn.php';
 require_once '../lib/phpqrcode/qrlib.php';
 
+session_start(); // ESTO ES OBLIGATORIO
+
+// VALIDAR SESIÓN
+if (!isset($_SESSION['id'])) {
+    die("Error: sesión no válida");
+}
+
 $id = $_POST['id'];
 $codigo = $_POST['codigo_barras'];
 
-/* 🔥 1. OBTENER CÓDIGO ANTERIOR */
+/* 1. OBTENER CÓDIGO ANTERIOR */
 $old = $conn->prepare("SELECT codigo_barras FROM equipos WHERE id=?");
 $old->execute([$id]);
 $oldCodigo = $old->fetchColumn();
 
 
-/* 🔥 2. ACTUALIZAR EQUIPO */
+/* 2. ACTUALIZAR EQUIPO */
 $sql = "
 UPDATE equipos SET 
     tipo=?, marca=?, identificador=?, asignado_a=?, serial=?,
