@@ -36,6 +36,18 @@ $stmt->execute([
     $id
 ]);
 
+$log = $conn->prepare("
+INSERT INTO logs_sistema (usuario_id, accion, detalle)
+VALUES (?, ?, ?)
+");
+
+$log->execute([
+    $_SESSION['id'],
+    'ACTUALIZAR EQUIPO',
+    'Se actualizó el equipo ID ' . $id
+]);
+
+
 
 /* 3. GENERAR QR */
 $rutaQR = "../qrs/";

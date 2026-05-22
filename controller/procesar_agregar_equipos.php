@@ -19,17 +19,11 @@ INSERT INTO equipos (
     procesador,
     ram,
     disco,
-
     disco2,
     estado,
     ubicacion,
     codigo_barras
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
-
-    estado,
-    ubicacion,
-    codigo_barras
-) VALUES (?,?,?,?,?,?,?,?,?,?,?)
 
 ");
 
