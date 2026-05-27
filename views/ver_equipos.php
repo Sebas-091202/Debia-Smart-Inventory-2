@@ -208,6 +208,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
+
+    .inactivo-bodega {
+        background: #415885;
+        color: white;
+    }
 </style>
 
 <body>
@@ -400,6 +405,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td>
                                 <?php
                                 $clase = 'activo';
+
+                                if ($equipo['estado'] == 'Inactivo en bodega') {
+                                    $clase = 'inactivo-bodega';
+                                }
 
                                 if ($equipo['estado'] == 'En reparación') {
                                     $clase = 'reparacion';

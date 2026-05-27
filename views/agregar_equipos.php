@@ -162,7 +162,9 @@ header("Pragma: no-cache");
                 <!-- ESTADO -->
                 <label>Estado</label>
                 <select name="estado">
+                    <option value="">Seleccione Estado</option>
                     <option value="Activo">Activo</option>
+                    <option value="Inactivo en bodega">Inactivo en bodega</option>
                     <option value="En reparación">En reparación</option>
                     <option value="Dado de baja">Dado de baja</option>
                 </select>
