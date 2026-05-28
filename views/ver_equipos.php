@@ -406,7 +406,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php
                                 $clase = 'activo';
 
-                                if ($equipo['estado'] == 'Inactivo en bodega') {
+                                if ($equipo['estado'] == 'Inactivo') {
                                     $clase = 'inactivo-bodega';
                                 }
 
