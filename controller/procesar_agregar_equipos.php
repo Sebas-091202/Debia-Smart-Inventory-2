@@ -19,17 +19,10 @@ INSERT INTO equipos (
     procesador,
     ram,
     disco,
-
-    disco2,
     estado,
     ubicacion,
     codigo_barras
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
-
-    estado,
-    ubicacion,
-    codigo_barras
-) VALUES (?,?,?,?,?,?,?,?,?,?,?)
 
 ");
 
@@ -38,11 +31,10 @@ $stmt->execute([
     $_POST['marca'],
     $_POST['identificador'],
     $_POST['asignado_a'],
-    $_POST['serial'],
+    $_POST['serial'],                                                                                                                                                                           
     $_POST['procesador'],
     $_POST['ram'],
     $_POST['disco'],
-    $_POST['disco2'],
     $_POST['estado'],
     $_POST['ubicacion'],
     $codigo //    AQUI ESTÁ LA CLAVE
