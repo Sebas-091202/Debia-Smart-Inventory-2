@@ -207,6 +207,10 @@ if (!$equipo) {
                         Activo
                     </option>
 
+                    <option value="Inactivo en bodega"
+                        <?= ($equipo['estado'] == 'Inactivo en bodega') ? 'selected' : ''; ?>>
+                        Inactivo en bodega
+
                     <option value="En reparación"
                         <?= ($equipo['estado'] == 'En reparación') ? 'selected' : ''; ?>>
                         En reparación

@@ -1,6 +1,14 @@
 <?php
 require '../bd/conn.php';
 
+session_start(); // ESTO ES OBLIGATORIO
+
+// VALIDAR SESIÓN
+if (!isset($_SESSION['id'])) {
+    die("Error: sesión no válida");
+}
+
+
 $tipo = $_POST['tipo'];
 $marca = strtoupper(substr($_POST['marca'], 0, 1));
 $identificador = $_POST['identificador'];
@@ -19,6 +27,7 @@ INSERT INTO equipos (
     procesador,
     ram,
     disco,
+    disco2,
     estado,
     ubicacion,
     codigo_barras
@@ -38,6 +47,19 @@ $stmt->execute([
     $_POST['estado'],
     $_POST['ubicacion'],
     $codigo //    AQUI ESTÁ LA CLAVE
+]);
+
+
+$log = $conn->prepare("
+INSERT INTO logs_sistema (usuario_id, accion, detalle)
+VALUES (?, ?, ?)
+");
+
+
+$log->execute([
+    $_SESSION['id'],
+    'CREAR EQUIPO',
+    'Equipo creado con código ' . $codigo
 ]);
 
 // Guarda normalmente todos los datos en BD, incluyendo el código de barras que se ha generado o ingresado

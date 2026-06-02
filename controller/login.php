@@ -13,6 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $user = $stmt->fetch();
 
+    session_start();
+    $_SESSION['id'] = $user['id'];  
+    $_SESSION['usuario'] = $user['usuario'];
+    $_SESSION['rol'] = $user['rol'];
+    header("Location: ../views/index_Admin.php");
+
+
     // Validar contraseña correctamente
     if ($user && password_verify($contrasena, $user['contrasena'])) {
 
@@ -26,9 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../views/index_Usuario.php");
         }
         exit;
-
     } else {
         echo "<script>alert('Credenciales incorrectas'); window.location.href='../views/index_Login.php';</script>";
     }
 }
-?>

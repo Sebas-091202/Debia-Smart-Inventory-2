@@ -162,7 +162,9 @@ header("Pragma: no-cache");
                 <!-- ESTADO -->
                 <label>Estado</label>
                 <select name="estado">
+                    <option value="">Seleccione Estado</option>
                     <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
                     <option value="En reparación">En reparación</option>
                     <option value="Dado de baja">Dado de baja</option>
                 </select>
@@ -172,11 +174,19 @@ header("Pragma: no-cache");
                 <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
                     <option value="">Ubicación</option>
-                    <option value="AXA">AXA</option>
+                    <option value="AXA Mortales">AXA Mortales</option>
+                    <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
+                    <option value="AXA IPS">AXA IPS</option>
+                    <option value="Generales">Generales</option>
+                    <option value="Consultas">Consultas</option>
+                    <option value="HDI">HDI</option>
+                    <option value="SURA">SURA</option>
+                    <option value="SURA IPS">SURA IPS</option>
+                    <option value="SURA Gastos Medicos">SURA Gastos Medicos</option>
                     <option value="Sistemas">Sistemas</option>
-                    <option value="Financiera">Financiera</option>
+                    <option value="Financiera">Contabilidad</option>
                     <option value="Talento Humano">Talento Humano</option>
-                    <option value="Directores Operativos">Directores Operativos</option>
+                    <option value="Dirección Operativa">Dirección Operativa</option>
                     <option value="Bodega">Bodega</option>
                 </select>
 

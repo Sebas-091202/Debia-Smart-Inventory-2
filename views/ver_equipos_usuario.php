@@ -208,6 +208,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
+
+        .inactivo-bodega {
+        background: #415885;
+        color: white;
+    }
 </style>
 
 <body>
@@ -374,6 +379,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Procesador</th>
                         <th>RAM</th>
                         <th>Disco</th>
+                        <th>Disco 2</th>
                         <th>Estado</th>
                         <th>Ubicación</th>
                         <th>QR</th>
@@ -390,9 +396,14 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= $equipo['procesador'] ?></td>
                             <td><?= $equipo['ram'] ?></td>
                             <td><?= $equipo['disco'] ?></td>
+                            <td><?= $equipo['disco2'] ?></td>
                             <td>
                                 <?php
                                 $clase = 'activo';
+
+                                if ($equipo['estado'] == 'Inactivo') {
+                                    $clase = 'inactivo-bodega';
+                                }
 
                                 if ($equipo['estado'] == 'En reparación') {
                                     $clase = 'reparacion';
