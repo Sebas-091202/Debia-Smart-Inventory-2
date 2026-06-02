@@ -118,6 +118,7 @@ header("Pragma: no-cache");
                     <option value="">Seleccione RAM</option>
                     <option value="4GB">4GB</option>
                     <option value="8GB">8GB</option>
+                    <option value="12GB">12GB</option>
                     <option value="16GB">16GB</option>
                     <option value="32GB">32GB</option>
                     <option value="64GB">64GB</option>
@@ -131,6 +132,7 @@ header("Pragma: no-cache");
                     <option value="">Seleccione Disco</option>
 
                     <!-- SSD -->
+                    <option value="128GB">128GB SSD</option>
                     <option value="256GB SSD">256GB SSD</option>
                     <option value="512GB SSD">512GB SSD</option>
                     <option value="1TB SSD">1TB SSD</option>

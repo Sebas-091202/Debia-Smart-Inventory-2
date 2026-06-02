@@ -44,6 +44,7 @@ $stmt->execute([
     $_POST['procesador'],
     $_POST['ram'],
     $_POST['disco'],
+    $_POST['disco2'],
     $_POST['estado'],
     $_POST['ubicacion'],
     $codigo //    AQUI ESTÁ LA CLAVE
