@@ -163,6 +163,7 @@ if (!$equipo) {
 
                     <option value="4GB" <?= ($equipo['ram'] == '4GB') ? 'selected' : '' ?>>4GB</option>
                     <option value="8GB" <?= ($equipo['ram'] == '8GB') ? 'selected' : '' ?>>8GB</option>
+                    <option value="12GB" <?= ($equipo['ram'] == '12GB') ? 'selected' : '' ?>>12GB</option>
                     <option value="16GB" <?= ($equipo['ram'] == '16GB') ? 'selected' : '' ?>>16GB</option>
                     <option value="32GB" <?= ($equipo['ram'] == '32GB') ? 'selected' : '' ?>>32GB</option>
                     <option value="64GB" <?= ($equipo['ram'] == '64GB') ? 'selected' : '' ?>>64GB</option>
@@ -202,14 +203,18 @@ if (!$equipo) {
 
                 <label>Estado</label>
                 <select name="estado">
+                    <option value="Seleccione Estado" disabled
+                        <?= ($equipo['estado'] == '') ? 'selected' : ''; ?>>
+                        Seleccione Estado
                     <option value="Activo"
                         <?= ($equipo['estado'] == 'Activo') ? 'selected' : ''; ?>>
                         Activo
                     </option>
 
-                    <option value="Inactivo en bodega"
-                        <?= ($equipo['estado'] == 'Inactivo en bodega') ? 'selected' : ''; ?>>
-                        Inactivo en bodega
+                    <option value="Inactivo"
+                        <?= ($equipo['estado'] == 'Inactivo') ? 'selected' : ''; ?>>
+                        Inactivo
+                    </option>
 
                     <option value="En reparación"
                         <?= ($equipo['estado'] == 'En reparación') ? 'selected' : ''; ?>>
@@ -224,43 +229,75 @@ if (!$equipo) {
 
                 <label>Ubicación</label>
                 <select name="ubicacion">
-                    <option value="AXA"
-                        <?= ($equipo['ubicacion'] == 'AXA') ? 'selected' : ''; ?>>
-                        AXA
-                    </option>
+                    <option value="Seleccione Ubicación" disabled
+                        <?= ($equipo['ubicacion'] == '') ? 'selected' : ''; ?>>
+                        Seleccione Ubicación
 
-                    <option value="Sistemas"
-                        <?= ($equipo['ubicacion'] == 'Sistemas') ? 'selected' : ''; ?>>
+                    <option value="AXA Mortales">
+                        <?= ($equipo['ubicacion'] == 'AXA Mortales') ? 'selected' : ''; ?>
+                        AXA Mortales
+                    </option>
+                    <option value="AXA Gastos Medicos">
+                        <?= ($equipo['ubicacion'] == 'AXA Gastos Medicos') ? 'selected' : ''; ?>
+                        AXA Gastos Medicos
+                    </option>
+                    <option value="AXA IPS">
+                        <?= ($equipo['ubicacion'] == 'AXA IPS') ? 'selected' : ''; ?>
+                        AXA IPS
+                    </option>
+                    <option value="Generales">
+                        <?= ($equipo['ubicacion'] == 'Generales') ? 'selected' : ''; ?>
+                        Generales
+                    </option>
+                    <option value="Consultas">
+                        <?= ($equipo['ubicacion'] == 'Consultas') ? 'selected' : ''; ?>
+                        Consultas
+                    </option>
+                    <option value="HDI">
+                        <?= ($equipo['ubicacion'] == 'HDI') ? 'selected' : ''; ?>
+                        HDI
+                    </option>
+                    <option value="SURA">
+                        <?= ($equipo['ubicacion'] == 'SURA') ? 'selected' : ''; ?>
+                        SURA
+                    </option>
+                    <option value="SURA IPS">
+                        <?= ($equipo['ubicacion'] == 'SURA IPS') ? 'selected' : ''; ?>
+                        SURA IPS
+                    </option>
+                    <option value="SURA Gastos Medicos">
+                        <?= ($equipo['ubicacion'] == 'SURA Gastos Medicos') ? 'selected' : ''; ?>
+                        SURA Gastos Medicos
+                    </option>
+                    <option value="Sistemas">
+                        <?= ($equipo['ubicacion'] == 'Sistemas') ? 'selected' : ''; ?>
                         Sistemas
                     </option>
-
-                    <option value="Financiera"
-                        <?= ($equipo['ubicacion'] == 'Financiera') ? 'selected' : ''; ?>>
+                    <option value="Financiera">
+                        <?= ($equipo['ubicacion'] == 'Financiera') ? 'selected' : ''; ?>
                         Financiera
                     </option>
-
-                    <option value="Talento Humano"
-                        <?= ($equipo['ubicacion'] == 'Talento Humano') ? 'selected' : ''; ?>>
+                    <option value="Talento Humano">
+                        <?= ($equipo['ubicacion'] == 'Talento Humano') ? 'selected' : ''; ?>
                         Talento Humano
                     </option>
-
-                    <option value="Directores Operativos"
-                        <?= ($equipo['ubicacion'] == 'Directores Operativos') ? 'selected' : ''; ?>>
-                        Directores Operativos
+                    <option value="Dirección Operativa">
+                        <?= ($equipo['ubicacion'] == 'Dirección Operativa') ? 'selected' : ''; ?>
+                        Dirección Operativa
                     </option>
-
-                    <option value="Bodega"
-                        <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>>
+                    <option value="Bodega">
+                        <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>
                         Bodega
                     </option>
                 </select>
+
 
                 <label>Código de Barras</label>
                 <input type="text"
                     name="codigo_barras"
                     value="<?= $equipo['codigo_barras'] ?>"
                     placeholder="Escanear o escribir">
-                
+
 
                 <button
                     type="submit"

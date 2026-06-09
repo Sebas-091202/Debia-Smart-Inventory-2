@@ -176,6 +176,13 @@ if ($id_equipo) {
     <link rel="stylesheet" href="../css/hoja_vida_equipos.css">
 </head>
 
+<style>
+        .Inactivo {
+        background: #415885;
+        color: white;
+    }
+</style>
+
 <body>
     <!-- Botón hamburguesa -->
     <button class="toggle-btn" onclick="toggleSidebar()">
@@ -354,8 +361,13 @@ if ($id_equipo) {
                     </tr>
 
                     <tr>
-                        <td>Disco</td>
+                        <td>Disco C:</td>
                         <td><?= $equipo['disco'] ?: 'No registrado' ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Disco D:</td>
+                        <td><?= $equipo['disco_d'] ?: 'No registrado' ?></td>
                     </tr>
 
                     <tr>
@@ -363,6 +375,10 @@ if ($id_equipo) {
                         <td>
                             <?php
                             $badgeEstado = 'activo';
+
+                            if ($equipo['estado'] == 'Inactivo') {
+                                $badgeEstado = 'Inactivo';
+                            }
 
                             if ($equipo['estado'] == 'En reparación') {
                                 $badgeEstado = 'reparacion';
@@ -405,6 +421,10 @@ if ($id_equipo) {
 
                                     <?php
                                     $badgeEstado = 'activo';
+
+                                    if ($h['estado'] == 'Inactivo') {
+                                        $badgeEstado = 'Inactivo';
+                                    }
 
                                     if ($h['estado'] == 'En reparación') {
                                         $badgeEstado = 'reparacion';

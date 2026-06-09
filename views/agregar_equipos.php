@@ -118,6 +118,7 @@ header("Pragma: no-cache");
                     <option value="">Seleccione RAM</option>
                     <option value="4GB">4GB</option>
                     <option value="8GB">8GB</option>
+                    <option value="12GB">12GB</option>
                     <option value="16GB">16GB</option>
                     <option value="32GB">32GB</option>
                     <option value="64GB">64GB</option>
@@ -137,6 +138,7 @@ header("Pragma: no-cache");
 
                     <!-- HDD -->
                     <option value="500GB HDD">500GB HDD</option>
+                    <option value="700GB HDD">700GB HDD</option>    
                     <option value="1TB HDD">1TB HDD</option>
                     <option value="2TB HDD">2TB HDD</option>
                 </select>
@@ -174,6 +176,7 @@ header("Pragma: no-cache");
                 <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
                     <option value="">Ubicación</option>
+                    
                     <option value="AXA Mortales">AXA Mortales</option>
                     <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
                     <option value="AXA IPS">AXA IPS</option>
@@ -184,7 +187,7 @@ header("Pragma: no-cache");
                     <option value="SURA IPS">SURA IPS</option>
                     <option value="SURA Gastos Medicos">SURA Gastos Medicos</option>
                     <option value="Sistemas">Sistemas</option>
-                    <option value="Financiera">Contabilidad</option>
+                    <option value="Financiera">Financiera</option>
                     <option value="Talento Humano">Talento Humano</option>
                     <option value="Dirección Operativa">Dirección Operativa</option>
                     <option value="Bodega">Bodega</option>

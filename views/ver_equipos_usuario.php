@@ -209,7 +209,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
 
-        .inactivo-bodega {
+    .Inactivo {
         background: #415885;
         color: white;
     }
@@ -378,8 +378,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Serial</th>
                         <th>Procesador</th>
                         <th>RAM</th>
-                        <th>Disco</th>
-                        <th>Disco 2</th>
+                        <th>Disco C:</th>
+                        <th>Disco D:    </th>
                         <th>Estado</th>
                         <th>Ubicación</th>
                         <th>QR</th>
@@ -402,7 +402,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 $clase = 'activo';
 
                                 if ($equipo['estado'] == 'Inactivo') {
-                                    $clase = 'inactivo-bodega';
+                                    $clase = 'Inactivo';
                                 }
 
                                 if ($equipo['estado'] == 'En reparación') {
