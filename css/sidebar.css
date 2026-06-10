@@ -1,120 +1,202 @@
-/* RESET BÁSICO */
-* {
-    box-sizing: border-box;
-}
-
-/* SIDEBAR */
+/* =========================
+SIDEBAR BASE
+========================= */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
     width: 260px;
-    background: rgba(17, 24, 39, 0.95);
-    backdrop-filter: blur(12px);
-    padding-top: 10px;
+    height: 100vh;
+    background: #0b1526;
     transition: all 0.3s ease;
     z-index: 1000;
 }
 
-/* LINKS */
+/* HEADER LOGO */
+.sidebar-header {
+    padding: 20px 0;
+}
+
+/* LOGO */
+.logo-title {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* LOGOS */
+.logo-full {
+    display: inline;
+}
+
+.logo-short {
+    display: none;
+}
+
+/* =========================
+LINKS
+========================= */
 .sidebar a {
     display: flex;
     align-items: center;
-    padding: 10px 18px;
+    gap: 12px;
+    padding: 12px 20px;
     color: #fff;
     text-decoration: none;
     font-size: 14px;
     transition: all 0.2s ease;
 }
 
-
+/* ICONOS */
 .sidebar a i {
-    font-size: 18px;
+    font-size: 20px;
     color: #60a5fa;
+    min-width: 24px;
+    text-align: center;
 }
 
+/* HOVER */
 .sidebar a:hover {
-    background: rgba(96, 165, 250, 0.2);
+    background: rgba(96,165,250,0.2);
     transform: translateX(5px);
 }
 
-/* BOTÓN HAMBURGUESA */
+/* =========================
+BOTÓN HAMBURGUESA
+========================= */
 .toggle-btn {
     position: fixed;
     top: 15px;
     left: 15px;
-    z-index: 1100;
-    background: rgba(17, 24, 39, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(11,21,38,0.95);
     color: #fff;
     border: none;
-    padding: 12px 12px;
+    padding: 12px;
     font-size: 22px;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-
-/* =========================
-SIDEBAR COLAPSADO
-========================= */
-
-body.sidebar-collapsed .logo-full{
-    display:none;
-}
-
-body.sidebar-collapsed .logo-short{
-    display:block;
-}
-
-body.sidebar-collapsed .logo-title{
-    font-size:22px;
-    letter-spacing:2px;
+    z-index: 1100;
+    transition: 0.3s;
 }
 
 .toggle-btn:hover {
     background: #2563eb;
-    transform: scale(1.05);
 }
 
-/* CONTENIDO */
+/* =========================
+CONTENIDO
+========================= */
 .main-content {
     margin-left: 260px;
     transition: margin-left 0.3s ease;
 }
 
-/* COLAPSADO */
+/* =========================
+SIDEBAR COLAPSADO ✅ (IMAGEN 2)
+========================= */
 body.sidebar-collapsed .sidebar {
     width: 70px;
 }
 
+/* ocultar texto */
+body.sidebar-collapsed .sidebar a span {
+    display: none;
+}
+
+/* centrar iconos */
+body.sidebar-collapsed .sidebar a {
+    justify-content: center;
+    padding: 15px 0;
+}
+
+/* logo */
+body.sidebar-collapsed .logo-full {
+    display: none;
+}
+
+body.sidebar-collapsed .logo-short {
+    display: inline;
+}
+
+/* mover contenido */
 body.sidebar-collapsed .main-content {
     margin-left: 70px;
 }
 
-body.sidebar-collapsed .toggle-btn {
-    left: 15px;
-}
+        /* Cuando sidebar se colapsa */
+
+        body.sidebar-collapsed .logo-full {
+            display: none !important;
+        }
+
+        body.sidebar-collapsed .logo-short {
+            display: inline !important;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
 
 
+        /* MUY IMPORTANTE:
+evita que la regla general oculte el span DSI */
+        body.sidebar-collapsed .sidebar .logo-short {
+            display: inline !important;
+        }
 
-/* RESPONSIVE */
+        
+                /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
+        .sidebar a span {
+            display: flex;
+            transition: .3s;
+        }
+
+        body.sidebar-collapsed .sidebar a span {
+            display: none !important;
+        }
+
+        /* Centrar iconos cuando se colapsa */
+        body.sidebar-collapsed .sidebar a {
+            justify-content: center;
+            padding-left: 0;
+        }
+
+/* =========================
+RESPONSIVE (MÓVIL)
+========================= */
 @media (max-width: 768px) {
+
+    /* ocultar sidebar */
     .sidebar {
-        width: 70px;
+        left: -260px;
+        width: 260px;
     }
 
+    /* mostrar sidebar */
+    body.sidebar-open .sidebar {
+        left: 0;
+    }
+
+    /* ocultar texto */
     .sidebar span {
         display: none;
     }
 
-    .main-content {
-        margin-left: 70px;
+    /* mostrar cuando abre */
+    body.sidebar-open .sidebar span {
+        display: inline;
     }
 
-    .toggle-btn {
-        left: 15px;
+    /* overlay */
+    body.sidebar-open::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+
+    /* contenido */
+    .main-content {
+        margin-left: 0;
     }
 }

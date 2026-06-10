@@ -60,7 +60,7 @@ VALUES (?, ?, ?)
 $log->execute([
     $_SESSION['id'],
     'CREAR EQUIPO',
-    'Equipo creado con código ' . $codigo
+    'Equipo creado con numero de serial: ' . $codigo
 ]);
 
 // Guarda normalmente todos los datos en BD, incluyendo el código de barras que se ha generado o ingresado

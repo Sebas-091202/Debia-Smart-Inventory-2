@@ -400,11 +400,15 @@ LIMIT $porPagina OFFSET $offset
 
     <script>
         function toggleSidebar() {
-            document.body.classList.toggle(
-                'sidebar-collapsed'
-            );
-        }
 
+            if (window.innerWidth <= 768) {
+                // MÓVIL
+                document.body.classList.toggle('sidebar-open');
+            } else {
+                // ESCRITORIO
+                document.body.classList.toggle('sidebar-collapsed');
+            }
+        }
 
 
         function validarEquipo() {

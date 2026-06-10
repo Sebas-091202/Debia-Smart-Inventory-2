@@ -237,16 +237,26 @@ if ($id_equipo) {
                         <option value="X">Xiaomi</option>
                     </select>
 
-                    <!-- UBICACION -->
-                    <select name="ubicacion">
-                        <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
-                        <option value="">Ubicación</option>
-                        <option value="AXA">AXA</option>
-                        <option value="Sistemas">Sistemas</option>
-                        <option value="Financiera">Financiera</option>
-                        <option value="Talento Humano">Talento Humano</option>
-                        <option value="Directores Operativos">Directores Operativos</option>
-                    </select>
+                <!-- UBICACION -->
+                <select name="ubicacion" required>
+                    <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
+                    <option value="" disabled selected>Seleccione Ubicación</option>
+
+                    <option value="AXA Mortales">AXA Mortales</option>
+                    <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
+                    <option value="AXA IPS">AXA IPS</option>
+                    <option value="Generales">Generales</option>
+                    <option value="Consultas">Consultas</option>
+                    <option value="HDI">HDI</option>
+                    <option value="SURA">SURA</option>
+                    <option value="SURA IPS">SURA IPS</option>
+                    <option value="SURA Gastos Medicos">SURA Gastos Medicos</option>
+                    <option value="Sistemas">Sistemas</option>
+                    <option value="Financiera">Financiera</option>
+                    <option value="Talento Humano">Talento Humano</option>
+                    <option value="Dirección Operativa">Dirección Operativa</option>
+                    <option value="Bodega">Bodega</option>
+                </select>
 
                     <button class="btn btn-search">Buscar</button>
 

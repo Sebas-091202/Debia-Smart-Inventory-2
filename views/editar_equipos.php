@@ -91,75 +91,47 @@ if (!$equipo) {
                 <label>Tipo</label>
                 <select name="tipo">
                     <option value="P" <?= ($equipo['tipo'] == 'P') ? 'selected' : ''; ?>>Portátil</option>
-
                     <option value="TU" <?= ($equipo['tipo'] == 'TU') ? 'selected' : ''; ?>>Todo en Uno</option>
-
                     <option value="E" <?= ($equipo['tipo'] == 'E') ? 'selected' : ''; ?>>Escritorio</option>
-
                     <option value="I" <?= ($equipo['tipo'] == 'I') ? 'selected' : ''; ?>>Impresora</option>
-
                     <option value="M" <?= ($equipo['tipo'] == 'M') ? 'selected' : ''; ?>>Mouse</option>
-
                     <option value="T" <?= ($equipo['tipo'] == 'T') ? 'selected' : ''; ?>>Teclado</option>
-
                     <option value="C" <?= ($equipo['tipo'] == 'C') ? 'selected' : ''; ?>>Celulares</option>
-
                     <option value="DI" <?= ($equipo['tipo'] == 'DI') ? 'selected' : ''; ?>>Diademas</option>
-
                     <option value="MON" <?= ($equipo['tipo'] == 'MON') ? 'selected' : ''; ?>>Monitor</option>
                 </select>
 
                 <label>Marca</label>
                 <select name="marca">
                     <option value="A" <?= ($equipo['marca'] == 'A') ? 'selected' : ''; ?>>Asus</option>
-
                     <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>Hewlett-Packard</option>
-
                     <option value="L" <?= ($equipo['marca'] == 'L') ? 'selected' : ''; ?>>Lenovo</option>
-
                     <option value="EP" <?= ($equipo['marca'] == 'EP') ? 'selected' : ''; ?>>EPSON</option>
-
                     <option value="G" <?= ($equipo['marca'] == 'G') ? 'selected' : ''; ?>>Genius</option>
-
                     <option value="S" <?= ($equipo['marca'] == 'S') ? 'selected' : ''; ?>>Samsung</option>
-
                     <option value="H" <?= ($equipo['marca'] == 'H') ? 'selected' : ''; ?>>Huawei</option>
-
                     <option value="MOT" <?= ($equipo['marca'] == 'MOT') ? 'selected' : ''; ?>>Motorola</option>
-
                     <option value="X" <?= ($equipo['marca'] == 'X') ? 'selected' : ''; ?>>Xiaomi</option>
-
                     <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
                 </select>
 
 
 
                 <label>Identificador</label>
-                <input type="text"
-                    name="identificador"
-                    value="<?= $equipo['identificador'] ?>">
-
+                <input type="text" name="identificador" value="<?= $equipo['identificador'] ?>">
 
                 <label>Asignado a</label>
-                <input type="text"
-                    name="asignado_a"
-                    value="<?= $equipo['asignado_a'] ?>">
-
+                <input type="text" name="asignado_a" value="<?= $equipo['asignado_a'] ?>">
 
                 <label>Serial</label>
-                <input type="text"
-                    name="serial"
-                    value="<?= $equipo['serial'] ?>">
-
+                <input type="text" name="serial" value="<?= $equipo['serial'] ?>">
 
                 <label>Procesador</label>
-                <input type="text"
-                    name="procesador"
-                    value="<?= $equipo['procesador'] ?>">
+                <input type="text" name="procesador" value="<?= $equipo['procesador'] ?>">
 
                 <label>RAM</label>
                 <select name="ram" required>
-                    <option value="">Seleccione RAM</option>
+                    <option value="" disabled selected>Seleccione RAM</option>
 
                     <option value="4GB" <?= ($equipo['ram'] == '4GB') ? 'selected' : '' ?>>4GB</option>
                     <option value="8GB" <?= ($equipo['ram'] == '8GB') ? 'selected' : '' ?>>8GB</option>
@@ -172,12 +144,19 @@ if (!$equipo) {
 
                 <label>Disco C:</label>
                 <select name="disco" required>
-                    <option value="">Seleccione Disco</option>
-
+                    <option value="" disabled selected>Seleccione Disco C:</option>
+                    <option value="" disabled>----Tipo de Disco SSD----</option>
+                     <!-- Ninguno -->
+                    <option value="Ninguno SSD" <?= ($equipo['disco'] == 'Ninguno SSD') ? 'selected' : '' ?>>Ninguno SSD</option>
+                    <option value="128GB SSD" <?= ($equipo['disco'] == '128GB SSD') ? 'selected' : '' ?>>128GB SSD</option>
                     <option value="256GB SSD" <?= ($equipo['disco'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
                     <option value="512GB SSD" <?= ($equipo['disco'] == '512GB SSD') ? 'selected' : '' ?>>512GB SSD</option>
                     <option value="1TB SSD" <?= ($equipo['disco'] == '1TB SSD') ? 'selected' : '' ?>>1TB SSD</option>
+                    <option value="2TB SSD" <?= ($equipo['disco'] == '2TB SSD') ? 'selected' : '' ?>>2TB SSD</option>
 
+                    <option value="" disabled>----Tipo de Disco HDD----</option>
+                     <!-- Ninguno -->
+                    <option value="Ninguno HDD" <?= ($equipo['disco'] == 'Ninguno HDD') ? 'selected' : '' ?>>Ninguno HDD</option>
                     <option value="500GB HDD" <?= ($equipo['disco'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
                     <option value="700GB HDD" <?= ($equipo['disco'] == '700GB HDD') ? 'selected' : '' ?>>700GB HDD</option>
                     <option value="1TB HDD" <?= ($equipo['disco'] == '1TB HDD') ? 'selected' : '' ?>>1TB HDD</option>
@@ -188,14 +167,19 @@ if (!$equipo) {
 
                 <label>Disco D:</label>
                 <select name="disco2" required>
-                    <option value="">Seleccione Disco D:</option>
-
-                    <option value="Ninguno" <?= ($equipo['disco2'] == 'Ninguno') ? 'selected' : '' ?>>Ninguno</option>
-
+                    <option value="" disabled >Seleccione Disco D:</option>
+                    <option value="" disabled>----Tipo de Disco SSD----</option>
+                     <!-- Ninguno -->
+                    <option value="Ninguno SSD" <?= ($equipo['disco2'] == 'Ninguno SSD') ? 'selected' : '' ?>>Ninguno SSD</option>
+                    <option value="128GB SSD" <?= ($equipo['disco2'] == '128GB SSD') ? 'selected' : '' ?>>128GB SSD</option>
                     <option value="256GB SSD" <?= ($equipo['disco2'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
                     <option value="512GB SSD" <?= ($equipo['disco2'] == '512GB SSD') ? 'selected' : '' ?>>512GB SSD</option>
                     <option value="1TB SSD" <?= ($equipo['disco2'] == '1TB SSD') ? 'selected' : '' ?>>1TB SSD</option>
+                    <option value="2TB SSD" <?= ($equipo['disco2'] == '2TB SSD') ? 'selected' : '' ?>>2TB SSD</option>
 
+                    <option value="" disabled>----Tipo de Disco HDD----</option>
+                     <!-- Ninguno -->
+                    <option value="Ninguno HDD" <?= ($equipo['disco2'] == 'Ninguno HDD') ? 'selected' : '' ?>>Ninguno HDD</option>
                     <option value="500GB HDD" <?= ($equipo['disco2'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
                     <option value="700GB HDD" <?= ($equipo['disco2'] == '700GB HDD') ? 'selected' : '' ?>>700GB HDD</option>
                     <option value="1TB HDD" <?= ($equipo['disco2'] == '1TB HDD') ? 'selected' : '' ?>>1TB HDD</option>
@@ -205,90 +189,75 @@ if (!$equipo) {
 
                 <label>Estado</label>
                 <select name="estado">
-                    <option value="Seleccione Estado" disabled
-                        <?= ($equipo['estado'] == '') ? 'selected' : ''; ?>>
+                    <option value="" disabled selected>
                         Seleccione Estado
-                    <option value="Activo"
-                        <?= ($equipo['estado'] == 'Activo') ? 'selected' : ''; ?>>
+                    </option>
+
+                    <option value="Activo" <?= ($equipo['estado'] == 'Activo') ? 'selected' : ''; ?>>
                         Activo
                     </option>
 
-                    <option value="Inactivo"
-                        <?= ($equipo['estado'] == 'Inactivo') ? 'selected' : ''; ?>>
+                    <option value="Inactivo" <?= ($equipo['estado'] == 'Inactivo') ? 'selected' : ''; ?>>
                         Inactivo
                     </option>
 
-                    <option value="En reparación"
-                        <?= ($equipo['estado'] == 'En reparación') ? 'selected' : ''; ?>>
+                    <option value="En reparación" <?= ($equipo['estado'] == 'En reparación') ? 'selected' : ''; ?>>
                         En reparación
                     </option>
 
-                    <option value="Dado de baja"
-                        <?= ($equipo['estado'] == 'Dado de baja') ? 'selected' : ''; ?>>
+                    <option value="Dado de baja" <?= ($equipo['estado'] == 'Dado de baja') ? 'selected' : ''; ?>>
                         Dado de baja
                     </option>
                 </select>
 
                 <label>Ubicación</label>
                 <select name="ubicacion">
-                    <option value="Seleccione Ubicación" disabled
-                        <?= ($equipo['ubicacion'] == '') ? 'selected' : ''; ?>>
+                    <option value="" disabled>
                         Seleccione Ubicación
-
-                    <option value="AXA Mortales">
-                        <?= ($equipo['ubicacion'] == 'AXA Mortales') ? 'selected' : ''; ?>
+                    </option>
+                    <option value="AXA Mortales" <?= ($equipo['ubicacion'] == 'AXA Mortales') ? 'selected' : ''; ?>>
                         AXA Mortales
                     </option>
-                    <option value="AXA Gastos Medicos">
-                        <?= ($equipo['ubicacion'] == 'AXA Gastos Medicos') ? 'selected' : ''; ?>
+                    <option value="AXA Gastos Medicos" <?= ($equipo['ubicacion'] == 'AXA Gastos Medicos') ? 'selected' : ''; ?>>
                         AXA Gastos Medicos
                     </option>
-                    <option value="AXA IPS">
-                        <?= ($equipo['ubicacion'] == 'AXA IPS') ? 'selected' : ''; ?>
+                    <option value="AXA IPS" <?= ($equipo['ubicacion'] == 'AXA IPS') ? 'selected' : ''; ?>>
                         AXA IPS
                     </option>
-                    <option value="Generales">
-                        <?= ($equipo['ubicacion'] == 'Generales') ? 'selected' : ''; ?>
+                    <option value="Generales" <?= ($equipo['ubicacion'] == 'Generales') ? 'selected' : ''; ?>>
                         Generales
                     </option>
-                    <option value="Consultas">
-                        <?= ($equipo['ubicacion'] == 'Consultas') ? 'selected' : ''; ?>
+                    <option value="Consultas" <?= ($equipo['ubicacion'] == 'Consultas') ? 'selected' : ''; ?>>
                         Consultas
                     </option>
-                    <option value="HDI">
-                        <?= ($equipo['ubicacion'] == 'HDI') ? 'selected' : ''; ?>
+                    <option value="HDI" <?= ($equipo['ubicacion'] == 'HDI') ? 'selected' : ''; ?>>
                         HDI
                     </option>
-                    <option value="SURA">
-                        <?= ($equipo['ubicacion'] == 'SURA') ? 'selected' : ''; ?>
+                    <option value="SURA" <?= ($equipo['ubicacion'] == 'SURA') ? 'selected' : ''; ?>>
                         SURA
                     </option>
-                    <option value="SURA IPS">
-                        <?= ($equipo['ubicacion'] == 'SURA IPS') ? 'selected' : ''; ?>
+                    <option value="SURA IPS" <?= ($equipo['ubicacion'] == 'SURA IPS') ? 'selected' : ''; ?>>
                         SURA IPS
                     </option>
-                    <option value="SURA Gastos Medicos">
-                        <?= ($equipo['ubicacion'] == 'SURA Gastos Medicos') ? 'selected' : ''; ?>
+                    <option value="SURA Gastos Medicos" <?= ($equipo['ubicacion'] == 'SURA Gastos Medicos') ? 'selected' : ''; ?>>
                         SURA Gastos Medicos
                     </option>
-                    <option value="Sistemas">
-                        <?= ($equipo['ubicacion'] == 'Sistemas') ? 'selected' : ''; ?>
+                    <option value="Sistemas" <?= ($equipo['ubicacion'] == 'Sistemas') ? 'selected' : ''; ?>>
                         Sistemas
                     </option>
-                    <option value="Financiera">
-                        <?= ($equipo['ubicacion'] == 'Financiera') ? 'selected' : ''; ?>
+                    <option value="Financiera" <?= ($equipo['ubicacion'] == 'Financiera') ? 'selected' : ''; ?>>
                         Financiera
                     </option>
-                    <option value="Talento Humano">
-                        <?= ($equipo['ubicacion'] == 'Talento Humano') ? 'selected' : ''; ?>
+                    <option value="Talento Humano" <?= ($equipo['ubicacion'] == 'Talento Humano') ? 'selected' : ''; ?>>
                         Talento Humano
                     </option>
-                    <option value="Dirección Operativa">
-                        <?= ($equipo['ubicacion'] == 'Dirección Operativa') ? 'selected' : ''; ?>
+                    <option value="Dirección Operativa" <?= ($equipo['ubicacion'] == 'Dirección Operativa') ? 'selected' : ''; ?>>
                         Dirección Operativa
                     </option>
-                    <option value="Bodega">
-                        <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>
+                    <option value="En Casa" <?= ($equipo['ubicacion'] == 'En Casa') ? 'selected' : ''; ?>>
+                        En Casa
+                    </option>
+                    <option value="Bodega" <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>>
                         Bodega
                     </option>
                 </select>
@@ -308,22 +277,25 @@ if (!$equipo) {
                 </button>
 
             </form>
-
             <div style="text-align:center;">
                 <a href="ver_equipos.php" class="volver">
                     Volver al Inventario
                 </a>
             </div>
-
         </div>
     </div>
-
     <script>
         function toggleSidebar() {
-            document.body.classList.toggle('sidebar-collapsed');
+
+            if (window.innerWidth <= 768) {
+                // MÓVIL
+                document.body.classList.toggle('sidebar-open');
+            } else {
+                // ESCRITORIO
+                document.body.classList.toggle('sidebar-collapsed');
+            }
         }
     </script>
-
 </body>
 
 </html>

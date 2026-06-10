@@ -269,15 +269,16 @@ $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-    function toggleSidebar() {
+        function toggleSidebar() {
 
-        if (window.innerWidth <= 768) {
-            document.body.classList.toggle('sidebar-open');
-        } else {
-            document.body.classList.toggle('sidebar-collapsed');
+            if (window.innerWidth <= 768) {
+                // MÓVIL
+                document.body.classList.toggle('sidebar-open');
+            } else {
+                // ESCRITORIO
+                document.body.classList.toggle('sidebar-collapsed');
+            }
         }
-
-    }
 
     function descargarPDF() {
 

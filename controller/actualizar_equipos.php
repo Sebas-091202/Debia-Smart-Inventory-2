@@ -51,7 +51,7 @@ VALUES (?, ?, ?)
 $log->execute([
     $_SESSION['id'],
     'ACTUALIZAR EQUIPO',
-    'Se actualizó el equipo ID ' . $id
+    'Se actualizó el equipo con serial: ' . $codigo
 ]);
 
 

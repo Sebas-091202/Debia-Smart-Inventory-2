@@ -118,7 +118,7 @@ $sql = "
 SELECT *
 FROM equipos
 $sqlWhere
-ORDER BY id ASC
+ORDER BY identificador ASC
 LIMIT :inicio, :porPagina
 ";
 
@@ -208,12 +208,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
-    
 
     .Inactivo {
         background: #415885;
         color: white;
     }
+
+
 </style>
 
 <body>
@@ -248,7 +249,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!--  FILTROS -->
             <form method="GET" class="filtros">
                 <select name="tipo">
-                    <option value="">Tipo</option>
+                    <option value="" disabled selected>Seleccione Tipo</option>
                     <option value="P">Portátil</option>
                     <option value="TU">Todo en Uno</option>
                     <option value="E">Escritorio</option>
@@ -260,7 +261,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
                 <select name="marca">
-                    <option value="">Marca</option>
+                    <option value="" disabled selected>Seleccione Marca</option>
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
@@ -273,14 +274,24 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
 
+                <!-- UBICACION -->
                 <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
-                    <option value="">Ubicación</option>
-                    <option value="AXA">AXA</option>
+                    <option value="" disabled selected>Seleccione Ubicación</option>
+                    <option value="AXA Mortales">AXA Mortales</option>
+                    <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
+                    <option value="AXA IPS">AXA IPS</option>
+                    <option value="Generales">Generales</option>
+                    <option value="Consultas">Consultas</option>
+                    <option value="HDI">HDI</option>
+                    <option value="SURA">SURA</option>
+                    <option value="SURA IPS">SURA IPS</option>
+                    <option value="SURA Gastos Medicos">SURA Gastos Medicos</option>
                     <option value="Sistemas">Sistemas</option>
                     <option value="Financiera">Financiera</option>
                     <option value="Talento Humano">Talento Humano</option>
-                    <option value="Directores Operativos">Directores Operativos</option>
+                    <option value="Dirección Operativa">Dirección Operativa</option>
+                    <option value="Bodega">Bodega</option>
                 </select>
 
                 <input type="text" name="identificador" placeholder="Identificador">

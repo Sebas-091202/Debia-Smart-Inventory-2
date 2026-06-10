@@ -287,9 +287,12 @@ $correctivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <script>
         function toggleSidebar() {
+
             if (window.innerWidth <= 768) {
+                // MÓVIL
                 document.body.classList.toggle('sidebar-open');
             } else {
+                // ESCRITORIO
                 document.body.classList.toggle('sidebar-collapsed');
             }
         }

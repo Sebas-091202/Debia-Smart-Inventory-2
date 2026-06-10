@@ -4,9 +4,7 @@
         }
 
         body {
-            display: block;
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
             background-size: 600% 600%;
             animation: gradientAnimation 22s ease infinite;
@@ -26,23 +24,23 @@
             }
         }
 
-        placeholder {
-            color: #bebebe;
-            opacity: 1;
-        }
-
-        /* CONTENIDO */
         .main-content {
             margin-left: 260px;
             padding: 30px;
+            transition: .3s;
         }
 
-        /* FORM */
+        body.sidebar-collapsed .main-content {
+            margin-left: 95px;
+        }
+
         .form-container {
-            max-width: 800px;
+            max-width: 650px;
             margin: auto;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(20px);
+            margin-top: 40px;
+
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
             padding: 30px;
             border-radius: 20px;
             color: #fff;
@@ -96,8 +94,8 @@ evita que la regla general oculte el span DSI */
             display: inline !important;
         }
 
-        
-                /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
+
+        /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
         .sidebar a span {
             display: flex;
             transition: .3s;
@@ -111,16 +109,6 @@ evita que la regla general oculte el span DSI */
         body.sidebar-collapsed .sidebar a {
             justify-content: center;
             padding-left: 0;
-        }
-        
-        /* INPUTS */
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border: none;
         }
 
         .bx-home,
@@ -139,50 +127,95 @@ evita que la regla general oculte el span DSI */
 
         }
 
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
-        /* BOTÓN GUARDAR */
-        button.submit-btn {
+        input,
+        select {
             width: 100%;
-            padding: 14px;
-
-            background: linear-gradient(135deg, #60a5fa, #2563eb);
-            color: #fff;
-
+            padding: 12px;
+            margin-bottom: 18px;
             border: none;
             border-radius: 12px;
+            outline: none;
+        }
 
+        input:focus,
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, .4);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #60a5fa, #2563eb);
+            border: none;
+            border-radius: 12px;
+            color: white;
             font-weight: 600;
-            letter-spacing: 0.5px;
-
             cursor: pointer;
-
-            transition: all 0.3s ease;
+            transition: .3s;
         }
 
-        /* HOVER */
-        button:hover {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, .4);
         }
 
-        /* CLICK */
-        button:active {
-            transform: scale(0.97);
-            box-shadow: none;
+        .volver {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #111827;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
         }
 
-        .activo {
-            background: #16a34a;
-            color: white;
+        .volver:hover {
+            background: #1f2937;
         }
 
-        .reparacion {
-            background: #d97706;
-            color: white;
-        }
+        /* =========================
+RESPONSIVE (MÓVIL)
+========================= */
+@media (max-width: 768px) {
 
-        .baja {
-            background: #dc2626;
-            color: white;
-        }
+    /* ocultar sidebar */
+    .sidebar {
+        left: -260px;
+        width: 260px;
+    }
+
+    /* mostrar sidebar */
+    body.sidebar-open .sidebar {
+        left: 0;
+    }
+
+    /* ocultar texto */
+    .sidebar span {
+        display: none;
+    }
+
+    /* mostrar cuando abre */
+    body.sidebar-open .sidebar span {
+        display: inline;
+    }
+
+    /* overlay */
+    body.sidebar-open::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+
+    /* contenido */
+    .main-content {
+        margin-left: 0;
+    }
+}

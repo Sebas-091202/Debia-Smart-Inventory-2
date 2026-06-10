@@ -33,11 +33,12 @@ header("Pragma: no-cache");
 </head>
 
 <body>
-    <!-- Boton Hamburguesa -->
+    <!-- BOTÓN HAMBURGUESA -->
     <button class="toggle-btn" onclick="toggleSidebar()">
         <i class='bx bx-menu'></i>
     </button>
-    <!-- Sidebar -->
+
+    <!-- SIDEBAR-->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h4 class="logo-title">
@@ -45,18 +46,20 @@ header("Pragma: no-cache");
                 <span class="logo-short">DSI</span>
             </h4>
         </div>
-        <a href="index_Admin.php"><i class='bx bx-home'></i> <span> Inicio</span></a>
-        <a href="ver_equipos.php"><i class='bx bx-list-ul'></i> <span> Ver Equipos</span></a>
-        <a href="ver_qr.php"><i class='bx bx-barcode'></i> <span> Ver QR</span></a>
-        <a href="agregar_equipos.php"><i class='bx bx-plus-circle'> </i><span> Agregar Equipo</span></a>
-        <a href="editar_equipos.php"><i class='bx bx-edit-alt'></i> <span> Editar Equipo</span></a>
-        <a href="ver_correctivos.php"><i class='bx bx-check-square'></i> <span> Ver Correctivos</span></a>
-        <a href="programar_preventivos.php"><i class='bx bx-calendar'></i> <span> Programación de Preventivos</span></a>
-        <a href="reprogramar_preventivo.php"><i class='bx bx-refresh'></i> <span> Reprogramación de Preventivos</span></a>
-        <a href="indicadores_mantenimiento.php"><i class='bx bx-bar-chart'></i> <span> Indicadores de Mantenimiento</span></a>
-        <a href="repuestos.php"><i class='bx bx-cog'></i> <span> Gestión de Repuestos</span></a>
-        <a href="hoja_vida_equipos.php"><i class='bx bx-file'></i> <span> Hoja de Vida General</span></a>
+
+        <a href="index_Admin.php"><i class='bx bx-home'></i> <span>Inicio</span></a>
+        <a href="ver_equipos.php"><i class='bx bx-list-ul'></i> <span>Ver Equipos</span></a>
+        <a href="ver_qr.php"><i class='bx bx-barcode'></i> <span>Ver QR</span></a>
+        <a href="agregar_equipos.php"><i class='bx bx-plus-circle'></i><span>Agregar Equipo</span></a>
+        <a href="editar_equipos.php"><i class='bx bx-edit-alt'></i> <span>Editar Equipo</span></a>
+        <a href="ver_correctivos.php"><i class='bx bx-check-square'></i> <span>Ver Correctivos</span></a>
+        <a href="programar_preventivos.php"><i class='bx bx-calendar'></i> <span>Programación de Preventivos</span></a>
+        <a href="reprogramar_preventivo.php"><i class='bx bx-refresh'></i> <span>Reprogramación de Preventivos</span></a>
+        <a href="indicadores_mantenimiento.php"><i class='bx bx-bar-chart'></i> <span>Indicadores de Mantenimiento</span></a>
+        <a href="repuestos.php"><i class='bx bx-cog'></i> <span>Gestión de Repuestos</span></a>
+        <a href="hoja_vida_equipos.php"><i class='bx bx-file'></i> <span>Hoja de Vida General</span></a>
     </div>
+
     <!-- CONTENIDO -->
     <div class="main-content">
         <div class="form-container">
@@ -111,11 +114,11 @@ header("Pragma: no-cache");
 
                 <!-- HARDWARE -->
                 <label>Procesador</label>
-                <input type="text" name="procesador">
+                <input type="text" name="procesador" placeholder="Ej: INTEL I7-10750H CPU">
 
                 <label>RAM</label>
                 <select name="ram" required>
-                    <option value="">Seleccione RAM</option>
+                    <option value="" disabled selected>Seleccione RAM</option>
                     <option value="4GB">4GB</option>
                     <option value="8GB">8GB</option>
                     <option value="12GB">12GB</option>
@@ -129,17 +132,20 @@ header("Pragma: no-cache");
                 <label>Disco C:</label>
 
                 <select name="disco" required>
-                    <option value="">Seleccione Disco</option>
+                    <option value="" disabled selected>Seleccione Disco C:</option>
 
+                    <option value="" disabled>----Tipo de Disco SSD----</option>
                     <!-- SSD -->
-                    <option value="128GB">128GB SSD</option>
+                    <option value="128GB SSD">128GB SSD</option>
                     <option value="256GB SSD">256GB SSD</option>
                     <option value="512GB SSD">512GB SSD</option>
                     <option value="1TB SSD">1TB SSD</option>
+                    <option value="2TB SSD">2TB SSD</option>
 
+                    <option value="" disabled>----Tipo de Disco HDD----</option>
                     <!-- HDD -->
                     <option value="500GB HDD">500GB HDD</option>
-                    <option value="700GB HDD">700GB HDD</option>    
+                    <option value="700GB HDD">700GB HDD</option>
                     <option value="1TB HDD">1TB HDD</option>
                     <option value="2TB HDD">2TB HDD</option>
                 </select>
@@ -147,14 +153,20 @@ header("Pragma: no-cache");
 
                 <label>Disco D:</label>
                 <select name="disco2" required>
-                    <option value="">Seleccione Disco</option>
+                    <option value="" disabled selected>Seleccione Disco D:</option>
+                    <option value="" disabled>----Tipo de Disco SSD----</option>
                     <!-- Ninguno -->
-                    <option value="Ninguno">Ninguno</option>
+                    <option value="Ninguno SSD">Ninguno SSD</option>
                     <!-- SSD -->
+                    <option value="128GB">128GB SSD</option>
                     <option value="256GB SSD">256GB SSD</option>
                     <option value="512GB SSD">512GB SSD</option>
                     <option value="1TB SSD">1TB SSD</option>
+                    <option value="2TB SSD">2TB SSD</option>
 
+                    <option value="" disabled>----Tipo de Disco HDD----</option>
+                    <!-- Ninguno -->
+                    <option value="Ninguno HDD">Ninguno HDD</option>
                     <!-- HDD -->
                     <option value="500GB HDD">500GB HDD</option>
                     <option value="700GB HDD">700GB HDD</option>
@@ -165,8 +177,8 @@ header("Pragma: no-cache");
 
                 <!-- ESTADO -->
                 <label>Estado</label>
-                <select name="estado">
-                    <option value="">Seleccione Estado</option>
+                <select name="estado" required>
+                    <option value="" disabled selected>Seleccione Estado</option>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                     <option value="En reparación">En reparación</option>
@@ -175,10 +187,10 @@ header("Pragma: no-cache");
 
                 <!-- UBICACION -->
                 <label>Ubicación</label>
-                <select name="ubicacion">
+                <select name="ubicacion" required>
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
-                    <option value="">Ubicación</option>
-                    
+                    <option value="" disabled selected>Seleccione Ubicación</option>
+
                     <option value="AXA Mortales">AXA Mortales</option>
                     <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
                     <option value="AXA IPS">AXA IPS</option>
@@ -192,6 +204,7 @@ header("Pragma: no-cache");
                     <option value="Financiera">Financiera</option>
                     <option value="Talento Humano">Talento Humano</option>
                     <option value="Dirección Operativa">Dirección Operativa</option>
+                    <option value="En Casa">En Casa</option>
                     <option value="Bodega">Bodega</option>
                 </select>
 
@@ -208,62 +221,13 @@ header("Pragma: no-cache");
     </div>
     <script>
         function toggleSidebar() {
-            document.body.classList.toggle('sidebar-collapsed');
-        }
 
-        function actualizarOpciones(selectNombre) {
-
-            let contenedor = selectNombre.parentElement;
-
-            let selectTipo = contenedor.querySelector('select[name="tipo_repuesto[]"]');
-            let selectCap = contenedor.querySelector('select[name="capacidad_repuesto[]"]');
-
-            let valor = selectNombre.value;
-
-            // limpiar
-            selectTipo.innerHTML = '<option value="">Seleccione</option>';
-            selectCap.innerHTML = '<option value="">Seleccione</option>';
-
-            if (valor === "Almacenamiento") {
-
-                // TIPOS
-                selectTipo.innerHTML += `<option value="SSD">SSD</option>`;
-                selectTipo.innerHTML += `<option value="HDD">HDD</option>`;
-
-                // CAPACIDAD
-                selectCap.innerHTML += `<option value="256GB">256GB</option>`;
-                selectCap.innerHTML += `<option value="512GB">512GB</option>`;
-                selectCap.innerHTML += `<option value="1TB">1TB</option>`;
-                selectCap.innerHTML += `<option value="2TB">2TB</option>`;
-
-            }
-
-            if (valor === "RAM") {
-
-                // TIPOS
-                selectTipo.innerHTML += `<option value="SO-DIMM DDR3">SO-DIMM DDR3</option>`;
-                selectTipo.innerHTML += `<option value="SO-DIMM DDR4">SO-DIMM DDR4</option>`;
-                selectTipo.innerHTML += `<option value="SO-DIMM DDR5">SO-DIMM DDR5</option>`;
-                selectTipo.innerHTML += `<option value="DIMM DDR3">DIMM DDR3</option>`;
-                selectTipo.innerHTML += `<option value="DIMM DDR4">DIMM DDR4</option>`;
-                selectTipo.innerHTML += `<option value="DIMM DDR5">DIMM DDR5</option>`;
-
-                // CAPACIDAD
-                selectCap.innerHTML += `<option value="4GB">4GB</option>`;
-                selectCap.innerHTML += `<option value="8GB">8GB</option>`;
-                selectCap.innerHTML += `<option value="16GB">16GB</option>`;
-                selectCap.innerHTML += `<option value="32GB">32GB</option>`;
-
-            }
-
-            if (valor === "Fuente") {
-
-                // TIPOS
-                selectTipo.innerHTML += `<option value="Cargador">Cargador</option>`;
-                selectTipo.innerHTML += `<option value="Cable de poder">Cable de poder</option>`;
-
-                // CAPACIDAD (no aplica)
-                selectCap.innerHTML = `<option value="N/A">No aplica</option>`;
+            if (window.innerWidth <= 768) {
+                // MÓVIL
+                document.body.classList.toggle('sidebar-open');
+            } else {
+                // ESCRITORIO
+                document.body.classList.toggle('sidebar-collapsed');
             }
         }
     </script>

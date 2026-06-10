@@ -35,13 +35,14 @@
         }
 
         .form-container {
-            max-width: 850px;
+            max-width: 650px;
             margin: auto;
-            background: rgba(255, 255, 255, .12);
+            margin-top: 40px;
+
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(18px);
-            padding: 35px;
+            padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, .35);
             color: #fff;
         }
 

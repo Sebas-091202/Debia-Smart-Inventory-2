@@ -393,7 +393,7 @@ Preventivo próximo:
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                    <a 
+                    <a
                         class="<?= ($pagina == $i) ? 'activo-pagina' : '' ?>"
                         href="?pagina=<?= $i ?>">
                         <?= $i ?>
@@ -415,9 +415,14 @@ Preventivo próximo:
 
     <script>
         function toggleSidebar() {
-            document.body.classList.toggle(
-                'sidebar-collapsed'
-            );
+
+            if (window.innerWidth <= 768) {
+                // MÓVIL
+                document.body.classList.toggle('sidebar-open');
+            } else {
+                // ESCRITORIO
+                document.body.classList.toggle('sidebar-collapsed');
+            }
         }
 
 
