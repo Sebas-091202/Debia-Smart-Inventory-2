@@ -197,6 +197,7 @@ if (!$equipo) {
                     <option value="1TB SSD" <?= ($equipo['disco2'] == '1TB SSD') ? 'selected' : '' ?>>1TB SSD</option>
 
                     <option value="500GB HDD" <?= ($equipo['disco2'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
+                    <option value="700GB HDD" <?= ($equipo['disco2'] == '700GB HDD') ? 'selected' : '' ?>>700GB HDD</option>
                     <option value="1TB HDD" <?= ($equipo['disco2'] == '1TB HDD') ? 'selected' : '' ?>>1TB HDD</option>
                     <option value="2TB HDD" <?= ($equipo['disco2'] == '2TB HDD') ? 'selected' : '' ?>>2TB HDD</option>
                 </select>

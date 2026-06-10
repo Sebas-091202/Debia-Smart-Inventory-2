@@ -367,7 +367,7 @@ if ($id_equipo) {
 
                     <tr>
                         <td>Disco D:</td>
-                        <td><?= $equipo['disco_d'] ?: 'No registrado' ?></td>
+                        <td><?= $equipo['disco2'] ?: 'No registrado' ?></td>
                     </tr>
 
                     <tr>

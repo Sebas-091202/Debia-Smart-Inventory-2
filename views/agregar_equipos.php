@@ -157,6 +157,7 @@ header("Pragma: no-cache");
 
                     <!-- HDD -->
                     <option value="500GB HDD">500GB HDD</option>
+                    <option value="700GB HDD">700GB HDD</option>
                     <option value="1TB HDD">1TB HDD</option>
                     <option value="2TB HDD">2TB HDD</option>
                 </select>
