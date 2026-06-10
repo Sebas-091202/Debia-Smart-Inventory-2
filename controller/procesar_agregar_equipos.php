@@ -40,7 +40,7 @@ $stmt->execute([
     $_POST['marca'],
     $_POST['identificador'],
     $_POST['asignado_a'],
-    $_POST['serial'],
+    $_POST['serial'],                                                                                                                                                                           
     $_POST['procesador'],
     $_POST['ram'],
     $_POST['disco'],
