@@ -213,8 +213,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         background: #415885;
         color: white;
     }
-
-
 </style>
 
 <body>
@@ -258,6 +256,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <option value="T">Teclado</option>
                     <option value="C">Celulares</option>
                     <option value="DI">Diademas</option>
+                    <option value="MON">Monitor</option>
                 </select>
 
                 <select name="marca">
@@ -265,12 +264,16 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="CA">CANON</option>
                     <option value="EP">EPSON</option>
                     <option value="G">Genius</option>
+                    <option value="INP">INPOWER</option>
                     <option value="S">Samsung</option>
                     <option value="H">Huawei</option>
                     <option value="MO">Motorola</option>
                     <option value="X">Xiaomi</option>
+                    <option value="GEN">Genérico</option>
                 </select>
 
 
@@ -297,7 +300,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" name="identificador" placeholder="Identificador">
 
                 <select name="codigo">
-                    <option value="">Código de barras</option>
+                    <option value="" disabled selected>Código de Barras</option>
 
                     <?php foreach ($codigos as $cod): ?>
                         <option value="<?= $cod ?>"
@@ -377,6 +380,16 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td>Samsung</td>
                     <td>H</td>
                     <td>Huawei</td>
+                </tr>
+                <tr>
+                    <td>GEN</td>
+                    <td>Genérico</td>
+                    <td>LOG</td>
+                    <td>Logitech</td>
+                </tr>
+                <tr>
+                    <td>INP</td>
+                    <td>INPOWER</td>
                 </tr>
             </table>
         </div>

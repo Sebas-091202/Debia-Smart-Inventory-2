@@ -150,25 +150,38 @@ $correctivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <form method="GET">
                 <div class="filtros">
 
-                    <select name="tipo">
-                        <option value="">Tipo</option>
-                        <option value="P">Portátil</option>
-                        <option value="TU">Todo en Uno</option>
-                        <option value="E">Escritorio</option>
-                        <option value="I">Impresora</option>
-                    </select>
+                <select name="tipo">
+                    <option value="" disabled selected>Seleccione Tipo</option>
+                    <option value="P">Portátil</option>
+                    <option value="TU">Todo en Uno</option>
+                    <option value="E">Escritorio</option>
+                    <option value="I">Impresora</option>
+                    <option value="M">Mouse</option>
+                    <option value="T">Teclado</option>
+                    <option value="C">Celulares</option>
+                    <option value="DI">Diademas</option>
 
-                    <select name="marca">
-                        <option value="">Marca</option>
-                        <option value="A">Asus</option>
-                        <option value="HP">Hewlett-Packard</option>
-                        <option value="L">Lenovo</option>
-                        <option value="EP">EPSON</option>
-                        <option value="G">Genius</option>
-                    </select>
+                </select>
+
+                <select name="marca">
+                    <option value="" disabled selected>Seleccione Marca</option>
+                    <option value="A">Asus</option>
+                    <option value="HP">Hewlett-Packard</option>
+                    <option value="L">Lenovo</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="CA">CANON</option>
+                    <option value="EP">EPSON</option>
+                    <option value="G">Genius</option>
+                    <option value="S">Samsung</option>
+                    <option value="H">Huawei</option>
+                    <option value="MO">Motorola</option>
+                    <option value="X">Xiaomi</option>
+                    <option value="GEN">Genérico</option>
+                    <option value="INP">INPOWER</option>
+                </select>
 
                     <select name="estado">
-                        <option value="">Estado</option>
+                        <option value="" disabled selected>Seleccione Estado</option>
                         <option value="Activo">Activo</option>
                         <option value="En reparación">En reparación</option>
                         <option value="Dado de baja">Dado de baja</option>

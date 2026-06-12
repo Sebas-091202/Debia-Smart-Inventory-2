@@ -71,7 +71,9 @@ header("Pragma: no-cache");
                 <!-- TIPO -->
                 <label>Tipo</label>
                 <select name="tipo" required>
-                    <option value="">Tipo</option>
+                    <option value="" disabled selected>
+                        Seleccione Tipo
+                    </option>
                     <option value="P">Portátil</option>
                     <option value="TU">Todo en Uno</option>
                     <option value="E">Escritorio</option>
@@ -86,10 +88,15 @@ header("Pragma: no-cache");
                 <!-- MARCA -->
                 <label>Marca</label>
                 <select name="marca" required>
-                    <option value="">Marca</option>
+                    <option value="" disabled selected>
+                        Seleccione Marca
+                    </option>
+                    <option value="DELL">Dell</option>
+                    <option value="INP">INPOWER</option>
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
+                    <option value="LOG">Logitech</option>
                     <option value="EP">EPSON</option>
                     <option value="G">Genius</option>
                     <option value="S">Samsung</option>
@@ -97,6 +104,7 @@ header("Pragma: no-cache");
                     <option value="MOT">Motorola</option>
                     <option value="X">Xiaomi</option>
                     <option value="CA">CANON</option>
+                    <option value="GEN">Genérico</option>
                 </select>
 
 
@@ -158,7 +166,7 @@ header("Pragma: no-cache");
                     <!-- Ninguno -->
                     <option value="Ninguno SSD">Ninguno SSD</option>
                     <!-- SSD -->
-                    <option value="128GB">128GB SSD</option>
+                    <option value="128GB SSD">128GB SSD</option>
                     <option value="256GB SSD">256GB SSD</option>
                     <option value="512GB SSD">512GB SSD</option>
                     <option value="1TB SSD">1TB SSD</option>

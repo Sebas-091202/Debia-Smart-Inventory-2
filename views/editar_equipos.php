@@ -90,6 +90,9 @@ if (!$equipo) {
 
                 <label>Tipo</label>
                 <select name="tipo">
+                    <option value="" disabled>
+                        Seleccione Tipo
+                    </option>
                     <option value="P" <?= ($equipo['tipo'] == 'P') ? 'selected' : ''; ?>>Portátil</option>
                     <option value="TU" <?= ($equipo['tipo'] == 'TU') ? 'selected' : ''; ?>>Todo en Uno</option>
                     <option value="E" <?= ($equipo['tipo'] == 'E') ? 'selected' : ''; ?>>Escritorio</option>
@@ -103,6 +106,11 @@ if (!$equipo) {
 
                 <label>Marca</label>
                 <select name="marca">
+                    <option value="" disabled>
+                        Seleccione Marca
+                    </option>
+                    <option value="DELL" <?= ($equipo['marca'] == 'DELL') ? 'selected' : ''; ?>>Dell</option>
+                    <option value="INP" <?= ($equipo['marca'] == 'INP') ? 'selected' : ''; ?>>INPOWER</option>
                     <option value="A" <?= ($equipo['marca'] == 'A') ? 'selected' : ''; ?>>Asus</option>
                     <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>Hewlett-Packard</option>
                     <option value="L" <?= ($equipo['marca'] == 'L') ? 'selected' : ''; ?>>Lenovo</option>
@@ -113,6 +121,7 @@ if (!$equipo) {
                     <option value="MOT" <?= ($equipo['marca'] == 'MOT') ? 'selected' : ''; ?>>Motorola</option>
                     <option value="X" <?= ($equipo['marca'] == 'X') ? 'selected' : ''; ?>>Xiaomi</option>
                     <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
+                    <option value="GEN" <?= ($equipo['marca'] == 'GEN') ? 'selected' : ''; ?>>Genérico</option>
                 </select>
 
 

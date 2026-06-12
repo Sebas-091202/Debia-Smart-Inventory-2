@@ -97,7 +97,7 @@ FROM equipos e
 
 $where
 
-ORDER BY e.tipo,e.marca
+ORDER BY e.identificador ASC
 
 ";
 
