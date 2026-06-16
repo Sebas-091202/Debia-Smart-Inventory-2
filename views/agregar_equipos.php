@@ -114,11 +114,11 @@ header("Pragma: no-cache");
 
                 <!-- ASIGNADO -->
                 <label>Asignado a</label>
-                <input type="text" name="asignado_a" placeholder="Usuario o área">
+                <input type="text" name="asignado_a" placeholder="Usuario o área" required>
 
                 <!-- SERIAL -->
                 <label>Serial</label>
-                <input type="text" name="serial" placeholder="Número de serie">
+                <input type="text" name="serial" placeholder="Número de serie" required>
 
                 <!-- HARDWARE -->
                 <label>Procesador</label>

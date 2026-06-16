@@ -265,6 +265,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
                     <option value="LOG">Logitech</option>
+                    <option value="DE">Dell</option>
                     <option value="CA">CANON</option>
                     <option value="EP">EPSON</option>
                     <option value="G">Genius</option>
@@ -281,6 +282,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
                     <option value="" disabled selected>Seleccione Ubicación</option>
+
                     <option value="AXA Mortales">AXA Mortales</option>
                     <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
                     <option value="AXA IPS">AXA IPS</option>
@@ -294,6 +296,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <option value="Financiera">Financiera</option>
                     <option value="Talento Humano">Talento Humano</option>
                     <option value="Dirección Operativa">Dirección Operativa</option>
+                    <option value="En Casa">En Casa</option>
                     <option value="Bodega">Bodega</option>
                 </select>
 
@@ -390,6 +393,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td>INP</td>
                     <td>INPOWER</td>
+                    <td>DE</td>
+                    <td>Dell</td>
                 </tr>
             </table>
         </div>

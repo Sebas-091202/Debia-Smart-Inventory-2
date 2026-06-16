@@ -222,36 +222,61 @@ WHERE estado='Vencido'
 
                 <label>Tipo</label>
                 <select id="tipoFiltro" required>
-                    <option value="">Seleccione</option>
-                    <option>P</option>
-                    <option>E</option>
-                    <option>TU</option>
-                    <option>I</option>
-                    <option>T</option>
-                    <option>M</option>
+                    <option value="" disabled selected>
+                        Seleccione Tipo
+                    </option>
+                    <option value="P">Portátil</option>
+                    <option value="TU">Todo en Uno</option>
+                    <option value="E">Escritorio</option>
+                    <option value="I">Impresora</option>
+                    <option value="M">Mouse</option>
+                    <option value="T">Teclado</option>
+                    <option value="DI">Diademas</option>
+                    <option value="C">Celulares</option>
+                    <option value="MON">Monitor</option>
                 </select>
 
 
 
                 <label>Marca</label>
                 <select id="marcaFiltro" required>
-                    <option>Seleccione Marca</option>
+                    <option value="" disabled selected>
+                        Seleccione Marca
+                    </option>
+                    <option value="DELL">Dell</option>
+                    <option value="INP">INPOWER</option>
+                    <option value="A">Asus</option>
+                    <option value="HP">Hewlett-Packard</option>
+                    <option value="L">Lenovo</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="EP">EPSON</option>
+                    <option value="G">Genius</option>
+                    <option value="S">Samsung</option>
+                    <option value="H">Huawei</option>
+                    <option value="MOT">Motorola</option>
+                    <option value="X">Xiaomi</option>
+                    <option value="CA">CANON</option>
+                    <option value="GEN">Genérico</option>
                 </select>
 
 
                 <label>Identificador</label>
                 <select id="identificadorFiltro" required>
-                    <option>Seleccione Identificador</option>
+                    <option value="" disabled selected>
+                        Seleccione Identificador
+                    </option>
                 </select>
 
                 <label>Frecuencia</label>
                 <select name="tipo_frecuencia" required>
-                    <option value="">Seleccione</option>
-                    <option>Semanal</option>
-                    <option>Mensual</option>
-                    <option>Trimestral</option>
-                    <option>Semestral</option>
-                    <option>Anual</option>
+                    <option value="" disabled selected>
+                        Seleccione
+                    </option>
+                    <option value="Semanal">Semanal</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Trimestral">Trimestral</option>
+                    <option value="Semestral">Semestral</option>
+                    <option value="Anual">Anual</option>
                 </select>
 
                 <label>Fecha Programada</label>
