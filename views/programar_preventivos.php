@@ -20,6 +20,25 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 /*=================================
+PREVENTIVO PROGRAMADO Y/O REPROGRAMADO"VENCIDO"
+=================================*/
+
+$conn->query("
+UPDATE preventivos_programados
+SET estado='Vencido'
+WHERE fecha_programada < CURDATE()
+AND estado IN ('Programado','Reprogramado')
+");
+
+$vencidos = $conn->query("
+SELECT COUNT(*)
+FROM preventivos_programados
+WHERE fecha_programada < CURDATE()
+AND estado IN ('Programado','Reprogramado')
+")->fetchColumn();
+
+
+/*=================================
 EJECUTAR PREVENTIVO
 =================================*/
 if (isset($_GET['ejecutar'])) {
