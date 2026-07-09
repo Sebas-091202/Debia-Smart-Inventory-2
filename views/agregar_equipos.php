@@ -125,7 +125,7 @@ header("Pragma: no-cache");
                 <input type="text" name="procesador" placeholder="Ej: INTEL I7-10750H CPU">
 
                 <label>RAM</label>
-                <select name="ram" required>
+                <select name="ram">
                     <option value="" disabled selected>Seleccione RAM</option>
                     <option value="4GB">4GB</option>
                     <option value="8GB">8GB</option>
@@ -139,7 +139,7 @@ header("Pragma: no-cache");
 
                 <label>Disco C:</label>
 
-                <select name="disco" required>
+                <select name="disco">
                     <option value="" disabled selected>Seleccione Disco C:</option>
 
                     <option value="" disabled>----Tipo de Disco SSD----</option>
@@ -160,7 +160,7 @@ header("Pragma: no-cache");
 
 
                 <label>Disco D:</label>
-                <select name="disco2" required>
+                <select name="disco2">
                     <option value="" disabled selected>Seleccione Disco D:</option>
                     <option value="" disabled>----Tipo de Disco SSD----</option>
                     <!-- Ninguno -->
@@ -217,7 +217,7 @@ header("Pragma: no-cache");
                 </select>
 
                 <label>Código de Barras</label>
-                <input type="text" name="codigo_barras" id="codigo_barras" placeholder="Escanear o escribir">
+                <input type="text" name="codigo_barras" id="codigo_barras" placeholder="Escanear o escribir" required>
 
                 <div class="submit-btn">
                     <button type="submit" class="submit-btn">Guardar Equipo</button>

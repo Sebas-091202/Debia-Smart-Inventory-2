@@ -139,7 +139,7 @@ if (!$equipo) {
                 <input type="text" name="procesador" value="<?= $equipo['procesador'] ?>">
 
                 <label>RAM</label>
-                <select name="ram" required>
+                <select name="ram">
                     <option value="" disabled selected>Seleccione RAM</option>
 
                     <option value="4GB" <?= ($equipo['ram'] == '4GB') ? 'selected' : '' ?>>4GB</option>
@@ -152,7 +152,7 @@ if (!$equipo) {
 
 
                 <label>Disco C:</label>
-                <select name="disco" required>
+                <select name="disco">
                     <option value="" disabled selected>Seleccione Disco C:</option>
                     <option value="" disabled>----Tipo de Disco SSD----</option>
                      <!-- Ninguno -->
@@ -175,7 +175,7 @@ if (!$equipo) {
 
 
                 <label>Disco D:</label>
-                <select name="disco2" required>
+                <select name="disco2">
                     <option value="" disabled >Seleccione Disco D:</option>
                     <option value="" disabled>----Tipo de Disco SSD----</option>
                      <!-- Ninguno -->

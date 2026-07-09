@@ -118,7 +118,7 @@ $sql = "
 SELECT *
 FROM equipos
 $sqlWhere
-ORDER BY identificador ASC
+ORDER BY id ASC
 LIMIT :inicio, :porPagina
 ";
 
