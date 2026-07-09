@@ -70,7 +70,7 @@ $rutaQR = "../qrs/" . $codigo . ".png";
 
 require_once("../lib/phpqrcode/qrlib.php");
 
-$url = "http://localhost/ConsulSoft/views/hoja_vida_equipos.php?codigo=" . $codigo;
+$url = "http://localhost/debia-smart-inventory/views/hoja_vida_equipos.php?codigo=" . $codigo;
 
 QRcode::png($url, $rutaQR, QR_ECLEVEL_L, 4);
 

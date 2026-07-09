@@ -74,7 +74,7 @@ if ($oldCodigo && $oldCodigo != $codigo) {
 /* crear nuevo QR */
 $archivoQR = $rutaQR . $codigo . ".png";
 
-$url = "http://localhost/ConsulSoft/views/hoja_vida_equipos.php?codigo=" . $codigo;
+$url = "http://localhost/debia-smart-inventory/views/hoja_vida_equipos.php?codigo=" . $codigo;
 
 QRcode::png($url, $archivoQR, QR_ECLEVEL_L, 4);
 
