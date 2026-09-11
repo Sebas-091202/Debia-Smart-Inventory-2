@@ -1,60 +1,60 @@
 <?php
+session_start();
 require '../bd/conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // 1. Validar token CSRF
+    if (empty($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die("Acceso denegado: Token CSRF inválido.");
+    }
+
     $nombre = trim($_POST['nombre']);
     $usuario = trim($_POST['usuario']);
     $correo = trim($_POST['correo']);
     $numero_identificacion = trim($_POST['numero_identificacion']);
     $rol = trim($_POST['rol']);
-
-    // ENCRIPTAR CONTRASEÑA
     $contrasena = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
 
-    $tabla = '';
-    $redireccion = '';
-
-    switch ($rol) {
-        case 'ADMIN':
-            $tabla = 'usuarios';
-            $redireccion = '../views/index_Admin.php';
-            break;
-        case 'USUARIO':
-            $tabla = 'usuarios';
-            $redireccion = '../views/index_Usuario.php';
-            break;
-        default:
-            echo "<script>alert('Rol no válido.'); window.location.href='../views/index_Login.php';</script>";
-            exit;
+    // Validación de lista blanca
+    if (!in_array($rol, ['ADMIN', 'USUARIO'])) {
+        echo "<script>alert('Rol no válido.'); window.location.href='../views/index_Login.php';</script>";
+        exit;
     }
 
-    $rol = $_POST['rol'];
+    try {
+        // Iniciar transacción para evitar condiciones de carrera
+        $conn->beginTransaction();
 
-    /* VALIDAR QUE SOLO EXISTA UN ADMIN */
-    if ($rol == 'ADMIN') {
-
-        $stmt = $conn->query("
-    SELECT COUNT(*) FROM usuarios WHERE rol='ADMIN'
-    ");
-
-        $yaExiste = $stmt->fetchColumn();
-
-        if ($yaExiste > 0) {
-
-            // FORZAR A USUARIO
-            $rol = 'USUARIO';
+        if ($rol === 'ADMIN') {
+            // FOR UPDATE bloquea la fila durante la lectura para evitar concurrencia
+            $stmt = $conn->query("SELECT COUNT(id) FROM usuarios WHERE rol='ADMIN' FOR UPDATE");
+            if ($stmt->fetchColumn() > 0) {
+                $rol = 'USUARIO'; // Forzar si ya existe
+            }
         }
-    }
 
+        // Definir redirección basada en el rol final evaluado
+        $redireccion = ($rol === 'ADMIN') ? '../views/index_Admin.php' : '../views/index_Usuario.php';
 
-    $sql = "INSERT INTO $tabla (nombre, usuario, correo, numero_identificacion, contrasena, rol) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (nombre, usuario, correo, numero_identificacion, contrasena, rol) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$nombre, $usuario, $correo, $numero_identificacion, $contrasena, $rol]);
+        
+        $nuevoId = $conn->lastInsertId();
 
-    $stmt = $conn->prepare($sql);
+        // Autologuear al usuario tras el registro para que la redirección funcione
+        session_regenerate_id(true);
+        $_SESSION['id'] = $nuevoId;
+        $_SESSION['usuario'] = $usuario;
+        $_SESSION['rol'] = $rol;
 
-    if ($stmt->execute([$nombre, $usuario, $correo, $numero_identificacion, $contrasena, $rol])) {
+        $conn->commit();
         echo "<script>alert('Registro exitoso.'); window.location.href='$redireccion';</script>";
-    } else {
-        echo "<script>alert('Error al registrar.'); window.location.href='../views/index_Login.php';</script>";
+        exit;
+
+    } catch (Exception $e) {
+        $conn->rollBack();
+        echo "<script>alert('El usuario o correo ya existe.'); window.location.href='../views/index_Login.php';</script>";
+        exit;
     }
 }
-?>

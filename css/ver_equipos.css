@@ -282,31 +282,62 @@ LOGOS EN MÓVIL
             border-bottom: 1px solid #ddd;
         }
 
+        /* ==========================================
+   PAGINACIÓN
+========================================== */
+
         .paginacion {
-            margin-top: 25px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 8px;
             flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 18px;
+            padding: 10px 5px;
         }
 
         .paginacion a {
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: white;
-            text-decoration: none;
-            font-weight: 600;
+            min-width: 32px;
+            height: 32px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 9px;
+
+            background: #ffffff;
             color: #111827;
-            transition: 0.2s;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: all 0.2s ease;
         }
 
         .paginacion a:hover {
-            transform: translateY(-4px);
+            transform: translateY(-1px);
+            background: #e5e7eb;
         }
 
-        .activo-pagina {
-            background: #2563eb !important;
-            color: white !important;
+        .paginacion .activo-pagina {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .paginacion .indicador-paginacion {
+            width: 100%;
+            text-align: center;
+
+            margin-top: 5px;
+
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.85;
         }
 
         .btn-search {
@@ -393,13 +424,18 @@ LOGOS EN MÓVIL
         /* RESPONSIVE */
         @media(max-width:768px) {
 
-            .container,
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
             .card {
-                margin-left: 70px;
+                margin-left: 0;
                 padding: 20px;
             }
 
             table {
                 font-size: 12px;
             }
+
         }

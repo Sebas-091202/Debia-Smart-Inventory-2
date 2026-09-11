@@ -254,25 +254,38 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <option value="I">Impresora</option>
                     <option value="M">Mouse</option>
                     <option value="T">Teclado</option>
-                    <option value="C">Celulares</option>
                     <option value="DI">Diademas</option>
+                    <option value="AU">Auriculares</option>
+                    <option value="C">Celulares</option>
                     <option value="MON">Monitor</option>
                 </select>
 
+                <!-- MARCA -->
                 <select name="marca">
-                    <option value="" disabled selected>Seleccione Marca</option>
+                    <option value="" disabled selected>
+                        Seleccione Marca
+                    </option>
+                    <option value="DELL">Dell</option>
+                    <option value="INP">INPOWER</option>
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
-                    <option value="LOG">Logitech</option>
-                    <option value="DE">Dell</option>
-                    <option value="CA">CANON</option>
                     <option value="EP">EPSON</option>
+                    <option value="CA">CANON</option>
                     <option value="G">Genius</option>
-                    <option value="INP">INPOWER</option>
+                    <option value="OP">OPPO</option>
+                    <option value="KA">KALLEY</option>
+                    <option value="SAM">SAMSUNG</option>
+                    <option value="MAX">MAXELL</option>
+                    <option value="PAN">PANASONIC</option>
+                    <option value="ARC">ARCHTEX</option>
+                    <option value="XKIM">XKIM</option>
+                    <option value="HAVIT">HAVIT</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="WIT">WIT</option>
                     <option value="S">Samsung</option>
                     <option value="H">Huawei</option>
-                    <option value="MO">Motorola</option>
+                    <option value="MOT">Motorola</option>
                     <option value="X">Xiaomi</option>
                     <option value="GEN">Genérico</option>
                 </select>
@@ -488,14 +501,48 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="paginacion">
 
                 <?php
+                /*
+                ==========================================
+                PAGINACIÓN POR BLOQUES DE 10
+                ==========================================
+                */
+
+                // Cantidad máxima de botones visibles
+                $paginasPorBloque = 10;
+
+                // Calcular bloque actual
+                $bloqueActual = (int) ceil($pagina / $paginasPorBloque);
+
+                // Primera página del bloque
+                $primeraPagina = (($bloqueActual - 1) * $paginasPorBloque) + 1;
+
+                // Última página del bloque
+                $ultimaPagina = min(
+                    $primeraPagina + $paginasPorBloque - 1,
+                    $totalPaginas
+                );
+
+                /*
+                ==========================================
+                CONSERVAR FILTROS
+                ==========================================
+                */
+
                 $queryFiltros =
                     "&tipo=" . urlencode($tipo) .
                     "&marca=" . urlencode($marca) .
                     "&ubicacion=" . urlencode($ubicacion) .
-                    "&identificador=" . urlencode($identificador);
-                ?>
+                    "&identificador=" . urlencode($identificador) .
+                    "&codigo=" . urlencode($codigo);
 
-                <?php if ($pagina > 1): ?>
+                /*
+                ==========================================
+                PÁGINA ANTERIOR
+                ==========================================
+                */
+
+                if ($pagina > 1):
+                ?>
 
                     <a href="?pagina=<?= $pagina - 1 . $queryFiltros ?>">
                         Anterior
@@ -504,7 +551,15 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
 
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                <?php
+                /*
+                ==========================================
+                BOTONES DEL BLOQUE ACTUAL
+                ==========================================
+                */
+
+                for ($i = $primeraPagina; $i <= $ultimaPagina; $i++):
+                ?>
 
                     <a
                         class="<?= ($pagina == $i) ? 'activo-pagina' : ''; ?>"
@@ -515,11 +570,37 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endfor; ?>
 
 
-                <?php if ($pagina < $totalPaginas): ?>
+                <?php
+                /*
+                ==========================================
+                SIGUIENTE PÁGINA
+                ==========================================
+                */
+
+                if ($pagina < $totalPaginas):
+                ?>
 
                     <a href="?pagina=<?= $pagina + 1 . $queryFiltros ?>">
                         Siguiente
                     </a>
+
+                <?php endif; ?>
+
+
+                <?php
+                /*
+                ==========================================
+                INDICADOR DEL BLOQUE
+                ==========================================
+                */
+
+                if ($totalPaginas > 0):
+                ?>
+
+                    <span class="indicador-paginacion">
+                        Páginas <?= $primeraPagina ?> - <?= $ultimaPagina ?>
+                        de <?= $totalPaginas ?>
+                    </span>
 
                 <?php endif; ?>
 

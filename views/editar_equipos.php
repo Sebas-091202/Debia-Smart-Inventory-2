@@ -105,8 +105,8 @@ if (!$equipo) {
                 </select>
 
                 <label>Marca</label>
-                <select name="marca">
-                    <option value="" disabled>
+                <select name="marca" required>
+                    <option value="" disabled <?= (empty($equipo['marca'])) ? 'selected' : ''; ?>>
                         Seleccione Marca
                     </option>
                     <option value="DELL" <?= ($equipo['marca'] == 'DELL') ? 'selected' : ''; ?>>Dell</option>
@@ -115,12 +115,24 @@ if (!$equipo) {
                     <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>Hewlett-Packard</option>
                     <option value="L" <?= ($equipo['marca'] == 'L') ? 'selected' : ''; ?>>Lenovo</option>
                     <option value="EP" <?= ($equipo['marca'] == 'EP') ? 'selected' : ''; ?>>EPSON</option>
+                    <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
                     <option value="G" <?= ($equipo['marca'] == 'G') ? 'selected' : ''; ?>>Genius</option>
+                    <option value="OP" <?= ($equipo['marca'] == 'OP') ? 'selected' : ''; ?>>OPPO</option>
+                    <option value="KA" <?= ($equipo['marca'] == 'KA') ? 'selected' : ''; ?>>KALLEY</option>
+                    <option value="SAM" <?= ($equipo['marca'] == 'SAM') ? 'selected' : ''; ?>>SAMSUNG</option>
+                    <option value="CHA" <?= ($equipo['marca'] == 'CHA') ? 'selected' : ''; ?>>CHALLENGER</option>
+                    <option value="LG" <?= ($equipo['marca'] == 'LG') ? 'selected' : ''; ?>>LG</option>
+                    <option value="MAX" <?= ($equipo['marca'] == 'MAX') ? 'selected' : ''; ?>>MAXELL</option>
+                    <option value="PAN" <?= ($equipo['marca'] == 'PAN') ? 'selected' : ''; ?>>PANASONIC</option>
+                    <option value="ARC" <?= ($equipo['marca'] == 'ARC') ? 'selected' : ''; ?>>ARCHTEX</option>
+                    <option value="XKIM" <?= ($equipo['marca'] == 'XKIM') ? 'selected' : ''; ?>>XKIM</option>
+                    <option value="HAVIT" <?= ($equipo['marca'] == 'HAVIT') ? 'selected' : ''; ?>>HAVIT</option>
+                    <option value="LOG" <?= ($equipo['marca'] == 'LOG') ? 'selected' : ''; ?>>Logitech</option>
+                    <option value="WIT" <?= ($equipo['marca'] == 'WIT') ? 'selected' : ''; ?>>WIT</option>
                     <option value="S" <?= ($equipo['marca'] == 'S') ? 'selected' : ''; ?>>Samsung</option>
                     <option value="H" <?= ($equipo['marca'] == 'H') ? 'selected' : ''; ?>>Huawei</option>
                     <option value="MOT" <?= ($equipo['marca'] == 'MOT') ? 'selected' : ''; ?>>Motorola</option>
                     <option value="X" <?= ($equipo['marca'] == 'X') ? 'selected' : ''; ?>>Xiaomi</option>
-                    <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
                     <option value="GEN" <?= ($equipo['marca'] == 'GEN') ? 'selected' : ''; ?>>Genérico</option>
                 </select>
 
@@ -155,8 +167,11 @@ if (!$equipo) {
                 <select name="disco">
                     <option value="" disabled selected>Seleccione Disco C:</option>
                     <option value="" disabled>----Tipo de Disco SSD----</option>
-                     <!-- Ninguno -->
+                    <!-- Ninguno -->
                     <option value="Ninguno SSD" <?= ($equipo['disco'] == 'Ninguno SSD') ? 'selected' : '' ?>>Ninguno SSD</option>
+                    <option value="16GB" <?= ($equipo['disco'] == '16GB') ? 'selected' : '' ?>>16GB</option>
+                    <option value="32GB" <?= ($equipo['disco'] == '32GB') ? 'selected' : '' ?>>32GB</option>
+                    <option value="64GB" <?= ($equipo['disco'] == '64GB') ? 'selected' : '' ?>>64GB</option>
                     <option value="128GB SSD" <?= ($equipo['disco'] == '128GB SSD') ? 'selected' : '' ?>>128GB SSD</option>
                     <option value="256GB SSD" <?= ($equipo['disco'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
                     <option value="512GB SSD" <?= ($equipo['disco'] == '512GB SSD') ? 'selected' : '' ?>>512GB SSD</option>
@@ -164,7 +179,7 @@ if (!$equipo) {
                     <option value="2TB SSD" <?= ($equipo['disco'] == '2TB SSD') ? 'selected' : '' ?>>2TB SSD</option>
 
                     <option value="" disabled>----Tipo de Disco HDD----</option>
-                     <!-- Ninguno -->
+                    <!-- Ninguno -->
                     <option value="Ninguno HDD" <?= ($equipo['disco'] == 'Ninguno HDD') ? 'selected' : '' ?>>Ninguno HDD</option>
                     <option value="500GB HDD" <?= ($equipo['disco'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
                     <option value="700GB HDD" <?= ($equipo['disco'] == '700GB HDD') ? 'selected' : '' ?>>700GB HDD</option>
@@ -176,9 +191,9 @@ if (!$equipo) {
 
                 <label>Disco D:</label>
                 <select name="disco2">
-                    <option value="" disabled >Seleccione Disco D:</option>
+                    <option value="" disabled>Seleccione Disco D:</option>
                     <option value="" disabled>----Tipo de Disco SSD----</option>
-                     <!-- Ninguno -->
+                    <!-- Ninguno -->
                     <option value="Ninguno SSD" <?= ($equipo['disco2'] == 'Ninguno SSD') ? 'selected' : '' ?>>Ninguno SSD</option>
                     <option value="128GB SSD" <?= ($equipo['disco2'] == '128GB SSD') ? 'selected' : '' ?>>128GB SSD</option>
                     <option value="256GB SSD" <?= ($equipo['disco2'] == '256GB SSD') ? 'selected' : '' ?>>256GB SSD</option>
@@ -187,7 +202,7 @@ if (!$equipo) {
                     <option value="2TB SSD" <?= ($equipo['disco2'] == '2TB SSD') ? 'selected' : '' ?>>2TB SSD</option>
 
                     <option value="" disabled>----Tipo de Disco HDD----</option>
-                     <!-- Ninguno -->
+                    <!-- Ninguno -->
                     <option value="Ninguno HDD" <?= ($equipo['disco2'] == 'Ninguno HDD') ? 'selected' : '' ?>>Ninguno HDD</option>
                     <option value="500GB HDD" <?= ($equipo['disco2'] == '500GB HDD') ? 'selected' : '' ?>>500GB HDD</option>
                     <option value="700GB HDD" <?= ($equipo['disco2'] == '700GB HDD') ? 'selected' : '' ?>>700GB HDD</option>
@@ -265,6 +280,12 @@ if (!$equipo) {
                     </option>
                     <option value="En Casa" <?= ($equipo['ubicacion'] == 'En Casa') ? 'selected' : ''; ?>>
                         En Casa
+                    </option>
+                    <option value="Renting" <?= ($equipo['ubicacion'] == 'Renting') ? 'selected' : ''; ?>>
+                        Renting
+                    </option>
+                    <option value="Camaras" <?= ($equipo['ubicacion'] == 'Camaras') ? 'selected' : ''; ?>>
+                        Camaras
                     </option>
                     <option value="Bodega" <?= ($equipo['ubicacion'] == 'Bodega') ? 'selected' : ''; ?>>
                         Bodega

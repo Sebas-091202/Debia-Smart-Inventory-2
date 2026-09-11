@@ -242,40 +242,71 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h2>Inventario de Equipos</h2>
             <!--  FILTROS -->
             <form method="GET" class="filtros">
-                <select name="tipo">
-                    <option value="">Tipo</option>
+                 <select name="tipo">
+                    <option value="" disabled selected>Seleccione Tipo</option>
                     <option value="P">Portátil</option>
                     <option value="TU">Todo en Uno</option>
                     <option value="E">Escritorio</option>
                     <option value="I">Impresora</option>
                     <option value="M">Mouse</option>
                     <option value="T">Teclado</option>
-                    <option value="C">Celulares</option>
                     <option value="DI">Diademas</option>
+                    <option value="AU">Auriculares</option>
+                    <option value="C">Celulares</option>
+                    <option value="MON">Monitor</option>
                 </select>
 
-                <select name="marca">
-                    <option value="">Marca</option>
+                <!-- MARCA -->
+                <select name="marca" required>
+                    <option value="" disabled selected>
+                        Seleccione Marca
+                    </option>
+                    <option value="DELL">Dell</option>
+                    <option value="INP">INPOWER</option>
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
                     <option value="EP">EPSON</option>
+                    <option value="CA">CANON</option>
                     <option value="G">Genius</option>
+                    <option value="OP">OPPO</option>
+                    <option value="KA">KALLEY</option>
+                    <option value="SAM">SAMSUNG</option>
+                    <option value="MAX">MAXELL</option>
+                    <option value="PAN">PANASONIC</option>
+                    <option value="ARC">ARCHTEX</option>
+                    <option value="XKIM">XKIM</option>
+                    <option value="HAVIT">HAVIT</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="WIT">WIT</option>
                     <option value="S">Samsung</option>
                     <option value="H">Huawei</option>
-                    <option value="MO">Motorola</option>
+                    <option value="MOT">Motorola</option>
                     <option value="X">Xiaomi</option>
+                    <option value="GEN">Genérico</option>
                 </select>
 
 
+                <!-- UBICACION -->
                 <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
-                    <option value="">Ubicación</option>
-                    <option value="AXA">AXA</option>
+                    <option value="" disabled selected>Seleccione Ubicación</option>
+
+                    <option value="AXA Mortales">AXA Mortales</option>
+                    <option value="AXA Gastos Medicos">AXA Gastos Medicos</option>
+                    <option value="AXA IPS">AXA IPS</option>
+                    <option value="Generales">Generales</option>
+                    <option value="Consultas">Consultas</option>
+                    <option value="HDI">HDI</option>
+                    <option value="SURA">SURA</option>
+                    <option value="SURA IPS">SURA IPS</option>
+                    <option value="SURA Gastos Medicos">SURA Gastos Medicos</option>
                     <option value="Sistemas">Sistemas</option>
                     <option value="Financiera">Financiera</option>
                     <option value="Talento Humano">Talento Humano</option>
-                    <option value="Directores Operativos">Directores Operativos</option>
+                    <option value="Dirección Operativa">Dirección Operativa</option>
+                    <option value="En Casa">En Casa</option>
+                    <option value="Bodega">Bodega</option>
                 </select>
 
                 <input type="text" name="identificador" placeholder="Identificador">

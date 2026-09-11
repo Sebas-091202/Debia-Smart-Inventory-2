@@ -81,6 +81,7 @@ header("Pragma: no-cache");
                     <option value="M">Mouse</option>
                     <option value="T">Teclado</option>
                     <option value="DI">Diademas</option>
+                    <option value="AU">Auriculares</option>
                     <option value="C">Celulares</option>
                     <option value="MON">Monitor</option>
                 </select>
@@ -96,14 +97,25 @@ header("Pragma: no-cache");
                     <option value="A">Asus</option>
                     <option value="HP">Hewlett-Packard</option>
                     <option value="L">Lenovo</option>
-                    <option value="LOG">Logitech</option>
                     <option value="EP">EPSON</option>
+                    <option value="CA">CANON</option>
                     <option value="G">Genius</option>
+                    <option value="OP">OPPO</option>
+                    <option value="KA">KALLEY</option>
+                    <option value="SAM">SAMSUNG</option>
+                    <option value="CHA">CHALLENGER</option>
+                    <option value="LG">LG</option>
+                    <option value="MAX">MAXELL</option>
+                    <option value="PAN">PANASONIC</option>
+                    <option value="ARC">ARCHTEX</option>
+                    <option value="XKIM">XKIM</option>
+                    <option value="HAVIT">HAVIT</option>
+                    <option value="LOG">Logitech</option>
+                    <option value="WIT">WIT</option>
                     <option value="S">Samsung</option>
                     <option value="H">Huawei</option>
                     <option value="MOT">Motorola</option>
                     <option value="X">Xiaomi</option>
-                    <option value="CA">CANON</option>
                     <option value="GEN">Genérico</option>
                 </select>
 
@@ -144,6 +156,7 @@ header("Pragma: no-cache");
 
                     <option value="" disabled>----Tipo de Disco SSD----</option>
                     <!-- SSD -->
+                    <option value="64GB">64GB</option>
                     <option value="128GB SSD">128GB SSD</option>
                     <option value="256GB SSD">256GB SSD</option>
                     <option value="512GB SSD">512GB SSD</option>
@@ -213,6 +226,8 @@ header("Pragma: no-cache");
                     <option value="Talento Humano">Talento Humano</option>
                     <option value="Dirección Operativa">Dirección Operativa</option>
                     <option value="En Casa">En Casa</option>
+                    <option value="Renting">Renting</option>
+                    <option value="Camaras">Camaras</option>
                     <option value="Bodega">Bodega</option>
                 </select>
 
