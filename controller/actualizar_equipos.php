@@ -1,6 +1,5 @@
 <?php
 require '../bd/conn.php';
-require_once '../lib/phpqrcode/qrlib.php';
 
 session_start(); // ESTO ES OBLIGATORIO
 

@@ -108,30 +108,30 @@ if (!$equipo) {
                     <option value="" disabled <?= (empty($equipo['marca'])) ? 'selected' : ''; ?>>
                         Seleccione Marca
                     </option>
-                    <option value="DELL" <?= ($equipo['marca'] == 'DELL') ? 'selected' : ''; ?>>Dell</option>
-                    <option value="INP" <?= ($equipo['marca'] == 'INP') ? 'selected' : ''; ?>>INPOWER</option>
-                    <option value="AS" <?= ($equipo['marca'] == 'AS') ? 'selected' : ''; ?>>Asus</option>
-                    <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>Hewlett-Packard</option>
-                    <option value="LE" <?= ($equipo['marca'] == 'LE') ? 'selected' : ''; ?>>Lenovo</option>
+                    <option value="DE" <?= ($equipo['marca'] == 'DELL') ? 'selected' : ''; ?>>DELL</option>
+                    <option value="IN" <?= ($equipo['marca'] == 'INP') ? 'selected' : ''; ?>>INPOWER</option>
+                    <option value="AS" <?= ($equipo['marca'] == 'AS') ? 'selected' : ''; ?>>ASUS</option>
+                    <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>HEWLETT-PACKARD</option>
+                    <option value="LE" <?= ($equipo['marca'] == 'LE') ? 'selected' : ''; ?>>LENOVO</option>
                     <option value="EP" <?= ($equipo['marca'] == 'EP') ? 'selected' : ''; ?>>EPSON</option>
                     <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
-                    <option value="GE" <?= ($equipo['marca'] == 'GE') ? 'selected' : ''; ?>>Genius</option>
+                    <option value="GE" <?= ($equipo['marca'] == 'GE') ? 'selected' : ''; ?>>GENIUS</option>
                     <option value="OP" <?= ($equipo['marca'] == 'OP') ? 'selected' : ''; ?>>OPPO</option>
                     <option value="KA" <?= ($equipo['marca'] == 'KA') ? 'selected' : ''; ?>>KALLEY</option>
-                    <option value="SAM" <?= ($equipo['marca'] == 'SAM') ? 'selected' : ''; ?>>SAMSUNG</option>
-                    <option value="CHA" <?= ($equipo['marca'] == 'CHA') ? 'selected' : ''; ?>>CHALLENGER</option>
+                    <option value="SA" <?= ($equipo['marca'] == 'SA') ? 'selected' : ''; ?>>SAMSUNG</option>
+                    <option value="CH" <?= ($equipo['marca'] == 'CH') ? 'selected' : ''; ?>>CHALLENGER</option>
                     <option value="LG" <?= ($equipo['marca'] == 'LG') ? 'selected' : ''; ?>>LG</option>
                     <option value="MA" <?= ($equipo['marca'] == 'MA') ? 'selected' : ''; ?>>MAXELL</option>
                     <option value="PA" <?= ($equipo['marca'] == 'PA') ? 'selected' : ''; ?>>PANASONIC</option>
                     <option value="AR" <?= ($equipo['marca'] == 'AR') ? 'selected' : ''; ?>>ARCHTEX</option>
                     <option value="XK" <?= ($equipo['marca'] == 'XK') ? 'selected' : ''; ?>>XKIM</option>
                     <option value="HA" <?= ($equipo['marca'] == 'HA') ? 'selected' : ''; ?>>HAVIT</option>
-                    <option value="LO" <?= ($equipo['marca'] == 'LO') ? 'selected' : ''; ?>>Logitech</option>
+                    <option value="LO" <?= ($equipo['marca'] == 'LO') ? 'selected' : ''; ?>>LOGITECH</option>
                     <option value="WI" <?= ($equipo['marca'] == 'WI') ? 'selected' : ''; ?>>WIT</option>
-                    <option value="HU" <?= ($equipo['marca'] == 'HU') ? 'selected' : ''; ?>>Huawei</option>
-                    <option value="MO" <?= ($equipo['marca'] == 'MO') ? 'selected' : ''; ?>>Motorola</option>
-                    <option value="XI" <?= ($equipo['marca'] == 'XI') ? 'selected' : ''; ?>>Xiaomi</option>
-                    <option value="N/A" <?= ($equipo['marca'] == 'N/A') ? 'selected' : ''; ?>>SIN MARCA</option>
+                    <option value="HU" <?= ($equipo['marca'] == 'HU') ? 'selected' : ''; ?>>HUAWEI</option>
+                    <option value="MO" <?= ($equipo['marca'] == 'MO') ? 'selected' : ''; ?>>MOTOROLA</option>
+                    <option value="XI" <?= ($equipo['marca'] == 'XI') ? 'selected' : ''; ?>>XIAOMI</option>
+                    <option value="SM" <?= ($equipo['marca'] == 'SM') ? 'selected' : ''; ?>>SIN MARCA</option>
                 </select>
 
 
@@ -219,8 +219,8 @@ if (!$equipo) {
                         Activo
                     </option>
 
-                    <option value="Inactivo" <?= ($equipo['estado'] == 'Inactivo') ? 'selected' : ''; ?>>
-                        Inactivo
+                    <option value="Bodega" <?= ($equipo['estado'] == 'Bodega') ? 'selected' : ''; ?>>
+                        Bodega
                     </option>
 
                     <option value="En reparación" <?= ($equipo['estado'] == 'En reparación') ? 'selected' : ''; ?>>

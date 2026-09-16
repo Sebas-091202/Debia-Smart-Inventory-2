@@ -110,8 +110,8 @@ $tiposEquipo = [
 ];
 
 $marcasEquipo = [
-    'DELL'  => 'Dell',
-    'INP'   => 'INPOWER',
+    'DE'  => 'Dell',
+    'IN'   => 'INPOWER',
     'AS'    => 'Asus',
     'HP'    => 'Hewlett-Packard',
     'LE'    => 'Lenovo',
@@ -120,19 +120,18 @@ $marcasEquipo = [
     'GE'    => 'Genius',
     'OP'    => 'OPPO',
     'KA'    => 'KALLEY',
-    'SAM'   => 'SAMSUNG',
-    'MAX'   => 'MAXELL',
-    'PAN'   => 'PANASONIC',
-    'ARC'   => 'ARCHTEX',
-    'XKIM'  => 'XKIM',
-    'HAVIT' => 'HAVIT',
-    'LOG'   => 'Logitech',
-    'WIT'   => 'WIT',
-    'S'     => 'Samsung',
-    'H'     => 'Huawei',
-    'MOT'   => 'Motorola',
-    'X'     => 'Xiaomi',
-    'GEN'   => 'Genérico',
+    'SA'   => 'SAMSUNG',
+    'MA'   => 'MAXELL',
+    'PA'   => 'PANASONIC',
+    'AR'   => 'ARCHTEX',
+    'XK'  => 'XKIM',
+    'HA' => 'HAVIT',
+    'LO'   => 'LOGITECH',
+    'WI'   => 'WIT',
+    'HU'     => 'HUAWEI',
+    'MT'   => 'MOTOROLA',
+    'XI'     => 'XIAOMI',
+    'SM'   => 'SIN MARCA',
 ];
 
 $ubicacionesEquipo = [
@@ -396,7 +395,7 @@ $queryFiltros = http_build_query([
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
 
-    .Inactivo {
+    .Bodega {
         background: #415885;
         color: white;
     }
@@ -868,8 +867,8 @@ $queryFiltros = http_build_query([
                                 $idEquipo = (int)$equipo['id'];
 
                                 $clase = 'activo';
-                                if ($equipo['estado'] == 'Inactivo') {
-                                    $clase = 'Inactivo';
+                                if ($equipo['estado'] == 'Bodega') {
+                                    $clase = 'Bodega';
                                 } elseif ($equipo['estado'] == 'En reparación') {
                                     $clase = 'reparacion';
                                 } elseif ($equipo['estado'] == 'Dado de baja') {

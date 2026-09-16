@@ -89,31 +89,30 @@ header("Pragma: no-cache");
                     <option value="" disabled selected>
                         Seleccione Marca
                     </option>
-                    <option value="DELL">Dell</option>
-                    <option value="INP">INPOWER</option>
-                    <option value="A">Asus</option>
-                    <option value="HP">Hewlett-Packard</option>
-                    <option value="L">Lenovo</option>
+                    <option value="DE">DELL</option>
+                    <option value="IN">INPOWER</option>
+                    <option value="AS">ASUS</option>
+                    <option value="HP">HEWLETT-PACKARD</option>
+                    <option value="LE">LENOVO</option>
                     <option value="EP">EPSON</option>
                     <option value="CA">CANON</option>
-                    <option value="G">Genius</option>
+                    <option value="GE">GENIUS</option>
                     <option value="OP">OPPO</option>
                     <option value="KA">KALLEY</option>
-                    <option value="SAM">SAMSUNG</option>
-                    <option value="CHA">CHALLENGER</option>
+                    <option value="SA">SAMSUNG</option>
+                    <option value="CH">CHALLENGER</option>
                     <option value="LG">LG</option>
-                    <option value="MAX">MAXELL</option>
-                    <option value="PAN">PANASONIC</option>
-                    <option value="ARC">ARCHTEX</option>
-                    <option value="XKIM">XKIM</option>
-                    <option value="HAVIT">HAVIT</option>
-                    <option value="LOG">Logitech</option>
-                    <option value="WIT">WIT</option>
-                    <option value="S">Samsung</option>
-                    <option value="H">Huawei</option>
-                    <option value="MOT">Motorola</option>
-                    <option value="X">Xiaomi</option>
-                    <option value="GEN">Genérico</option>
+                    <option value="MA">MAXELL</option>
+                    <option value="PA">PANASONIC</option>
+                    <option value="AR">ARCHTEX</option>
+                    <option value="XK">XKIM</option>
+                    <option value="HA">HAVIT</option>
+                    <option value="LO">LOGITECH</option>
+                    <option value="WI">WIT</option>
+                    <option value="HU">HUAWEI</option>
+                    <option value="MT">MOTOROLA</option>
+                    <option value="XI">XIAOMI</option>
+                    <option value="SM">SIN MARCA</option>
                 </select>
 
 
@@ -198,7 +197,7 @@ header("Pragma: no-cache");
                 <select name="estado" required>
                     <option value="" disabled selected>Seleccione Estado</option>
                     <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
+                    <option value="Bodega">Bodega</option>
                     <option value="En reparación">En reparación</option>
                     <option value="Dado de baja">Dado de baja</option>
                 </select>

@@ -63,17 +63,6 @@ $log->execute([
     'Equipo creado con numero de serial: ' . $codigo
 ]);
 
-// Guarda normalmente todos los datos en BD, incluyendo el código de barras que se ha generado o ingresado
-
-// GENERAR QR
-$rutaQR = "../qrs/" . $codigo . ".png";
-
-require_once("../lib/phpqrcode/qrlib.php");
-
-$url = "http://localhost/debia-smart-inventory/views/hoja_vida_equipos.php?codigo=" . $codigo;
-
-QRcode::png($url, $rutaQR, QR_ECLEVEL_L, 4);
-
-header("Location: ../views/ver_qr.php?codigo=" . $codigo);
+header("Location: ../views/ver_equipos.php?codigo=" . $codigo);
 exit();
 ?>
