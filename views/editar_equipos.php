@@ -64,17 +64,13 @@ if (!$equipo) {
         </div>
         <a href="index_Admin.php"><i class='bx bx-home'></i> <span> Inicio</span></a>
         <a href="ver_equipos.php"><i class='bx bx-list-ul'></i> <span> Ver Equipos</span></a>
-        <a href="ver_qr.php"><i class='bx bx-barcode'></i> <span> Ver QR</span></a>
         <a href="agregar_equipos.php"><i class='bx bx-plus-circle'> </i><span> Agregar Equipo</span></a>
         <a href="editar_equipos.php"><i class='bx bx-edit-alt'></i> <span> Editar Equipo</span></a>
         <a href="ver_correctivos.php"><i class='bx bx-check-square'></i> <span> Ver Correctivos</span></a>
-        <a href="programar_preventivos.php"><i class='bx bx-calendar'></i> <span> Programación de Preventivos</span></a>
-        <a href="reprogramar_preventivo.php"><i class='bx bx-refresh'></i> <span> Reprogramación de Preventivos</span></a>
+        <a href="ver_preventivos.php"><i class='bx bx-calendar'></i> <span> Ver Preventivos</span></a>
         <a href="indicadores_mantenimiento.php"><i class='bx bx-bar-chart'></i> <span> Indicadores de Mantenimiento</span></a>
-        <a href="repuestos.php"><i class='bx bx-cog'></i> <span> Gestión de Repuestos</span></a>
         <a href="hoja_vida_equipos.php"><i class='bx bx-file'></i> <span> Hoja de Vida General</span></a>
     </div>
-
 
     <!-- CONTENIDO -->
     <div class="main-content">
@@ -93,15 +89,18 @@ if (!$equipo) {
                     <option value="" disabled>
                         Seleccione Tipo
                     </option>
-                    <option value="P" <?= ($equipo['tipo'] == 'P') ? 'selected' : ''; ?>>Portátil</option>
-                    <option value="TU" <?= ($equipo['tipo'] == 'TU') ? 'selected' : ''; ?>>Todo en Uno</option>
-                    <option value="E" <?= ($equipo['tipo'] == 'E') ? 'selected' : ''; ?>>Escritorio</option>
-                    <option value="I" <?= ($equipo['tipo'] == 'I') ? 'selected' : ''; ?>>Impresora</option>
-                    <option value="M" <?= ($equipo['tipo'] == 'M') ? 'selected' : ''; ?>>Mouse</option>
-                    <option value="T" <?= ($equipo['tipo'] == 'T') ? 'selected' : ''; ?>>Teclado</option>
-                    <option value="C" <?= ($equipo['tipo'] == 'C') ? 'selected' : ''; ?>>Celulares</option>
+                    <option value="PO" <?= ($equipo['tipo'] == 'PO') ? 'selected' : ''; ?>>Portátil</option>
+                    <option value="TO" <?= ($equipo['tipo'] == 'TO') ? 'selected' : ''; ?>>Todo en Uno</option>
+                    <option value="ES" <?= ($equipo['tipo'] == 'ES') ? 'selected' : ''; ?>>Escritorio</option>
+                    <option value="IM" <?= ($equipo['tipo'] == 'IM') ? 'selected' : ''; ?>>Impresora</option>
+                    <option value="VI" <?= ($equipo['tipo'] == 'VI') ? 'selected' : ''; ?>>Videobeam</option>
+                    <option value="BR" <?= ($equipo['tipo'] == 'BR') ? 'selected' : ''; ?>>Bases de Refrigeración</option>
+                    <option value="MS" <?= ($equipo['tipo'] == 'MS') ? 'selected' : ''; ?>>Mouse</option>
+                    <option value="TE" <?= ($equipo['tipo'] == 'TE') ? 'selected' : ''; ?>>Teclado</option>
                     <option value="DI" <?= ($equipo['tipo'] == 'DI') ? 'selected' : ''; ?>>Diademas</option>
-                    <option value="MON" <?= ($equipo['tipo'] == 'MON') ? 'selected' : ''; ?>>Monitor</option>
+                    <option value="AU" <?= ($equipo['tipo'] == 'AU') ? 'selected' : ''; ?>>Auriculares</option>
+                    <option value="CE" <?= ($equipo['tipo'] == 'CE') ? 'selected' : ''; ?>>Celulares</option>
+                    <option value="MO" <?= ($equipo['tipo'] == 'MO') ? 'selected' : ''; ?>>Monitor</option>
                 </select>
 
                 <label>Marca</label>
@@ -111,29 +110,28 @@ if (!$equipo) {
                     </option>
                     <option value="DELL" <?= ($equipo['marca'] == 'DELL') ? 'selected' : ''; ?>>Dell</option>
                     <option value="INP" <?= ($equipo['marca'] == 'INP') ? 'selected' : ''; ?>>INPOWER</option>
-                    <option value="A" <?= ($equipo['marca'] == 'A') ? 'selected' : ''; ?>>Asus</option>
+                    <option value="AS" <?= ($equipo['marca'] == 'AS') ? 'selected' : ''; ?>>Asus</option>
                     <option value="HP" <?= ($equipo['marca'] == 'HP') ? 'selected' : ''; ?>>Hewlett-Packard</option>
-                    <option value="L" <?= ($equipo['marca'] == 'L') ? 'selected' : ''; ?>>Lenovo</option>
+                    <option value="LE" <?= ($equipo['marca'] == 'LE') ? 'selected' : ''; ?>>Lenovo</option>
                     <option value="EP" <?= ($equipo['marca'] == 'EP') ? 'selected' : ''; ?>>EPSON</option>
                     <option value="CA" <?= ($equipo['marca'] == 'CA') ? 'selected' : ''; ?>>CANON</option>
-                    <option value="G" <?= ($equipo['marca'] == 'G') ? 'selected' : ''; ?>>Genius</option>
+                    <option value="GE" <?= ($equipo['marca'] == 'GE') ? 'selected' : ''; ?>>Genius</option>
                     <option value="OP" <?= ($equipo['marca'] == 'OP') ? 'selected' : ''; ?>>OPPO</option>
                     <option value="KA" <?= ($equipo['marca'] == 'KA') ? 'selected' : ''; ?>>KALLEY</option>
                     <option value="SAM" <?= ($equipo['marca'] == 'SAM') ? 'selected' : ''; ?>>SAMSUNG</option>
                     <option value="CHA" <?= ($equipo['marca'] == 'CHA') ? 'selected' : ''; ?>>CHALLENGER</option>
                     <option value="LG" <?= ($equipo['marca'] == 'LG') ? 'selected' : ''; ?>>LG</option>
-                    <option value="MAX" <?= ($equipo['marca'] == 'MAX') ? 'selected' : ''; ?>>MAXELL</option>
-                    <option value="PAN" <?= ($equipo['marca'] == 'PAN') ? 'selected' : ''; ?>>PANASONIC</option>
-                    <option value="ARC" <?= ($equipo['marca'] == 'ARC') ? 'selected' : ''; ?>>ARCHTEX</option>
-                    <option value="XKIM" <?= ($equipo['marca'] == 'XKIM') ? 'selected' : ''; ?>>XKIM</option>
-                    <option value="HAVIT" <?= ($equipo['marca'] == 'HAVIT') ? 'selected' : ''; ?>>HAVIT</option>
-                    <option value="LOG" <?= ($equipo['marca'] == 'LOG') ? 'selected' : ''; ?>>Logitech</option>
-                    <option value="WIT" <?= ($equipo['marca'] == 'WIT') ? 'selected' : ''; ?>>WIT</option>
-                    <option value="S" <?= ($equipo['marca'] == 'S') ? 'selected' : ''; ?>>Samsung</option>
-                    <option value="H" <?= ($equipo['marca'] == 'H') ? 'selected' : ''; ?>>Huawei</option>
-                    <option value="MOT" <?= ($equipo['marca'] == 'MOT') ? 'selected' : ''; ?>>Motorola</option>
-                    <option value="X" <?= ($equipo['marca'] == 'X') ? 'selected' : ''; ?>>Xiaomi</option>
-                    <option value="GEN" <?= ($equipo['marca'] == 'GEN') ? 'selected' : ''; ?>>Genérico</option>
+                    <option value="MA" <?= ($equipo['marca'] == 'MA') ? 'selected' : ''; ?>>MAXELL</option>
+                    <option value="PA" <?= ($equipo['marca'] == 'PA') ? 'selected' : ''; ?>>PANASONIC</option>
+                    <option value="AR" <?= ($equipo['marca'] == 'AR') ? 'selected' : ''; ?>>ARCHTEX</option>
+                    <option value="XK" <?= ($equipo['marca'] == 'XK') ? 'selected' : ''; ?>>XKIM</option>
+                    <option value="HA" <?= ($equipo['marca'] == 'HA') ? 'selected' : ''; ?>>HAVIT</option>
+                    <option value="LO" <?= ($equipo['marca'] == 'LO') ? 'selected' : ''; ?>>Logitech</option>
+                    <option value="WI" <?= ($equipo['marca'] == 'WI') ? 'selected' : ''; ?>>WIT</option>
+                    <option value="HU" <?= ($equipo['marca'] == 'HU') ? 'selected' : ''; ?>>Huawei</option>
+                    <option value="MO" <?= ($equipo['marca'] == 'MO') ? 'selected' : ''; ?>>Motorola</option>
+                    <option value="XI" <?= ($equipo['marca'] == 'XI') ? 'selected' : ''; ?>>Xiaomi</option>
+                    <option value="N/A" <?= ($equipo['marca'] == 'N/A') ? 'selected' : ''; ?>>SIN MARCA</option>
                 </select>
 
 

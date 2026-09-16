@@ -19,19 +19,6 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-/* ELIMINAR */
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['eliminar_equipo'])) {
-
-    $id_equipo = $_POST['id_equipo'];
-
-    $stmt = $conn->prepare("DELETE FROM equipos WHERE id=?");
-    $stmt->execute([$id_equipo]);
-
-    header("Location: ver_equipos.php");
-    exit();
-}
-
-
 /* =====================
 FILTROS
 ===================== */
@@ -77,7 +64,7 @@ if (!empty($codigo)) {
 PAGINACION
 ===================== */
 
-$porPagina = 6;
+$porPagina = 15;
 
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 
@@ -153,7 +140,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/ver_equipos.css">
 </head>
 <style>
-    .btn-qr {
+    .btn-hoja-vida {
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -175,13 +162,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         transition: all 0.3s ease;
     }
 
-    .btn-qr:hover {
+    .btn-hoja-vida:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
 
-    /* FORZAR ESTILO DEL BOTÓN QR */
-    td a.btn-qr {
+    /* FORZAR ESTILO DEL BOTÓN HOJA DE VIDA */
+    td a.btn-hoja-vida {
         display: inline-flex !important;
         align-items: center;
         gap: 6px;
@@ -204,7 +191,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* HOVER */
-    td a.btn-qr:hover {
+    td a.btn-hoja-vida:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
     }
@@ -230,10 +217,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <a href="index_Usuario.php"><i class='bx bx-home'></i> <span> Inicio</span></a>
         <a href="ver_equipos_usuario.php"><i class='bx bx-list-ul'></i> <span> Ver Equipos</span></a>
-        <a href="ver_qr_usuario.php"><i class='bx bx-barcode'></i> <span> Ver QR</span></a>
         <a href="ver_correctivos_usuario.php"><i class='bx bx-check-square'></i> <span> Ver Correctivos</span></a>
+        <a href="ver_preventivos_usuario.php"><i class='bx bx-calendar'></i> <span> Ver Preventivos</span></a>
         <a href="indicadores_mantenimiento_usuario.php"><i class='bx bx-bar-chart'></i> <span> Indicadores de Mantenimiento</span></a>
-        <a href="repuestos_usuario.php"><i class='bx bx-cog'></i> <span> Gestión de Repuestos</span></a>
         <a href="hoja_vida_equipos_usuario.php"><i class='bx bx-file'></i> <span> Hoja de Vida General</span></a>
     </div>
     <!-- Contenido principal -->
@@ -257,7 +243,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
                 <!-- MARCA -->
-                <select name="marca" required>
+                <select name="marca">
                     <option value="" disabled selected>
                         Seleccione Marca
                     </option>
@@ -310,17 +296,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
                 <input type="text" name="identificador" placeholder="Identificador">
-
-                <select name="codigo">
-                    <option value="">Código de barras</option>
-
-                    <?php foreach ($codigos as $cod): ?>
-                        <option value="<?= $cod ?>"
-                            <?= (isset($_GET['codigo']) && $_GET['codigo'] == $cod) ? 'selected' : '' ?>>
-                            <?= $cod ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
 
                 <button class="btn-search" type="submit">Buscar</button>
 
@@ -413,7 +388,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Disco D:    </th>
                         <th>Estado</th>
                         <th>Ubicación</th>
-                        <th>QR</th>
+                        <th>Hoja de Vida</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -453,26 +428,59 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </td>
                             <td>
 
-                                <a href="ver_qr_usuario.php?codigo=<?= $equipo['codigo_barras'] ?>" class="btn-qr">
-                                    <i class='bx bx-barcode'></i> Ver QR
+                                <a href="hoja_vida_equipos_usuario.php?codigo=<?= $equipo['codigo_barras'] ?>" class="btn-hoja-vida">
+                                    <i class='bx bx-barcode'></i> Ver Hoja de Vida
                                 </a>
 
 
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
             <div class="paginacion">
 
                 <?php
+                /*
+                ==========================================
+                PAGINACIÓN POR BLOQUES DE 10
+                ==========================================
+                */
+
+                // Cantidad máxima de botones visibles
+                $paginasPorBloque = 10;
+
+                // Calcular bloque actual
+                $bloqueActual = (int) ceil($pagina / $paginasPorBloque);
+
+                // Primera página del bloque
+                $primeraPagina = (($bloqueActual - 1) * $paginasPorBloque) + 1;
+
+                // Última página del bloque
+                $ultimaPagina = min(
+                    $primeraPagina + $paginasPorBloque - 1,
+                    $totalPaginas
+                );
+
+                /*
+                ==========================================
+                CONSERVAR FILTROS
+                ==========================================
+                */
+
                 $queryFiltros =
                     "&tipo=" . urlencode($tipo) .
                     "&marca=" . urlencode($marca) .
                     "&ubicacion=" . urlencode($ubicacion) .
-                    "&identificador=" . urlencode($identificador);
-                ?>
+                    "&identificador=" . urlencode($identificador) .
+                    "&codigo=" . urlencode($codigo);
 
-                <?php if ($pagina > 1): ?>
+                /*
+                ==========================================
+                PÁGINA ANTERIOR
+                ==========================================
+                */
+
+                if ($pagina > 1):
+                ?>
 
                     <a href="?pagina=<?= $pagina - 1 . $queryFiltros ?>">
                         Anterior
@@ -481,7 +489,15 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
 
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                <?php
+                /*
+                ==========================================
+                BOTONES DEL BLOQUE ACTUAL
+                ==========================================
+                */
+
+                for ($i = $primeraPagina; $i <= $ultimaPagina; $i++):
+                ?>
 
                     <a
                         class="<?= ($pagina == $i) ? 'activo-pagina' : ''; ?>"
@@ -492,7 +508,15 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endfor; ?>
 
 
-                <?php if ($pagina < $totalPaginas): ?>
+                <?php
+                /*
+                ==========================================
+                SIGUIENTE PÁGINA
+                ==========================================
+                */
+
+                if ($pagina < $totalPaginas):
+                ?>
 
                     <a href="?pagina=<?= $pagina + 1 . $queryFiltros ?>">
                         Siguiente
@@ -500,7 +524,26 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <?php endif; ?>
 
+
+                <?php
+                /*
+                ==========================================
+                INDICADOR DEL BLOQUE
+                ==========================================
+                */
+
+                if ($totalPaginas > 0):
+                ?>
+
+                    <span class="indicador-paginacion">
+                        Páginas <?= $primeraPagina ?> - <?= $ultimaPagina ?>
+                        de <?= $totalPaginas ?>
+                    </span>
+
+                <?php endif; ?>
+
             </div>
+        </div>
         </div>
 
     </div>

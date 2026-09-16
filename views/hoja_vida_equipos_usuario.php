@@ -198,10 +198,9 @@ if ($id_equipo) {
         </div>
         <a href="index_Usuario.php"><i class='bx bx-home'></i> <span> Inicio</span></a>
         <a href="ver_equipos_usuario.php"><i class='bx bx-list-ul'></i> <span> Ver Equipos</span></a>
-        <a href="ver_qr_usuario.php"><i class='bx bx-barcode'></i> <span> Ver QR</span></a>
         <a href="ver_correctivos_usuario.php"><i class='bx bx-check-square'></i> <span> Ver Correctivos</span></a>
+        <a href="ver_preventivos_usuario.php"><i class='bx bx-calendar'></i> <span> Ver Preventivos</span></a>
         <a href="indicadores_mantenimiento_usuario.php"><i class='bx bx-bar-chart'></i> <span> Indicadores de Mantenimiento</span></a>
-        <a href="repuestos_usuario.php"><i class='bx bx-cog'></i> <span> Gestión de Repuestos</span></a>
         <a href="hoja_vida_equipos_usuario.php"><i class='bx bx-file'></i> <span> Hoja de Vida General</span></a>
     </div>
 
@@ -238,7 +237,7 @@ if ($id_equipo) {
                     </select>
 
                 <!-- UBICACION -->
-                <select name="ubicacion" required>
+                <select name="ubicacion">
                     <!-- SURA, Generales, Consultas, HDI(Preguntar si es un area) -->
                     <option value="" disabled selected>Seleccione Ubicación</option>
 

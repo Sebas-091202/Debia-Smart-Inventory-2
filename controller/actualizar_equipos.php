@@ -55,32 +55,8 @@ $log->execute([
 ]);
 
 
-
-/* 3. GENERAR QR */
-$rutaQR = "../qrs/";
-
-if (!file_exists($rutaQR)) {
-    mkdir($rutaQR);
-}
-
-/* eliminar QR viejo */
-if ($oldCodigo && $oldCodigo != $codigo) {
-    $archivoViejo = $rutaQR . $oldCodigo . ".png";
-    if (file_exists($archivoViejo)) {
-        unlink($archivoViejo);
-    }
-}
-
-/* crear nuevo QR */
-$archivoQR = $rutaQR . $codigo . ".png";
-
-$url = "http://localhost/debia-smart-inventory/views/hoja_vida_equipos.php?codigo=" . $codigo;
-
-QRcode::png($url, $archivoQR, QR_ECLEVEL_L, 4);
-
-
-/* 🔥 4. REDIRECCIÓN */
-header("Location: ../views/ver_qr.php?codigo=" . $codigo);
+/* 3. REDIRECCIÓN */
+header("Location: ../views/ver_equipos.php?codigo=" . $codigo);
 exit;
 
 ?>

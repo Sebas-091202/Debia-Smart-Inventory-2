@@ -42,10 +42,8 @@ header("Pragma: no-cache");
     <nav>
       <ul>
         <li><a href="ver_equipos_usuario.php"><i class='bx bx-list-ul'></i> Visualizar Equipos</a></li>
-        <li><a href="ver_qr_usuario.php"><i class='bx bx-barcode'></i> Ver QR</a></li>
         <li><a href="ver_correctivos_usuario.php"><i class='bx bx-check-square'></i><span>Ver Correctivos</span></a></li>
         <li><a href="indicadores_mantenimiento_usuario.php"><i class='bx bx-bar-chart'></i> Indicadores de Mantenimiento</a></li>
-        <li><a href="repuestos_usuario.php"><i class='bx bx-cog'></i> Gestión de Repuestos</a></li>
         <li><a href="hoja_vida_equipos_usuario.php"><i class='bx bx-file'></i><span>Hoja de Vida General</span></a></li>
         <li><a href="../controller/logout.php" class="logout"><i class='bx bx-log-out'></i> Cerrar Sesión</a></li>
       </ul>

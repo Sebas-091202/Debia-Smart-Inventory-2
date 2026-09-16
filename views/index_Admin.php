@@ -42,14 +42,11 @@ header("Pragma: no-cache");
     <nav>
       <ul>
         <li><a href="ver_equipos.php"><i class='bx bx-list-ul'></i> Visualizar Equipos</a></li>
-        <li><a href="ver_qr.php"><i class='bx bx-barcode'></i> Ver QR</a></li>
         <li><a href="agregar_equipos.php"><i class='bx bx-plus-circle'></i> Agregar Equipo</a></li>
         <li><a href="editar_equipos.php"><i class='bx bx-edit-alt'></i> Editar Equipo</a></li>
         <li><a href="ver_correctivos.php"><i class='bx bx-check-square'></i><span>Ver Correctivos</span></a></li>
-        <li><a href="programar_preventivos.php"><i class='bx bx-calendar'></i> Programación Automática</a></li>
-        <li><a href="reprogramar_preventivo.php"><i class='bx bx-calendar-edit'></i> Reprogramar Preventivos</a></li>
+        <li><a href="ver_preventivos.php"><i class='bx bx-calendar'></i>Ver Preventivos</a></li>
         <li><a href="indicadores_mantenimiento.php"><i class='bx bx-bar-chart'></i> Indicadores de Mantenimiento</a></li>
-        <li><a href="repuestos.php"><i class='bx bx-cog'></i> Gestión de Repuestos</a></li>
         <li><a href="hoja_vida_equipos.php"><i class='bx bx-file'></i><span>Hoja de Vida General</span></a></li>
         <li><a href="../controller/logout.php" class="logout"><i class='bx bx-log-out'></i> Cerrar Sesión</a></li>
       </ul>
