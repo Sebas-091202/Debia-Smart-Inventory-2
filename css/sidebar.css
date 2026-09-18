@@ -1,6 +1,20 @@
+/* =========================================================
+   SIDEBAR + LAYOUT PRINCIPAL
+   Este archivo es responsable ÚNICAMENTE de:
+     - el menú lateral (colores, iconos, colapso)
+     - el desplazamiento del contenido cuando el sidebar
+       está colapsado o abierto en móvil
+   El contenido propio de cada vista (tarjetas, tablas,
+   filtros, etc.) vive en su propio CSS (ej: ver_equipos.css).
+
+   Nota: se soportan las clases ".container" y ".main-content"
+   como equivalentes para el desplazamiento del contenido,
+   por si distintas vistas usan una u otra.
+   ========================================================= */
+
 /* =========================
-SIDEBAR BASE
-========================= */
+   SIDEBAR BASE
+   ========================= */
 .sidebar {
     position: fixed;
     top: 0;
@@ -8,24 +22,26 @@ SIDEBAR BASE
     width: 260px;
     height: 100vh;
     background: #0b1526;
-    transition: all 0.3s ease;
+    transition: width 0.3s ease, left 0.3s ease;
     z-index: 1000;
+    overflow-x: hidden;
 }
 
-/* HEADER LOGO */
 .sidebar-header {
     padding: 20px 0;
 }
 
-/* LOGO */
 .logo-title {
+    margin: 0;
     text-align: center;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    transition: font-size .3s ease;
 }
 
-/* LOGOS */
 .logo-full {
     display: inline;
 }
@@ -35,8 +51,8 @@ SIDEBAR BASE
 }
 
 /* =========================
-LINKS
-========================= */
+   LINKS DEL MENÚ
+   ========================= */
 .sidebar a {
     display: flex;
     align-items: center;
@@ -45,10 +61,9 @@ LINKS
     color: #fff;
     text-decoration: none;
     font-size: 14px;
-    transition: all 0.2s ease;
+    transition: background .2s ease, transform .2s ease, padding .2s ease;
 }
 
-/* ICONOS */
 .sidebar a i {
     font-size: 20px;
     color: #60a5fa;
@@ -56,20 +71,24 @@ LINKS
     text-align: center;
 }
 
-/* HOVER */
+.sidebar a span {
+    display: inline;
+    transition: opacity .2s ease;
+}
+
 .sidebar a:hover {
-    background: rgba(96,165,250,0.2);
+    background: rgba(96, 165, 250, .2);
     transform: translateX(5px);
 }
 
 /* =========================
-BOTÓN HAMBURGUESA
-========================= */
+   BOTÓN HAMBURGUESA
+   ========================= */
 .toggle-btn {
     position: fixed;
     top: 15px;
     left: 15px;
-    background: rgba(11,21,38,0.95);
+    background: rgba(11, 21, 38, .95);
     color: #fff;
     border: none;
     padding: 12px;
@@ -77,7 +96,7 @@ BOTÓN HAMBURGUESA
     border-radius: 8px;
     cursor: pointer;
     z-index: 1100;
-    transition: 0.3s;
+    transition: background .3s ease;
 }
 
 .toggle-btn:hover {
@@ -85,117 +104,103 @@ BOTÓN HAMBURGUESA
 }
 
 /* =========================
-CONTENIDO
-========================= */
+   CONTENIDO PRINCIPAL
+   ========================= */
+.container,
 .main-content {
     margin-left: 260px;
     transition: margin-left 0.3s ease;
 }
 
 /* =========================
-SIDEBAR COLAPSADO ✅ (IMAGEN 2)
-========================= */
+   SIDEBAR COLAPSADO (ESCRITORIO)
+   ========================= */
 body.sidebar-collapsed .sidebar {
     width: 70px;
 }
 
-/* ocultar texto */
+body.sidebar-collapsed .container,
+body.sidebar-collapsed .main-content {
+    margin-left: 70px;
+}
+
 body.sidebar-collapsed .sidebar a span {
     display: none;
 }
 
-/* centrar iconos */
 body.sidebar-collapsed .sidebar a {
     justify-content: center;
     padding: 15px 0;
 }
 
-/* logo */
 body.sidebar-collapsed .logo-full {
     display: none;
 }
 
 body.sidebar-collapsed .logo-short {
     display: inline;
+    font-size: 20px;
+    letter-spacing: 2px;
 }
-
-/* mover contenido */
-body.sidebar-collapsed .main-content {
-    margin-left: 70px;
-}
-
-        /* Cuando sidebar se colapsa */
-
-        body.sidebar-collapsed .logo-full {
-            display: none !important;
-        }
-
-        body.sidebar-collapsed .logo-short {
-            display: inline !important;
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-
-
-        /* MUY IMPORTANTE:
-evita que la regla general oculte el span DSI */
-        body.sidebar-collapsed .sidebar .logo-short {
-            display: inline !important;
-        }
-
-        
-                /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
-        .sidebar a span {
-            display: flex;
-            transition: .3s;
-        }
-
-        body.sidebar-collapsed .sidebar a span {
-            display: none !important;
-        }
-
-        /* Centrar iconos cuando se colapsa */
-        body.sidebar-collapsed .sidebar a {
-            justify-content: center;
-            padding-left: 0;
-        }
 
 /* =========================
-RESPONSIVE (MÓVIL)
-========================= */
+   RESPONSIVE (MÓVIL)
+   ========================= */
 @media (max-width: 768px) {
 
-    /* ocultar sidebar */
+    /* Sidebar oculto fuera de pantalla */
     .sidebar {
         left: -260px;
         width: 260px;
     }
 
-    /* mostrar sidebar */
+    /* Sidebar visible al abrir */
     body.sidebar-open .sidebar {
         left: 0;
     }
 
-    /* ocultar texto */
-    .sidebar span {
+    .sidebar a span {
         display: none;
     }
 
-    /* mostrar cuando abre */
-    body.sidebar-open .sidebar span {
+    body.sidebar-open .sidebar a span {
         display: inline;
     }
 
-    /* overlay */
+    body.sidebar-open .sidebar a {
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+
+    /* En móvil, siempre mostrar el logo corto salvo que el
+       sidebar esté abierto, donde cabe el logo completo */
+    .logo-full {
+        display: none;
+    }
+
+    .logo-short {
+        display: inline;
+    }
+
+    body.sidebar-open .logo-full {
+        display: inline;
+    }
+
+    body.sidebar-open .logo-short {
+        display: none;
+    }
+
+    /* Overlay oscuro detrás del sidebar abierto */
     body.sidebar-open::before {
         content: "";
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, .5);
         z-index: 999;
     }
 
-    /* contenido */
+    /* El contenido ocupa todo el ancho en móvil */
+    .container,
     .main-content {
         margin-left: 0;
     }

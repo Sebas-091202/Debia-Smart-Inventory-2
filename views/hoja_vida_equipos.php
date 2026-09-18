@@ -732,5 +732,4 @@ if ($id_equipo) {
         }
     </script>
 </body>
-
 </html>

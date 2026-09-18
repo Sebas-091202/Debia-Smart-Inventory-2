@@ -1,12 +1,3 @@
-/* =========================================================
-   VER EQUIPOS — ESTILOS DE LA VISTA
-   Este archivo contiene TODO el diseño de la página
-   "Inventario de Equipos": fondo, tarjetas, filtros, glosario,
-   tabla/tarjetas responsivas, badges, botones y paginación.
-   El layout del sidebar y el desplazamiento del contenido
-   viven en sidebar.css, no aquí.
-   ========================================================= */
-
 * {
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
@@ -21,33 +12,17 @@ body {
 }
 
 @keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-   (el desplazamiento respecto al sidebar lo controla
-   sidebar.css; aquí solo limitamos el ancho y el padding)
-   ========================================================= */
 .container {
-    max-width: 1500px;
+    max-width: 1800px;
     padding: 35px clamp(12px, 3vw, 35px);
     box-sizing: border-box;
 }
 
-/* =========================================================
-   TARJETAS (glassmorphism)
-   ========================================================= */
 .card {
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(18px);
@@ -57,36 +32,20 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     color: #fff;
     margin-bottom: 25px;
-    max-width: 110%;
+    max-width: 100%;
 }
 
 .card h2 {
+    text-align: center;
+    margin: 0 0 6px;
     font-size: clamp(1.15rem, 1.6vw + 0.7rem, 1.6rem);
 }
 
-h2,
-h4 {
+.subtitulo {
     text-align: center;
-    margin-bottom: 12px;
-    padding-top: 20px;
-}
-
-/* =========================================================
-   ICONOS DEL MENÚ (tamaño específico de esta vista)
-   ========================================================= */
-.bx-home,
-.bx-list-ul,
-.bx-plus-circle,
-.bx-edit-alt,
-.bx-check-square,
-.bx-calendar,
-.bx-refresh,
-.bx-bar-chart,
-.bx-cog,
-.bx-file {
-    font-size: 28px;
-    color: #60a5fa;
-    margin-right: 9px;
+    margin: 0 0 4px;
+    font-size: 13.5px;
+    opacity: .85;
 }
 
 /* =========================================================
@@ -95,15 +54,16 @@ h4 {
 .filtros {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
+    width: 100%;
+    align-items: flex-end;
     gap: 12px;
-    margin-top: 14px;
+    margin-top: 18px;
     justify-content: center;
 }
 
 .filtros select,
-.filtros input[type="text"] {
-    flex: 1 1 190px;
+.filtros input[type="date"] {
+    flex: 1 1 1px;
     min-width: 0;
     width: 100%;
     padding: 10px 12px;
@@ -111,33 +71,29 @@ h4 {
     border: none;
     outline: none;
     font-size: 14px;
+    background: #fff;
 }
 
-.filtros .btn-search {
-    flex: 1 1 190px;
-}
-
-@media (max-width: 560px) {
-
-    .filtros select,
-    .filtros input[type="text"],
-    .filtros .btn-search {
-        flex: 1 1 100%;
-    }
-}
-
-/* =========================================================
-   BOTONES
-   ========================================================= */
-.btn-search {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+.campo-fecha {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 150px;
+    font-size: 12px;
     color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    opacity: .9;
+}
+
+.btn-search {
+        flex: 1 1 80px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #60a5fa, #2563eb);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px 16px;
+        transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-search:hover {
@@ -146,71 +102,38 @@ h4 {
     box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
 }
 
-.btn-update,
-.btn-delete,
+@media (max-width: 560px) {
+    .filtros select,
+    .filtros input[type="date"],
+    .campo-fecha,
+    .btn-search {
+        flex: 1 1 100%;
+    }
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
 .btn-hoja-vida {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
-    padding: 7px 14px;
-    border: none;
+    padding: 6px 10px;
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: #fff;
     border-radius: 8px;
     font-weight: 600;
     font-size: 13px;
     text-decoration: none;
     cursor: pointer;
+    border: none;
     white-space: nowrap;
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
-
-.btn-update {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: #fff;
-}
-
-.btn-update:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(22, 163, 74, .35);
-    filter: brightness(1.05);
-}
-
-.btn-delete {
-    background: linear-gradient(135deg, #f87171, #dc2626);
-    color: #fff;
-}
-
-.btn-delete:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(220, 38, 38, .35);
-    filter: brightness(1.05);
-}
-
-
-.acciones-fila {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-}
-
-/* El <form> de "Eliminar" es un elemento de bloque por defecto:
-   sin esto, rompería la fila y el botón caería a la línea
-   siguiente, quedando apilado debajo de "Editar". */
-.acciones-fila form {
-    display: contents;
-}
-
-.btn-hoja-vida {
-    background: linear-gradient(135deg, #60a5fa, #2563eb);
-    color: #fff;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-hoja-vida:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(37, 99, 235, .35);
-    filter: brightness(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, .25);
 }
 
 /* =========================================================
@@ -222,30 +145,15 @@ h4 {
     border-radius: 18px;
     font-size: 13px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
-.activo {
-    background: #16a34a;
-    color: #fff;
-}
-
-.Inactivo {
-    background: #415885;
-    color: #fff;
-}
-
-.reparacion {
-    background: #d97706;
-    color: #fff;
-}
-
-.baja {
-    background: #dc2626;
-    color: #fff;
-}
+.activo { background: #16a34a; color: #fff; }
+.reparacion { background: #d97706; color: #fff; }
+.baja { background: #dc2626; color: #fff; }
 
 /* =========================================================
-   GLOSARIO COLAPSABLE
+   GLOSARIO COLAPSABLE (casillas visibles)
    ========================================================= */
 .glosario {
     padding: 16px 20px;
@@ -315,8 +223,6 @@ h4 {
 
 .glosario-grupo h4 {
     margin: 0 0 10px;
-    padding-top: 0;
-    text-align: left;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: .04em;
@@ -324,51 +230,57 @@ h4 {
 }
 
 .glosario-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
 }
 
 .glosario-chip {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.15);
+    gap: 8px;
+    padding: 10px 12px;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    font-size: 12.5px;
-    line-height: 1.2;
-    white-space: nowrap;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
+    font-size: 12.5px;
+    line-height: 1.3;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.glosario-chip:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.45);
 }
 
 .glosario-chip b {
-    color: #93c5fd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 11.5px;
     font-weight: 700;
+    flex-shrink: 0;
 }
 
 @media (max-width: 600px) {
-    .glosario-body {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .glosario-toggle h3 {
-        font-size: 15px;
-    }
+    .glosario-body { grid-template-columns: 1fr; gap: 14px; }
+    .glosario-chips { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .glosario-toggle h3 { font-size: 15px; }
 }
 
 /* =========================================================
-   TABLA DE EQUIPOS
-   Escritorio / tablet: scroll horizontal contenido.
-   Móvil angosto (≤680px): se transforma en tarjetas apiladas.
+   TABLA
    ========================================================= */
 .tabla-scroll-hint {
     display: flex;
     align-items: center;
     gap: 6px;
-    justify-content: flex-start;
     margin: 0 0 10px;
     font-size: 12.5px;
     opacity: .75;
@@ -386,54 +298,58 @@ h4 {
     scrollbar-color: #415885 #e9edf5;
 }
 
-.tabla-scroll::-webkit-scrollbar {
-    height: 8px;
-}
+.tabla-scroll::-webkit-scrollbar { height: 8px; }
+.tabla-scroll::-webkit-scrollbar-track { background: #e9edf5; border-radius: 10px; }
+.tabla-scroll::-webkit-scrollbar-thumb { background: #415885; border-radius: 10px; }
 
-.tabla-scroll::-webkit-scrollbar-track {
-    background: #e9edf5;
-    border-radius: 10px;
-}
-
-.tabla-scroll::-webkit-scrollbar-thumb {
-    background: #415885;
-    border-radius: 10px;
-}
-
-.tabla-equipos {
+.tabla-preventivos {
     width: 100%;
-    min-width: 1100px;
+    min-width: 1150px;
+    /* separate (no collapse): border-collapse:collapse rompe
+       position:sticky en las celdas en Chromium */
     border-collapse: separate;
     border-spacing: 0;
-    margin-top: 20px;
+    margin-top: 4px;
     background: rgba(255, 255, 255, 0.9);
     color: #000;
 }
 
-.tabla-equipos th {
+.tabla-preventivos th {
     background: #111827;
     color: #fff;
 }
 
-.tabla-equipos th,
-.tabla-equipos td {
+.tabla-preventivos th,
+.tabla-preventivos td {
     padding: 10px 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     white-space: nowrap;
 }
 
-.tabla-equipos td:nth-child(4),
-.tabla-equipos td:nth-child(5) {
+.tabla-preventivos td:nth-child(7) {
+    /* Descripción */
     white-space: normal;
-    min-width: 130px;
+    min-width: 220px;
+    text-align: left;
 }
 
-/* La última columna (Hoja de Vida) queda "pegada" al borde derecho
-   del contenedor con scroll, para que nunca quede tapada ni se
-   pierda al desplazar la tabla horizontalmente. */
-.tabla-equipos th:last-child,
-.tabla-equipos td:last-child {
+.tabla-preventivos td:nth-child(9) {
+    /* Observaciones */
+    white-space: normal;
+    min-width: 180px;
+    text-align: left;
+}
+
+.celda-vacia {
+    text-align: center;
+    padding: 24px;
+    white-space: normal;
+}
+
+/* Última columna (Hoja de Vida) siempre visible al hacer scroll */
+.tabla-preventivos th:last-child,
+.tabla-preventivos td:last-child {
     position: sticky;
     right: 0;
     z-index: 2;
@@ -441,39 +357,22 @@ h4 {
     box-shadow: -6px 0 10px -6px rgba(0, 0, 0, .35);
 }
 
-.tabla-equipos thead th:last-child {
+.tabla-preventivos thead th:last-child {
     background: #111827;
     z-index: 3;
 }
 
 @media (max-width: 900px) {
-    .tabla-equipos {
-        min-width: 900px;
-    }
-}
-
-/* En la vista de tarjetas (móvil) la columna ya no necesita
-   quedar fija: cada dato ocupa su propia fila. */
-@media (max-width: 680px) {
-    .tabla-equipos th:last-child,
-    .tabla-equipos td:last-child {
-        position: static;
-        box-shadow: none;
-        background: transparent;
-    }
+    .tabla-preventivos { min-width: 950px; }
 }
 
 /* ----- Vista en tarjetas para pantallas angostas ----- */
 @media (max-width: 680px) {
-    .tabla-scroll-hint {
-        display: none;
-    }
+    .tabla-scroll-hint { display: none; }
 
-    .tabla-scroll {
-        overflow: visible;
-    }
+    .tabla-scroll { overflow: visible; }
 
-    .tabla-equipos {
+    .tabla-preventivos {
         min-width: 0;
         width: 100%;
         display: block;
@@ -481,7 +380,7 @@ h4 {
         box-shadow: none;
     }
 
-    .tabla-equipos thead {
+    .tabla-preventivos thead {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -490,11 +389,9 @@ h4 {
         white-space: nowrap;
     }
 
-    .tabla-equipos tbody {
-        display: block;
-    }
+    .tabla-preventivos tbody { display: block; }
 
-    .tabla-equipos tbody tr {
+    .tabla-preventivos tbody tr {
         display: block;
         margin-bottom: 14px;
         padding: 12px 14px;
@@ -504,7 +401,7 @@ h4 {
         box-shadow: 0 2px 6px rgba(15, 23, 42, .18);
     }
 
-    .tabla-equipos tbody td {
+    .tabla-preventivos tbody td {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -516,11 +413,9 @@ h4 {
         min-width: 0;
     }
 
-    .tabla-equipos tbody td:last-child {
-        border-bottom: none;
-    }
+    .tabla-preventivos tbody td:last-child { border-bottom: none; }
 
-    .tabla-equipos tbody td::before {
+    .tabla-preventivos tbody td::before {
         content: attr(data-label);
         font-weight: 700;
         font-size: 12px;
@@ -531,8 +426,11 @@ h4 {
         flex-shrink: 0;
     }
 
-    .tabla-equipos tbody td[data-label="Acción"] {
-        justify-content: flex-end;
+    .tabla-preventivos th:last-child,
+    .tabla-preventivos td:last-child {
+        position: static;
+        box-shadow: none;
+        background: transparent;
     }
 }
 
@@ -565,15 +463,8 @@ h4 {
     transition: transform .2s ease, background .2s ease;
 }
 
-.paginacion a:hover {
-    transform: translateY(-1px);
-    background: #e5e7eb;
-}
-
-.paginacion .activo-pagina {
-    background: #2563eb;
-    color: #fff;
-}
+.paginacion a:hover { transform: translateY(-1px); background: #e5e7eb; }
+.paginacion .activo-pagina { background: #2563eb; color: #fff; }
 
 .paginacion .indicador-paginacion {
     width: 100%;
@@ -585,41 +476,23 @@ h4 {
     opacity: .85;
 }
 
-/* En pantallas angostas, la paginación se "transforma":
-   solo se muestran Anterior / Siguiente y la página activa,
-   ocultando el resto de números para no saturar la pantalla. */
 @media (max-width: 680px) {
     .paginacion a:not(.pag-anterior):not(.pag-siguiente):not(.activo-pagina) {
         display: none;
     }
-
-    .paginacion a {
-        min-width: 40px;
-        height: 40px;
-        font-size: 14px;
-    }
+    .paginacion a { min-width: 40px; height: 40px; font-size: 14px; }
 }
 
 /* =========================================================
    RESPONSIVE GENERAL
    ========================================================= */
 @media (max-width: 768px) {
-    .container {
-        padding: 20px 15px;
-    }
-
-    .card {
-        padding: 16px;
-    }
+    .container { padding: 20px 15px; }
+    .card { padding: 16px; }
 }
 
 @media (min-width: 1600px) {
-    .container {
-        max-width: 1680px;
-    }
-
-    .tabla-equipos th,
-    .tabla-equipos td {
-        font-size: 15px;
-    }
+    .container { max-width: 1680px; }
+    .tabla-preventivos th,
+    .tabla-preventivos td { font-size: 15px; }
 }

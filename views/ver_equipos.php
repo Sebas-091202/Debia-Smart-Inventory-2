@@ -192,6 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_equipo'])) {
 $tipo          = trim((string)($_GET['tipo'] ?? ''));
 $marca         = trim((string)($_GET['marca'] ?? ''));
 $ubicacion     = trim((string)($_GET['ubicacion'] ?? ''));
+$estado        = trim((string)($_GET['estado'] ?? ''));
 $identificador = trim((string)($_GET['identificador'] ?? ''));
 $codigo        = trim((string)($_GET['codigo'] ?? ''));
 
@@ -205,6 +206,24 @@ if ($marca !== '' && !array_key_exists($marca, $marcasEquipo)) {
 
 if ($ubicacion !== '' && !in_array($ubicacion, $ubicacionesEquipo, true)) {
     $ubicacion = '';
+}
+
+/* =====================================================
+   ESTADOS DISPONIBLES
+   Se toman directamente de los datos reales (no es un
+   catálogo fijo como tipo/marca), para que el select
+   siempre refleje los estados que existen en la base.
+   ===================================================== */
+
+$estadosEquipo = $conn->query("
+    SELECT DISTINCT estado
+    FROM equipos
+    WHERE estado IS NOT NULL AND estado <> ''
+    ORDER BY estado
+")->fetchAll(PDO::FETCH_COLUMN);
+
+if ($estado !== '' && !in_array($estado, $estadosEquipo, true)) {
+    $estado = '';
 }
 
 // Límite razonable de longitud para campos libres (defensa en profundidad)
@@ -229,15 +248,62 @@ if ($ubicacion !== '') {
     $params[':ubicacion'] = "%$ubicacion%";
 }
 
+if ($estado !== '') {
+    $sqlWhere .= " AND estado = :estado";
+    $params[':estado'] = $estado;
+}
+
 if ($identificador !== '') {
-    $sqlWhere .= " AND identificador LIKE :identificador";
-    $params[':identificador'] = "%$identificador%";
+    $sqlWhere .= " AND identificador = :identificador";
+    $params[':identificador'] = $identificador;
 }
 
 if ($codigo !== '') {
     $sqlWhere .= " AND codigo_barras = :codigo";
     $params[':codigo'] = $codigo;
 }
+
+/* =====================================================
+   IDENTIFICADORES DISPONIBLES PARA EL SELECT
+   Se calculan con los MISMOS filtros ya elegidos (tipo,
+   marca, ubicación, estado), pero SIN el propio filtro de
+   identificador: así el select "se automatiza" mostrando
+   solo los identificadores que existen dentro de lo ya
+   filtrado, o todos si no hay ningún filtro seleccionado.
+   ===================================================== */
+
+$sqlWhereIdentificador = " WHERE 1=1 ";
+$paramsIdentificador = [];
+
+if ($tipo !== '') {
+    $sqlWhereIdentificador .= " AND tipo = :tipo";
+    $paramsIdentificador[':tipo'] = $tipo;
+}
+
+if ($marca !== '') {
+    $sqlWhereIdentificador .= " AND marca LIKE :marca";
+    $paramsIdentificador[':marca'] = "%$marca%";
+}
+
+if ($ubicacion !== '') {
+    $sqlWhereIdentificador .= " AND ubicacion LIKE :ubicacion";
+    $paramsIdentificador[':ubicacion'] = "%$ubicacion%";
+}
+
+if ($estado !== '') {
+    $sqlWhereIdentificador .= " AND estado = :estado";
+    $paramsIdentificador[':estado'] = $estado;
+}
+
+$stmtIdentificadores = $conn->prepare("
+    SELECT DISTINCT identificador
+    FROM equipos
+    $sqlWhereIdentificador
+    AND identificador IS NOT NULL AND identificador <> ''
+    ORDER BY identificador
+");
+$stmtIdentificadores->execute($paramsIdentificador);
+$identificadoresEquipo = $stmtIdentificadores->fetchAll(PDO::FETCH_COLUMN);
 
 
 /* =====================================================
@@ -316,6 +382,7 @@ $queryFiltros = http_build_query([
     'tipo'          => $tipo,
     'marca'         => $marca,
     'ubicacion'     => $ubicacion,
+    'estado'        => $estado,
     'identificador' => $identificador,
     'codigo'        => $codigo,
 ]);
@@ -472,6 +539,25 @@ $queryFiltros = http_build_query([
     }
 
     /* =====================================================
+       BOTONES DE ACCIÓN (Editar / Eliminar)
+       ===================================================== */
+
+    .acciones-fila {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    /* El <form> de "Eliminar" es un elemento de bloque por
+       defecto: sin esto, el botón caería a la línea siguiente
+       en vez de quedar junto a "Editar". */
+    .acciones-fila form {
+        display: contents;
+    }
+
+    /* =====================================================
        GLOSARIO COLAPSABLE
        ===================================================== */
 
@@ -552,27 +638,48 @@ $queryFiltros = http_build_query([
     }
 
     .glosario-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
     }
 
     .glosario-chip {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: #eef2f9;
-        color: #000000;
+        gap: 8px;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
         font-size: 12.5px;
-        line-height: 1.2;
-        white-space: nowrap;
+        line-height: 1.3;
+        transition: background .2s ease, border-color .2s ease;
+    }
+
+    .glosario-chip:hover {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.45);
     }
 
     .glosario-chip b {
-        color: #2563eb;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        padding: 3px 6px;
+        border-radius: 6px;
+        background: #2563eb;
+        color: #fff;
+        font-size: 11.5px;
         font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+        .glosario-chips {
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        }
     }
 
     @media (max-width: 600px) {
@@ -793,7 +900,26 @@ $queryFiltros = http_build_query([
                     <?php endforeach; ?>
                 </select>
 
-                <input type="text" name="identificador" placeholder="Identificador" value="<?= e($identificador) ?>" maxlength="100">
+                <!-- ESTADO -->
+                <select name="estado">
+                    <option value="" <?= $estado === '' ? 'selected' : '' ?>>Seleccione Estado</option>
+                    <?php foreach ($estadosEquipo as $estado_): ?>
+                        <option value="<?= e($estado_) ?>" <?= $estado === $estado_ ? 'selected' : '' ?>>
+                            <?= e($estado_) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <!-- IDENTIFICADOR: se autocompleta según los demás filtros
+                     ya elegidos; si no hay ninguno, muestra todos -->
+                <select name="identificador">
+                    <option value="" <?= $identificador === '' ? 'selected' : '' ?>>Todos los identificadores</option>
+                    <?php foreach ($identificadoresEquipo as $identificador_): ?>
+                        <option value="<?= e($identificador_) ?>" <?= $identificador === $identificador_ ? 'selected' : '' ?>>
+                            <?= e($identificador_) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
                 <button class="btn-search" type="submit">Buscar</button>
 
@@ -891,21 +1017,21 @@ $queryFiltros = http_build_query([
                                     </span>
                                 </td>
                                 <td data-label="Ubicación"><?= e($equipo['ubicacion']) ?></td>
-                                <td data-label="Acción" style="display:flex; gap:8px; justify-content:center;">
-                                    <!-- EDITAR REDIRIGE -->
-                                    <a href="editar_equipos.php?id=<?= $idEquipo ?>">
-                                        <button type="button" class="btn-update">
+                                <td data-label="Acción">
+                                    <div class="acciones-fila">
+                                        <!-- EDITAR REDIRIGE -->
+                                        <a href="editar_equipos.php?id=<?= $idEquipo ?>" class="btn-update">
                                             Editar
-                                        </button>
-                                    </a>
-                                    <!-- ELIMINAR -->
-                                    <form method="POST" class="form-eliminar">
-                                        <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
-                                        <input type="hidden" name="id_equipo" value="<?= $idEquipo ?>">
-                                        <button type="submit" name="eliminar_equipo" class="btn-delete">
-                                            Eliminar
-                                        </button>
-                                    </form>
+                                        </a>
+                                        <!-- ELIMINAR -->
+                                        <form method="POST" class="form-eliminar">
+                                            <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                                            <input type="hidden" name="id_equipo" value="<?= $idEquipo ?>">
+                                            <button type="submit" name="eliminar_equipo" class="btn-delete">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                                 <td data-label="Hoja de Vida">
                                     <a href="hoja_vida_equipos.php?codigo=<?= urlencode($equipo['codigo_barras'] ?? '') ?>" class="btn-hoja-vida">
