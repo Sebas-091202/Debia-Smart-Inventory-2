@@ -197,9 +197,9 @@ MODO MÓVIL
                 display: none;
             }
 
-            /* En móvil: mostrar logo-short SOLO cuando sidebar está abierto */
-            body.sidebar-open .logo-short {
-                display: inline;
+            /* En móvil: mostrar logo-full SOLO cuando sidebar está abierto */
+            body.sidebar-open .logo-full {
+                display: inline !important;
             }
         }
 
@@ -334,6 +334,11 @@ MODO MÓVIL
             color: white;
         }
 
+        .Bodega {
+            background: #415885;
+            color: white;
+        }
+
         .reparacion {
             background: #d97706;
             color: white;
@@ -354,3 +359,4 @@ MODO MÓVIL
                 font-size: 12px;
             }
         }
+        

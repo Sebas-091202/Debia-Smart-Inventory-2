@@ -110,11 +110,11 @@ $tiposEquipo = [
 ];
 
 $marcasEquipo = [
-    'DE'  => 'Dell',
+    'DE'  => 'DELL',
     'IN'   => 'INPOWER',
-    'AS'    => 'Asus',
-    'HP'    => 'Hewlett-Packard',
-    'LE'    => 'Lenovo',
+    'AS'    => 'ASUS',
+    'HP'    => 'HEWLETT-PACKARD',
+    'LE'    => 'LENOVO',
     'EP'    => 'EPSON',
     'CA'    => 'CANON',
     'GE'    => 'Genius',
@@ -1157,5 +1157,4 @@ $queryFiltros = http_build_query([
     </script>
 
 </body>
-
 </html>

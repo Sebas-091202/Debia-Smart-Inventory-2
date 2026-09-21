@@ -189,10 +189,11 @@ h4 {
 
 .acciones-fila {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap !important;
+    /* Evita terminantemente que se apilen verticalmente */
     align-items: center;
-    gap: 10px;
     justify-content: center;
+    gap: 8px;
 }
 
 /* El <form> de "Eliminar" es un elemento de bloque por defecto:
@@ -379,35 +380,30 @@ h4 {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
-    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    border-radius: 10px;
     scrollbar-width: thin;
-    scrollbar-color: #415885 #e9edf5;
-}
-
-.tabla-scroll::-webkit-scrollbar {
-    height: 8px;
-}
-
-.tabla-scroll::-webkit-scrollbar-track {
-    background: #e9edf5;
-    border-radius: 10px;
-}
-
-.tabla-scroll::-webkit-scrollbar-thumb {
-    background: #415885;
-    border-radius: 10px;
+    scrollbar-color: #94a3b8 rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    min-width: 0;
+    /* Previene que rompa el contenedor padre */
 }
 
 .tabla-equipos {
     width: 100%;
-    min-width: 1100px;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #000;
+    min-width: max-content;
+    /* ESTO ES LA CLAVE: Forza a la tabla a no aplastarse */
+    border-collapse: collapse;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.tabla-equipos th,
+.tabla-equipos td {
+    white-space: nowrap;
+    /* Evita que textos como "Acción" se corten o salten de línea */
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .tabla-equipos th {
@@ -446,6 +442,17 @@ h4 {
     z-index: 3;
 }
 
+.logo-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    margin-top: 57px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
 @media (max-width: 900px) {
     .tabla-equipos {
         min-width: 900px;
@@ -455,6 +462,7 @@ h4 {
 /* En la vista de tarjetas (móvil) la columna ya no necesita
    quedar fija: cada dato ocupa su propia fila. */
 @media (max-width: 680px) {
+
     .tabla-equipos th:last-child,
     .tabla-equipos td:last-child {
         position: static;

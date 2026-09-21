@@ -12,9 +12,17 @@ body {
 }
 
 @keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container {
@@ -85,15 +93,15 @@ body {
 }
 
 .btn-search {
-        flex: 1 1 80px;
-        border: none;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #60a5fa, #2563eb);
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-        padding: 10px 16px;
-        transition: transform .2s ease, box-shadow .2s ease;
+    flex: 1 1 80px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 16px;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-search:hover {
@@ -103,6 +111,7 @@ body {
 }
 
 @media (max-width: 560px) {
+
     .filtros select,
     .filtros input[type="date"],
     .campo-fecha,
@@ -148,9 +157,20 @@ body {
     white-space: nowrap;
 }
 
-.activo { background: #16a34a; color: #fff; }
-.reparacion { background: #d97706; color: #fff; }
-.baja { background: #dc2626; color: #fff; }
+.activo {
+    background: #16a34a;
+    color: #fff;
+}
+
+.reparacion {
+    background: #d97706;
+    color: #fff;
+}
+
+.baja {
+    background: #dc2626;
+    color: #fff;
+}
 
 /* =========================================================
    GLOSARIO COLAPSABLE (casillas visibles)
@@ -229,6 +249,17 @@ body {
     opacity: .75;
 }
 
+.logo-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    margin-top: 57px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
 .glosario-chips {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -269,9 +300,18 @@ body {
 }
 
 @media (max-width: 600px) {
-    .glosario-body { grid-template-columns: 1fr; gap: 14px; }
-    .glosario-chips { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-    .glosario-toggle h3 { font-size: 15px; }
+    .glosario-body {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .glosario-chips {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .glosario-toggle h3 {
+        font-size: 15px;
+    }
 }
 
 /* =========================================================
@@ -298,9 +338,19 @@ body {
     scrollbar-color: #415885 #e9edf5;
 }
 
-.tabla-scroll::-webkit-scrollbar { height: 8px; }
-.tabla-scroll::-webkit-scrollbar-track { background: #e9edf5; border-radius: 10px; }
-.tabla-scroll::-webkit-scrollbar-thumb { background: #415885; border-radius: 10px; }
+.tabla-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tabla-scroll::-webkit-scrollbar-track {
+    background: #e9edf5;
+    border-radius: 10px;
+}
+
+.tabla-scroll::-webkit-scrollbar-thumb {
+    background: #415885;
+    border-radius: 10px;
+}
 
 .tabla-preventivos {
     width: 100%;
@@ -363,14 +413,20 @@ body {
 }
 
 @media (max-width: 900px) {
-    .tabla-preventivos { min-width: 950px; }
+    .tabla-preventivos {
+        min-width: 950px;
+    }
 }
 
 /* ----- Vista en tarjetas para pantallas angostas ----- */
 @media (max-width: 680px) {
-    .tabla-scroll-hint { display: none; }
+    .tabla-scroll-hint {
+        display: none;
+    }
 
-    .tabla-scroll { overflow: visible; }
+    .tabla-scroll {
+        overflow: visible;
+    }
 
     .tabla-preventivos {
         min-width: 0;
@@ -389,7 +445,9 @@ body {
         white-space: nowrap;
     }
 
-    .tabla-preventivos tbody { display: block; }
+    .tabla-preventivos tbody {
+        display: block;
+    }
 
     .tabla-preventivos tbody tr {
         display: block;
@@ -413,7 +471,9 @@ body {
         min-width: 0;
     }
 
-    .tabla-preventivos tbody td:last-child { border-bottom: none; }
+    .tabla-preventivos tbody td:last-child {
+        border-bottom: none;
+    }
 
     .tabla-preventivos tbody td::before {
         content: attr(data-label);
@@ -463,8 +523,15 @@ body {
     transition: transform .2s ease, background .2s ease;
 }
 
-.paginacion a:hover { transform: translateY(-1px); background: #e5e7eb; }
-.paginacion .activo-pagina { background: #2563eb; color: #fff; }
+.paginacion a:hover {
+    transform: translateY(-1px);
+    background: #e5e7eb;
+}
+
+.paginacion .activo-pagina {
+    background: #2563eb;
+    color: #fff;
+}
 
 .paginacion .indicador-paginacion {
     width: 100%;
@@ -480,19 +547,34 @@ body {
     .paginacion a:not(.pag-anterior):not(.pag-siguiente):not(.activo-pagina) {
         display: none;
     }
-    .paginacion a { min-width: 40px; height: 40px; font-size: 14px; }
+
+    .paginacion a {
+        min-width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
 }
 
 /* =========================================================
    RESPONSIVE GENERAL
    ========================================================= */
 @media (max-width: 768px) {
-    .container { padding: 20px 15px; }
-    .card { padding: 16px; }
+    .container {
+        padding: 20px 15px;
+    }
+
+    .card {
+        padding: 16px;
+    }
 }
 
 @media (min-width: 1600px) {
-    .container { max-width: 1680px; }
+    .container {
+        max-width: 1680px;
+    }
+
     .tabla-preventivos th,
-    .tabla-preventivos td { font-size: 15px; }
+    .tabla-preventivos td {
+        font-size: 15px;
+    }
 }
