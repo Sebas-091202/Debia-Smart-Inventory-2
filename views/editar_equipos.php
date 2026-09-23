@@ -129,7 +129,7 @@ if (!$equipo) {
                     <option value="LO" <?= ($equipo['marca'] == 'LO') ? 'selected' : ''; ?>>LOGITECH</option>
                     <option value="WI" <?= ($equipo['marca'] == 'WI') ? 'selected' : ''; ?>>WIT</option>
                     <option value="HU" <?= ($equipo['marca'] == 'HU') ? 'selected' : ''; ?>>HUAWEI</option>
-                    <option value="MO" <?= ($equipo['marca'] == 'MO') ? 'selected' : ''; ?>>MOTOROLA</option>
+                    <option value="MT" <?= ($equipo['marca'] == 'MT') ? 'selected' : ''; ?>>MOTOROLA</option>
                     <option value="XI" <?= ($equipo['marca'] == 'XI') ? 'selected' : ''; ?>>XIAOMI</option>
                     <option value="SM" <?= ($equipo['marca'] == 'SM') ? 'selected' : ''; ?>>SIN MARCA</option>
                 </select>

@@ -30,10 +30,6 @@
             transition: .3s;
         }
 
-        body.sidebar-collapsed .main-content {
-            margin-left: 95px;
-        }
-
         .form-container {
             max-width: 650px;
             margin: auto;
@@ -52,63 +48,6 @@
             text-align: center;
             margin-bottom: 12px;
             padding-top: 20px;
-        }
-
-        .logo-title {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: .8px;
-            margin-top: 57px;
-            text-align: center;
-            color: #fff;
-            text-transform: uppercase;
-            transition: .3s;
-        }
-
-        /* Normal */
-        .logo-full {
-            display: inline;
-        }
-
-        .logo-short {
-            display: none;
-        }
-
-
-        /* Cuando sidebar se colapsa */
-
-        body.sidebar-collapsed .logo-full {
-            display: none !important;
-        }
-
-        body.sidebar-collapsed .logo-short {
-            display: inline !important;
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-
-
-        /* MUY IMPORTANTE:
-evita que la regla general oculte el span DSI */
-        body.sidebar-collapsed .sidebar .logo-short {
-            display: inline !important;
-        }
-
-
-        /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
-        .sidebar a span {
-            display: flex;
-            transition: .3s;
-        }
-
-        body.sidebar-collapsed .sidebar a span {
-            display: none !important;
-        }
-
-        /* Centrar iconos cuando se colapsa */
-        body.sidebar-collapsed .sidebar a {
-            justify-content: center;
-            padding-left: 0;
         }
 
         .bx-home,

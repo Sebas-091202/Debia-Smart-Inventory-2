@@ -5,7 +5,7 @@ require '../bd/conn.php';
    SEGURIDAD DE SESIÓN
    ===================================================== */
 $esHttps = (
-    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+    (!empty($_SERVER['HTTPS']) &&$_SERVER['HTTPS'] !== 'off') ||
     (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') ||
     (($_SERVER['SERVER_PORT'] ?? '') == 443)
 );
@@ -35,7 +35,7 @@ if ($_SESSION['rol'] !== 'ADMIN') {
     exit;
 }
 
-// Evitar cache para que no se pueda volver atrás después de cerrar sesión
+// Evitar cache
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -48,7 +48,7 @@ function e($valor): string {
 }
 
 /* =====================================================
-   CATÁLOGOS (Arrays para los select automáticos)
+   CATÁLOGOS
    ===================================================== */
 $tiposEquipo = [
     'PO' => 'Portátil', 'TO' => 'Todo en Uno', 'ES' => 'Escritorio',
@@ -80,9 +80,9 @@ $marca         = trim((string)($_GET['marca'] ?? ''));
 $ubicacion     = trim((string)($_GET['ubicacion'] ?? ''));
 $identificador = trim((string)($_GET['identificador'] ?? ''));
 
-if ($tipo !== '' && !array_key_exists($tipo, $tiposEquipo)) { $tipo = ''; }
-if ($marca !== '' && !array_key_exists($marca, $marcasEquipo)) { $marca = ''; }
-if ($ubicacion !== '' && !in_array($ubicacion, $ubicacionesEquipo, true)) { $ubicacion = ''; }
+if ($tipo !== '' && !array_key_exists($tipo, $tiposEquipo)) {$tipo = ''; }
+if ($marca !== '' && !array_key_exists($marca, $marcasEquipo)) {$marca = ''; }
+if ($ubicacion !== '' && !in_array($ubicacion, $ubicacionesEquipo, true)) {$ubicacion = ''; }
 
 $identificador = mb_substr($identificador, 0, 100);
 
@@ -92,21 +92,17 @@ $identificador = mb_substr($identificador, 0, 100);
 $sqlWhere = " WHERE 1=1 ";
 $params = [];
 
-if ($tipo !== '') {
-    $sqlWhere .= " AND tipo = :tipo";
-    $params[':tipo'] = $tipo;
+if ($tipo !== '') {$sqlWhere .= " AND tipo = :tipo";
+    $params[':tipo'] =$tipo;
 }
-if ($marca !== '') {
-    $sqlWhere .= " AND marca LIKE :marca";
+if ($marca !== '') {$sqlWhere .= " AND marca LIKE :marca";
     $params[':marca'] = "%$marca%";
 }
-if ($ubicacion !== '') {
-    $sqlWhere .= " AND ubicacion LIKE :ubicacion";
+if ($ubicacion !== '') {$sqlWhere .= " AND ubicacion LIKE :ubicacion";
     $params[':ubicacion'] = "%$ubicacion%";
 }
-if ($identificador !== '') {
-    $sqlWhere .= " AND identificador = :identificador";
-    $params[':identificador'] = $identificador;
+if ($identificador !== '') {$sqlWhere .= " AND identificador = :identificador";
+    $params[':identificador'] =$identificador;
 }
 
 /* =====================================================
@@ -115,37 +111,27 @@ if ($identificador !== '') {
 $porPagina = 10;
 $pagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT) ?: 1;
 
-if ($pagina < 1) {
-    $pagina = 1;
+if ($pagina < 1) {$pagina = 1;
 }
 
-$inicio = ($pagina - 1) * $porPagina;
+$inicio = ($pagina - 1) *$porPagina;
 
-// Contar total de registros
 $sqlTotal = "SELECT COUNT(*) FROM equipos " . $sqlWhere;
-$stmtTotal = $conn->prepare($sqlTotal);
-$stmtTotal->execute($params);
-$totalRegistros = (int) $stmtTotal->fetchColumn();
-$totalPaginas = (int) ceil($totalRegistros / $porPagina);
+$stmtTotal =$conn->prepare($sqlTotal);$stmtTotal->execute($params);$totalRegistros = (int) $stmtTotal->fetchColumn();$totalPaginas = (int) ceil($totalRegistros / $porPagina);
 
-if ($totalPaginas > 0 && $pagina > $totalPaginas) {
-    $pagina = $totalPaginas;
-    $inicio = ($pagina - 1) * $porPagina;
+if ($totalPaginas > 0 && $pagina >$totalPaginas) {
+    $pagina =$totalPaginas;
+    $inicio = ($pagina - 1) *$porPagina;
 }
 
-// Búsqueda de la matriz de equipos CON LÍMITES DE PAGINACIÓN
 $sqlEquipos = "SELECT * FROM equipos " . $sqlWhere . " ORDER BY id ASC LIMIT :inicio, :porPagina";
 $stmtEquipos = $conn->prepare($sqlEquipos);
 
-foreach ($params as $key => $val) {
-    $stmtEquipos->bindValue($key, $val);
+foreach ($params as$key => $val) {$stmtEquipos->bindValue($key,$val);
 }
-$stmtEquipos->bindValue(':inicio', (int)$inicio, PDO::PARAM_INT);
-$stmtEquipos->bindValue(':porPagina', (int)$porPagina, PDO::PARAM_INT);
-$stmtEquipos->execute();
-$equipos = $stmtEquipos->fetchAll(PDO::FETCH_ASSOC);
+$stmtEquipos->bindValue(':inicio', (int)$inicio, PDO::PARAM_INT);$stmtEquipos->bindValue(':porPagina', (int)$porPagina, PDO::PARAM_INT);$stmtEquipos->execute();
+$equipos =$stmtEquipos->fetchAll(PDO::FETCH_ASSOC);
 
-// Query string reutilizable para los enlaces de paginación
 $queryFiltros = http_build_query([
     'tipo'          => $tipo,
     'marca'         => $marca,
@@ -159,20 +145,17 @@ $queryFiltros = http_build_query([
 $sqlWhereIdentificador = " WHERE 1=1 ";
 $paramsIdentificador = [];
 
-if ($tipo !== '') {
-    $sqlWhereIdentificador .= " AND tipo = :tipo";
-    $paramsIdentificador[':tipo'] = $tipo;
+if ($tipo !== '') {$sqlWhereIdentificador .= " AND tipo = :tipo";
+    $paramsIdentificador[':tipo'] =$tipo;
 }
-if ($marca !== '') {
-    $sqlWhereIdentificador .= " AND marca LIKE :marca";
+if ($marca !== '') {$sqlWhereIdentificador .= " AND marca LIKE :marca";
     $paramsIdentificador[':marca'] = "%$marca%";
 }
-if ($ubicacion !== '') {
-    $sqlWhereIdentificador .= " AND ubicacion LIKE :ubicacion";
+if ($ubicacion !== '') {$sqlWhereIdentificador .= " AND ubicacion LIKE :ubicacion";
     $paramsIdentificador[':ubicacion'] = "%$ubicacion%";
 }
 
-$stmtIdentificadores = $conn->prepare("
+$stmtIdentificadores =$conn->prepare("
     SELECT DISTINCT identificador
     FROM equipos
     $sqlWhereIdentificador
@@ -180,61 +163,58 @@ $stmtIdentificadores = $conn->prepare("
     ORDER BY identificador
 ");
 $stmtIdentificadores->execute($paramsIdentificador);
-$identificadoresEquipo = $stmtIdentificadores->fetchAll(PDO::FETCH_COLUMN);
+$identificadoresEquipo =$stmtIdentificadores->fetchAll(PDO::FETCH_COLUMN);
 
 /* ==========================
 DETALLE EQUIPO + HOJA VIDA POR ID Y SELECCION DESDE FILTROS
 ==========================*/
-$id_equipo = $_GET['id'] ?? null;
-$codigo = $_GET['codigo'] ?? null;
+$id_equipo =$_GET['id'] ?? null;
+$codigo =$_GET['codigo'] ?? null;
 $equipo = null;
 $historial = [];
 
 if ($codigo) {
-    $stmt = $conn->prepare("SELECT * FROM equipos WHERE codigo_barras = ?");
+    $stmt =$conn->prepare("SELECT * FROM equipos WHERE codigo_barras = ?");
     $stmt->execute([$codigo]);
-    $equipo = $stmt->fetch(PDO::FETCH_ASSOC);
-    $id_equipo = $equipo['id'] ?? null;
+    $equipo =$stmt->fetch(PDO::FETCH_ASSOC);
+    $id_equipo =$equipo['id'] ?? null;
 } elseif ($id_equipo) {
-    $eq = $conn->prepare("SELECT * FROM equipos WHERE id=?");
+    $eq =$conn->prepare("SELECT * FROM equipos WHERE id=?");
     $eq->execute([$id_equipo]);
-    $equipo = $eq->fetch(PDO::FETCH_ASSOC);
+    $equipo =$eq->fetch(PDO::FETCH_ASSOC);
 }
 
 if ($id_equipo) {
-    $mant = $conn->prepare("SELECT * FROM mantenimientos WHERE equipo_id=? ORDER BY fecha ASC");
+    $mant =$conn->prepare("SELECT * FROM mantenimientos WHERE equipo_id=? ORDER BY fecha ASC");
     $mant->execute([$id_equipo]);
-    $historial = $mant->fetchAll(PDO::FETCH_ASSOC);
+    $historial =$mant->fetchAll(PDO::FETCH_ASSOC);
 }
 
 // REGISTRO DE MANTENIMIENTOS Y REPUESTOS POSTERIORES
 if (!empty($_POST['nombre_repuesto'])) {
-    foreach ($_POST['nombre_repuesto'] as $i => $nombre) {
-        $tipoRep = $_POST['tipo_repuesto'][$i];
-        $serial = $_POST['serial_repuesto'][$i];
-        $capacidad = $_POST['capacidad_repuesto'][$i];
-        $descripcion = $_POST['descripcion_repuesto'][$i];
-        $valor = $_POST['valor_repuesto'][$i];
-        $cantidad = $_POST['cantidad'][$i];
+    foreach ($_POST['nombre_repuesto'] as $i =>$nombre) {
+        $tipoRep =$_POST['tipo_repuesto'][$i];$serial = $_POST['serial_repuesto'][$i];
+        $capacidad =$_POST['capacidad_repuesto'][$i];$descripcion = $_POST['descripcion_repuesto'][$i];
+        $valor =$_POST['valor_repuesto'][$i];$cantidad = $_POST['cantidad'][$i];
 
         if (!empty($nombre) && !empty($tipoRep) && !empty($cantidad)) {
-            $buscar = $conn->prepare("SELECT id, stock FROM repuestos WHERE nombre = ? AND tipo = ? AND capacidad = ?");
-            $buscar->execute([$nombre, $tipoRep, $capacidad]);
-            $existe = $buscar->fetch(PDO::FETCH_ASSOC);
+            $buscar =$conn->prepare("SELECT id, stock FROM repuestos WHERE nombre = ? AND tipo = ? AND capacidad = ?");
+            $buscar->execute([$nombre, $tipoRep,$capacidad]);
+            $existe =$buscar->fetch(PDO::FETCH_ASSOC);
 
             if ($existe) {
-                $update = $conn->prepare("UPDATE repuestos SET stock = stock + ? WHERE id = ?");
-                $update->execute([$cantidad, $existe['id']]);
-                $repuesto_id = $existe['id'];
+                $update =$conn->prepare("UPDATE repuestos SET stock = stock + ? WHERE id = ?");
+                $update->execute([$cantidad,$existe['id']]);
+                $repuesto_id =$existe['id'];
             } else {
-                $insert = $conn->prepare("INSERT INTO repuestos (nombre, serial, capacidad, tipo, descripcion, valor, stock, estado) VALUES (?, ?, ?, ?, ?, ?, ?, 'Disponible')");
-                $insert->execute([$nombre, $serial, $capacidad, $tipoRep, $descripcion, $valor, $cantidad]);
-                $repuesto_id = $conn->lastInsertId();
+                $insert =$conn->prepare("INSERT INTO repuestos (nombre, serial, capacidad, tipo, descripcion, valor, stock, estado) VALUES (?, ?, ?, ?, ?, ?, ?, 'Disponible')");
+                $insert->execute([$nombre, $serial,$capacidad, $tipoRep,$descripcion, $valor,$cantidad]);
+                $repuesto_id =$conn->lastInsertId();
             }
 
-            $id_mantenimiento = $conn->lastInsertId();
-            $rel = $conn->prepare("INSERT INTO mantenimiento_repuestos (mantenimiento_id, repuesto_id, cantidad) VALUES (?, ?, ?)");
-            $rel->execute([$id_mantenimiento, $repuesto_id, $cantidad]);
+            $id_mantenimiento =$conn->lastInsertId();
+            $rel =$conn->prepare("INSERT INTO mantenimiento_repuestos (mantenimiento_id, repuesto_id, cantidad) VALUES (?, ?, ?)");
+            $rel->execute([$id_mantenimiento, $repuesto_id,$cantidad]);
         }
     }
 }
@@ -251,225 +231,7 @@ if (!empty($_POST['nombre_repuesto'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/hoja_vida_equipos.css">
-    <style>
-        * { box-sizing: border-box; }
-        
-        .Bodega { background: #415885; color: white; }
-
-        /* =====================================================
-           DISEÑO DE FILTROS RESPONSIVOS
-           ===================================================== */
-        .filtros {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: stretch;
-            gap: 12px;
-            margin-top: 14px;
-        }
-
-        .filtros select {
-            flex: 1 1 190px;
-            min-width: 0;
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #d7dce3;
-            font-size: 14px;
-            background: #fff;
-        }
-
-        .filtros .btn-search {
-            flex: 1 1 190px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #60a5fa, #2563eb);
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 10px 16px;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .filtros .btn-search:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(37, 99, 235, .35);
-        }
-
-        @media (max-width: 560px) {
-            .filtros select, .filtros .btn-search {
-                flex: 1 1 100%;
-            }
-        }
-
-        /* =====================================================
-           TABLAS RESPONSIVAS
-           ===================================================== */
-        .tabla-scroll {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: #415885 #e9edf5;
-        }
-        .tabla-scroll::-webkit-scrollbar { height: 8px; }
-        .tabla-scroll::-webkit-scrollbar-track { background: #e9edf5; border-radius: 10px; }
-        .tabla-scroll::-webkit-scrollbar-thumb { background: #415885; border-radius: 10px; }
-
-        .tabla-equipos {
-            width: 100%;
-            min-width: 700px;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .tabla-equipos th,
-        .tabla-equipos td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .tabla-equipos th {
-            background-color: #f1f5f9;
-            color: #334155;
-            font-weight: 600;
-        }
-
-        @media (max-width: 680px) {
-            .tabla-scroll { overflow: visible; }
-            .tabla-equipos { min-width: 0; width: 100%; display: block; }
-            .tabla-equipos thead {
-                position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-            }
-            .tabla-equipos tbody { display: block; }
-            .tabla-equipos tbody tr {
-                display: block; margin-bottom: 14px; padding: 12px 14px;
-                border: 1px solid #e5e9f0; border-radius: 12px; background: #fff;
-                box-shadow: 0 2px 6px rgba(15, 23, 42, .06);
-            }
-            .tabla-equipos tbody td {
-                display: flex; align-items: center; justify-content: space-between;
-                gap: 12px; white-space: normal; text-align: right;
-                padding: 8px 0; border-bottom: 1px dashed #eef1f5; min-width: 0;
-            }
-            .tabla-equipos tbody td:last-child { border-bottom: none; }
-            .tabla-equipos tbody td::before {
-                content: attr(data-label); font-weight: 700; font-size: 12px;
-                text-transform: uppercase; color: #64748b; text-align: left; flex-shrink: 0;
-            }
-        }
-        
-        .btn-visualizar {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-        .btn-visualizar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-        }
-/* =========================================================
-   PAGINACIÓN
-   ========================================================= */
-.paginacion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 18px;
-    padding: 10px 5px;
-}
-
-.paginacion a {
-    min-width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 9px;
-    background: #fff;
-    color: #111827;
-    border-radius: 7px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    transition: transform .2s ease, background .2s ease;
-}
-
-.paginacion a:hover {
-    transform: translateY(-1px);
-    background: #e5e7eb;
-}
-
-.paginacion .activo-pagina {
-    background: #2563eb;
-    color: #fff;
-}
-
-.paginacion .indicador-paginacion {
-    width: 100%;
-    text-align: center;
-    margin-top: 5px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    opacity: .85;
-}
-
-/* En pantallas angostas, la paginación se "transforma":
-   solo se muestran Anterior / Siguiente y la página activa,
-   ocultando el resto de números para no saturar la pantalla. */
-@media (max-width: 680px) {
-    .paginacion a:not(.pag-anterior):not(.pag-siguiente):not(.activo-pagina) {
-        display: none;
-    }
-
-    .paginacion a {
-        min-width: 40px;
-        height: 40px;
-        font-size: 14px;
-    }
-}
-
-/* =========================================================
-   RESPONSIVE GENERAL
-   ========================================================= */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px 15px;
-    }
-
-    .card {
-        padding: 16px;
-    }
-}
-
-@media (min-width: 1600px) {
-    .container {
-        max-width: 1680px;
-    }
-
-    .tabla-equipos th,
-    .tabla-equipos td {
-        font-size: 15px;
-
-
-    }
-}
-    </style>
 </head>
-
 <body>
     <!-- Botón hamburguesa -->
     <button class="toggle-btn" onclick="toggleSidebar()">
@@ -501,28 +263,28 @@ if (!empty($_POST['nombre_repuesto'])) {
                 <div class="filtros">
                     <select name="tipo">
                         <option value="" <?= $tipo === '' ? 'selected' : '' ?>>Seleccione Tipo</option>
-                        <?php foreach ($tiposEquipo as $cod => $nom): ?>
+                        <?php foreach ($tiposEquipo as $cod =>$nom): ?>
                             <option value="<?= e($cod) ?>" <?= $tipo === $cod ? 'selected' : '' ?>><?= e($nom) ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <select name="marca">
                         <option value="" <?= $marca === '' ? 'selected' : '' ?>>Seleccione Marca</option>
-                        <?php foreach ($marcasEquipo as $cod => $nom): ?>
+                        <?php foreach ($marcasEquipo as $cod =>$nom): ?>
                             <option value="<?= e($cod) ?>" <?= $marca === $cod ? 'selected' : '' ?>><?= e($nom) ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <select name="ubicacion">
                         <option value="" <?= $ubicacion === '' ? 'selected' : '' ?>>Seleccione Ubicación</option>
-                        <?php foreach ($ubicacionesEquipo as $ubi): ?>
+                        <?php foreach ($ubicacionesEquipo as$ubi): ?>
                             <option value="<?= e($ubi) ?>" <?= $ubicacion === $ubi ? 'selected' : '' ?>><?= e($ubi) ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <select name="identificador">
                         <option value="" <?= $identificador === '' ? 'selected' : '' ?>>Todos los identificadores</option>
-                        <?php foreach ($identificadoresEquipo as $ident): ?>
+                        <?php foreach ($identificadoresEquipo as$ident): ?>
                             <option value="<?= e($ident) ?>" <?= $identificador === $ident ? 'selected' : '' ?>><?= e($ident) ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -532,7 +294,7 @@ if (!empty($_POST['nombre_repuesto'])) {
             </form>
         </div>
 
-        <?php $hayFiltros = ($tipo != '' || $marca != '' || $ubicacion != '' || $identificador != ''); ?>
+        <?php $hayFiltros = ($tipo != '' ||$marca != '' || $ubicacion != '' ||$identificador != ''); ?>
 
         <?php if ($hayFiltros && !$id_equipo): ?>
             <div class="card">
@@ -575,16 +337,18 @@ if (!empty($_POST['nombre_repuesto'])) {
                         $ultimaPagina = min($primeraPagina + $paginasPorBloque - 1,$totalPaginas);
                         ?>
 
+                        <!-- AQUÍ ESTABA EL ERROR: Agregué la clase "pag-anterior" al botón -->
                         <?php if ($pagina > 1): ?>
-                            <a href="?pagina=<?= ($pagina - 1) ?>&<?= e($queryFiltros) ?>">Anterior</a>
+                            <a href="?pagina=<?= ($pagina - 1) ?>&<?= e($queryFiltros) ?>" class="pag-anterior">Anterior</a>
                         <?php endif; ?>
 
                         <?php for ($i = $primeraPagina; $i <= $ultimaPagina; $i++): ?>
                             <a class="<?= ($pagina == $i) ? 'activo-pagina' : ''; ?>" href="?pagina=<?= $i ?>&<?= e($queryFiltros) ?>"><?= $i ?></a>
                         <?php endfor; ?>
 
+                        <!-- AQUÍ ESTABA EL ERROR: Agregué la clase "pag-siguiente" al botón -->
                         <?php if ($pagina <$totalPaginas): ?>
-                            <a href="?pagina=<?= ($pagina + 1) ?>&<?= e($queryFiltros) ?>">Siguiente</a>
+                            <a href="?pagina=<?= ($pagina + 1) ?>&<?= e($queryFiltros) ?>" class="pag-siguiente">Siguiente</a>
                         <?php endif; ?>
 
                         <?php if ($totalPaginas > 0): ?>
@@ -605,7 +369,7 @@ if (!empty($_POST['nombre_repuesto'])) {
             <div class="card">
                 <h2>Hoja de Vida Equipo <?= e($equipo['identificador']) ?></h2>
                 <h3>Ficha Técnica del Equipo</h3>
-
+                
                 <div class="tabla-scroll">
                     <table class="tabla-equipos" style="margin-bottom:25px;">
                         <tbody>
@@ -670,12 +434,12 @@ if (!empty($_POST['nombre_repuesto'])) {
                         </tbody>
                     </table>
                 </div>
-                <button onclick="descargarPDF()" class="btn btn-pdf" style="margin-top: 15px;">
+                <button onclick="descargarPDF()" class="btn btn-pdf">
                     Descargar Hoja de Vida PDF
                 </button>
             </div>
 
-            <!-- FORMULARIO DE MANTENIMIENTO INTACTO -->
+            <!-- FORMULARIO DE MANTENIMIENTO -->
             <div class="card">
                 <h3>Registrar Nuevo Mantenimiento</h3>
                 <form action="../controller/procesar_mantenimiento.php" method="POST">
@@ -696,6 +460,7 @@ if (!empty($_POST['nombre_repuesto'])) {
                     <select name="estado" required>
                         <option value="">Seleccione</option>
                         <option value="Activo">Activo</option>
+                        <option value="Bodega">Bodega</option>
                         <option value="En reparación">En reparación</option>
                         <option value="Dado de baja">Dado de baja</option>
                     </select>
@@ -729,6 +494,7 @@ if (!empty($_POST['nombre_repuesto'])) {
             let procesador = "<?= e($equipo['procesador'] ?? '') ?>";
             let ram = "<?= e($equipo['ram'] ?? '') ?>";
             let disco = "<?= e($equipo['disco'] ?? '') ?>";
+            let disco2 = "<?= e($equipo['disco2'] ?? '') ?>";
             let estado = "<?= e($equipo['estado'] ?? '') ?>";
 
             doc.setFontSize(16);
@@ -745,6 +511,7 @@ if (!empty($_POST['nombre_repuesto'])) {
             doc.text(`Procesador: ${procesador}`, 10, y); y += 7;
             doc.text(`RAM: ${ram}`, 10, y); y += 7;
             doc.text(`Disco: ${disco}`, 10, y); y += 7;
+            doc.text(`Disco 2: ${disco2}`, 10, y); y += 7;
             doc.text(`Estado: ${estado}`, 10, y); y += 10;
 
             let filas = [];
@@ -765,8 +532,6 @@ if (!empty($_POST['nombre_repuesto'])) {
 
             doc.save("Hoja_Vida_" + identificador + ".pdf");
         }
-
-
     </script>
 </body>
 </html>

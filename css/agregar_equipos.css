@@ -30,9 +30,6 @@
             transition: .3s;
         }
 
-        body.sidebar-collapsed .main-content {
-            margin-left: 95px;
-        }
 
         .form-container {
             max-width: 650px;
@@ -52,63 +49,6 @@
             text-align: center;
             margin-bottom: 12px;
             padding-top: 20px;
-        }
-
-        .logo-title {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: .8px;
-            margin-top: 57px;
-            text-align: center;
-            color: #fff;
-            text-transform: uppercase;
-            transition: .3s;
-        }
-
-        /* Normal */
-        .logo-full {
-            display: inline;
-        }
-
-        .logo-short {
-            display: none;
-        }
-
-
-        /* Cuando sidebar se colapsa */
-
-        body.sidebar-collapsed .logo-full {
-            display: none !important;
-        }
-
-        body.sidebar-collapsed .logo-short {
-            display: inline !important;
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-
-
-        /* MUY IMPORTANTE:
-evita que la regla general oculte el span DSI */
-        body.sidebar-collapsed .sidebar .logo-short {
-            display: inline !important;
-        }
-
-
-        /* OCULTAR TEXTO DEL MENU AL COLAPSAR */
-        .sidebar a span {
-            display: flex;
-            transition: .3s;
-        }
-
-        body.sidebar-collapsed .sidebar a span {
-            display: none !important;
-        }
-
-        /* Centrar iconos cuando se colapsa */
-        body.sidebar-collapsed .sidebar a {
-            justify-content: center;
-            padding-left: 0;
         }
 
         .bx-home,
@@ -178,44 +118,3 @@ evita que la regla general oculte el span DSI */
         .volver:hover {
             background: #1f2937;
         }
-
-        /* =========================
-RESPONSIVE (MÓVIL)
-========================= */
-@media (max-width: 768px) {
-
-    /* ocultar sidebar */
-    .sidebar {
-        left: -260px;
-        width: 260px;
-    }
-
-    /* mostrar sidebar */
-    body.sidebar-open .sidebar {
-        left: 0;
-    }
-
-    /* ocultar texto */
-    .sidebar span {
-        display: none;
-    }
-
-    /* mostrar cuando abre */
-    body.sidebar-open .sidebar span {
-        display: inline;
-    }
-
-    /* overlay */
-    body.sidebar-open::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 999;
-    }
-
-    /* contenido */
-    .main-content {
-        margin-left: 0;
-    }
-}

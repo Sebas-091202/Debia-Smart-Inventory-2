@@ -249,16 +249,6 @@ body {
     opacity: .75;
 }
 
-.logo-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    margin-top: 57px;
-    text-align: center;
-    color: #fff;
-    text-transform: uppercase;
-    transition: .3s;
-}
 
 .glosario-chips {
     display: grid;

@@ -117,10 +117,12 @@ $marcasEquipo = [
     'LE'    => 'LENOVO',
     'EP'    => 'EPSON',
     'CA'    => 'CANON',
-    'GE'    => 'Genius',
+    'GE'    => 'GENIUS',
     'OP'    => 'OPPO',
     'KA'    => 'KALLEY',
     'SA'   => 'SAMSUNG',
+    'CH'   => 'CHALLENGER',
+    'LG'   => 'LG',
     'MA'   => 'MAXELL',
     'PA'   => 'PANASONIC',
     'AR'   => 'ARCHTEX',
@@ -473,7 +475,9 @@ $queryFiltros = http_build_query([
 
     .container {
         width: 100%;
-        max-width: 1500px;   /* que no se estire infinito en monitores 4K */
+        max-width: 1650px;
+        margin-left: 260px;
+        /* que no se estire infinito en monitores 4K */
         margin: 0 auto;
         padding: 20px clamp(12px, 3vw, 32px);
     }
@@ -531,6 +535,7 @@ $queryFiltros = http_build_query([
     }
 
     @media (max-width: 560px) {
+
         .filtros select,
         .filtros input[type="text"],
         .filtros .btn-search {
@@ -652,7 +657,7 @@ $queryFiltros = http_build_query([
         border-radius: 10px;
         background: rgba(255, 255, 255, 0.08);
         color: #fff;
-        font-size: 12.5px;
+        font-size: 11.5px;
         line-height: 1.3;
         transition: background .2s ease, border-color .2s ease;
     }
@@ -689,155 +694,6 @@ $queryFiltros = http_build_query([
         }
 
         .glosario-toggle h3 {
-            font-size: 15px;
-        }
-    }
-
-    /* =====================================================
-       TABLA DE EQUIPOS
-       Escritorio / tablet: scroll horizontal contenido.
-       Móvil angosto: se transforma en tarjetas apiladas.
-       ===================================================== */
-
-    .tabla-scroll {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-
-        scrollbar-width: thin;
-        scrollbar-color: #415885 #e9edf5;
-    }
-
-    .tabla-scroll::-webkit-scrollbar {
-        height: 8px;
-    }
-
-    .tabla-scroll::-webkit-scrollbar-track {
-        background: #e9edf5;
-        border-radius: 10px;
-    }
-
-    .tabla-scroll::-webkit-scrollbar-thumb {
-        background: #415885;
-        border-radius: 10px;
-    }
-
-    .tabla-equipos {
-        width: 100%;
-        min-width: 1100px;
-        border-collapse: collapse;
-    }
-
-    .tabla-equipos th,
-    .tabla-equipos td {
-        white-space: nowrap;
-        padding: 10px 12px;
-    }
-
-    .tabla-equipos td:nth-child(4),
-    .tabla-equipos td:nth-child(5) {
-        white-space: normal;
-        min-width: 130px;
-    }
-
-    @media (max-width: 900px) {
-        .tabla-equipos {
-            min-width: 900px;
-        }
-    }
-
-    /* ----- Vista en tarjetas para pantallas angostas ----- */
-    @media (max-width: 680px) {
-        .tabla-scroll {
-            overflow: visible;
-        }
-
-        .tabla-equipos {
-            min-width: 0;
-            width: 100%;
-            display: block;
-        }
-
-        .tabla-equipos thead {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-            white-space: nowrap;
-        }
-
-        .tabla-equipos tbody {
-            display: block;
-        }
-
-        .tabla-equipos tbody tr {
-            display: block;
-            margin-bottom: 14px;
-            padding: 12px 14px;
-            border: 1px solid #e5e9f0;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, .06);
-        }
-
-        .tabla-equipos tbody td {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            white-space: normal;
-            text-align: right;
-            padding: 8px 0;
-            border-bottom: 1px dashed #eef1f5;
-            min-width: 0;
-        }
-
-        .tabla-equipos tbody td:last-child {
-            border-bottom: none;
-        }
-
-        .tabla-equipos tbody td::before {
-            content: attr(data-label);
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: .03em;
-            color: #64748b;
-            text-align: left;
-            flex-shrink: 0;
-        }
-
-        .tabla-equipos tbody td[data-label="Acción"] {
-            justify-content: flex-end;
-        }
-    }
-
-    /* =====================================================
-       PAGINACIÓN: que envuelva bien en pantallas pequeñas
-       ===================================================== */
-
-    .paginacion {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 16px;
-    }
-
-    /* =====================================================
-       MONITORES GRANDES: un poco más de aire y tipografía
-       ===================================================== */
-    @media (min-width: 1600px) {
-        .container {
-            max-width: 1680px;
-        }
-
-        .tabla-equipos th,
-        .tabla-equipos td {
             font-size: 15px;
         }
     }
@@ -990,16 +846,16 @@ $queryFiltros = http_build_query([
 
                         <?php foreach ($result as $equipo): ?>
                             <?php
-                                $idEquipo = (int)$equipo['id'];
+                            $idEquipo = (int)$equipo['id'];
 
-                                $clase = 'activo';
-                                if ($equipo['estado'] == 'Bodega') {
-                                    $clase = 'Bodega';
-                                } elseif ($equipo['estado'] == 'En reparación') {
-                                    $clase = 'reparacion';
-                                } elseif ($equipo['estado'] == 'Dado de baja') {
-                                    $clase = 'baja';
-                                }
+                            $clase = 'activo';
+                            if ($equipo['estado'] == 'Bodega') {
+                                $clase = 'Bodega';
+                            } elseif ($equipo['estado'] == 'En reparación') {
+                                $clase = 'reparacion';
+                            } elseif ($equipo['estado'] == 'Dado de baja') {
+                                $clase = 'baja';
+                            }
                             ?>
                             <tr>
                                 <td data-label="Tipo"><?= e($equipo['tipo']) ?></td>
@@ -1044,53 +900,47 @@ $queryFiltros = http_build_query([
                 </table>
             </div>
             <div class="paginacion">
-
                 <?php
-                /*
-                ==========================================
-                PAGINACIÓN POR BLOQUES DE 10
-                ==========================================
-                */
-
+                // PAGINACIÓN DE 10 EN PC
                 $paginasPorBloque = 10;
-
                 $bloqueActual = (int) ceil($pagina / $paginasPorBloque);
-
                 $primeraPagina = (($bloqueActual - 1) * $paginasPorBloque) + 1;
+                $ultimaPagina = min($primeraPagina + $paginasPorBloque - 1, $totalPaginas);
 
-                $ultimaPagina = min(
-                    $primeraPagina + $paginasPorBloque - 1,
-                    $totalPaginas
-                );
+                // LÓGICA MÓVIL: Calcular las 5 páginas más cercanas a la actual
+                $rangoMobileInicio = max($primeraPagina, $pagina - 9);
+                $rangoMobileFin = min($ultimaPagina, $pagina + 9);
+
+                // Si estamos en los bordes, asegurar de mostrar siempre 5 opciones (si existen)
+                if ($rangoMobileFin - $rangoMobileInicio < 9) {
+                    if ($rangoMobileInicio == $primeraPagina) {
+                        $rangoMobileFin = min($ultimaPagina, $primeraPagina + 9);
+                    } elseif ($rangoMobileFin == $ultimaPagina) {
+                        $rangoMobileInicio = max($primeraPagina, $ultimaPagina - 9);
+                    }
+                }
                 ?>
 
                 <?php if ($pagina > 1): ?>
-                    <a href="?pagina=<?= ($pagina - 1) ?>&<?= e($queryFiltros) ?>">
-                        Anterior
-                    </a>
+                    <a href="?pagina=<?= ($pagina - 1) ?>&<?= e($queryFiltros) ?>" class="pag-anterior">Anterior</a>
                 <?php endif; ?>
 
                 <?php for ($i = $primeraPagina; $i <= $ultimaPagina; $i++): ?>
-                    <a
-                        class="<?= ($pagina == $i) ? 'activo-pagina' : ''; ?>"
-                        href="?pagina=<?= $i ?>&<?= e($queryFiltros) ?>">
-                        <?= $i ?>
-                    </a>
+                    <?php
+                    $esActivo = ($pagina == $i) ? 'activo-pagina' : '';
+                    // Si el número de página está fuera del rango dinámico de 5, le damos la clase para ocultarlo solo en celulares
+                    $ocultarEnMovil = ($i < $rangoMobileInicio || $i > $rangoMobileFin) ? 'd-mobile-none' : '';
+                    ?>
+                    <a class="<?= $esActivo ?> <?= $ocultarEnMovil ?>" href="?pagina=<?= $i ?>&<?= e($queryFiltros) ?>"><?= $i ?></a>
                 <?php endfor; ?>
 
                 <?php if ($pagina < $totalPaginas): ?>
-                    <a href="?pagina=<?= ($pagina + 1) ?>&<?= e($queryFiltros) ?>">
-                        Siguiente
-                    </a>
+                    <a href="?pagina=<?= ($pagina + 1) ?>&<?= e($queryFiltros) ?>" class="pag-siguiente">Siguiente</a>
                 <?php endif; ?>
 
                 <?php if ($totalPaginas > 0): ?>
-                    <span class="indicador-paginacion">
-                        Páginas <?= $primeraPagina ?> - <?= $ultimaPagina ?>
-                        de <?= $totalPaginas ?>
-                    </span>
+                    <div class="indicador-paginacion">Páginas <?= $primeraPagina ?> - <?= $ultimaPagina ?> de <?= $totalPaginas ?></div>
                 <?php endif; ?>
-
             </div>
         </div>
 
@@ -1157,4 +1007,5 @@ $queryFiltros = http_build_query([
     </script>
 
 </body>
+
 </html>

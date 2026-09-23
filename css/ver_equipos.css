@@ -324,24 +324,24 @@ h4 {
     opacity: .75;
 }
 
-.glosario-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.glosario-chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.glosario-chip {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px;
+    background: rgba(0, 0, 0, 0.15); color: #e2e8f0; font-size: 12.5px;
+    transition: background .2s ease;
+}
+.glosario-chip:hover { background: rgba(0, 0, 0, 0.3); }
+.glosario-chip b {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 34px; padding: 3px 6px; border-radius: 6px;
+    background: #3b82f6; color: #fff; font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
 
-.glosario-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    font-size: 12.5px;
-    line-height: 1.2;
-    white-space: nowrap;
-    color: #fff;
+@media (max-width: 600px) {
+    .glosario-chips { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .glosario-body { grid-template-columns: 1fr; gap: 16px; }
+    .glosario-toggle h3 { font-size: 15px; }
 }
 
 .glosario-chip b {
@@ -442,16 +442,6 @@ h4 {
     z-index: 3;
 }
 
-.logo-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    margin-top: 57px;
-    text-align: center;
-    color: #fff;
-    text-transform: uppercase;
-    transition: .3s;
-}
 
 @media (max-width: 900px) {
     .tabla-equipos {
@@ -593,21 +583,12 @@ h4 {
     opacity: .85;
 }
 
-/* En pantallas angostas, la paginación se "transforma":
-   solo se muestran Anterior / Siguiente y la página activa,
-   ocultando el resto de números para no saturar la pantalla. */
-@media (max-width: 680px) {
-    .paginacion a:not(.pag-anterior):not(.pag-siguiente):not(.activo-pagina) {
-        display: none;
-    }
-
-    .paginacion a {
-        min-width: 40px;
-        height: 40px;
-        font-size: 14px;
+@media (max-width: 768px) {
+    /* Oculta los números sobrantes para mantener solo el bloque de 5 en móviles */
+    .paginacion a.d-mobile-none {
+        display: none !important;
     }
 }
-
 /* =========================================================
    RESPONSIVE GENERAL
    ========================================================= */

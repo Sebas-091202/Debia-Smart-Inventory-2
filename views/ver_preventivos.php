@@ -173,6 +173,7 @@ $ubicacionesEquipo = [
    de la hoja de vida. */
 $estadosMantenimiento = [
     'Activo',
+    'Bodega',
     'En reparación',
     'Dado de baja',
 ];
