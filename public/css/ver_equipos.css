@@ -1,0 +1,560 @@
+/* =========================================================
+   VER EQUIPOS — ESTILOS DE LA VISTA
+   Este archivo contiene TODO el diseño de la página
+   "Inventario de Equipos": fondo, tarjetas, filtros, glosario,
+   tabla/tarjetas responsivas, badges, botones y paginación.
+   El layout del sidebar y el desplazamiento del contenido
+   viven en sidebar.css, no aquí.
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+    background-size: 600% 600%;
+    animation: gradientAnimation 22s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   (el desplazamiento respecto al sidebar lo controla
+   sidebar.css; aquí solo limitamos el ancho y el padding)
+   ========================================================= */
+.container {
+    max-width: 1500px;
+    padding: 35px clamp(12px, 3vw, 35px);
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   TARJETAS (glassmorphism)
+   ========================================================= */
+.card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: clamp(14px, 2.5vw, 25px);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    margin-bottom: 25px;
+    max-width: 110%;
+}
+
+.card h2 {
+    font-size: clamp(1.15rem, 1.6vw + 0.7rem, 1.6rem);
+}
+
+h2,
+h4 {
+    text-align: center;
+    margin-bottom: 12px;
+    padding-top: 20px;
+}
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 14px;
+    justify-content: center;
+}
+
+.filtros select,
+.filtros input[type="text"] {
+    flex: 1 1 190px;
+    min-width: 0;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.filtros .btn-search {
+    flex: 1 1 190px;
+}
+
+@media (max-width: 560px) {
+
+    .filtros select,
+    .filtros input[type="text"],
+    .filtros .btn-search {
+        flex: 1 1 100%;
+    }
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+.btn-search {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btn-search:hover {
+    background: #3370f5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+}
+
+.btn-update,
+.btn-delete,
+.btn-hoja-vida {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.btn-update {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(22, 163, 74, .35);
+    filter: brightness(1.05);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+    color: #fff;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(220, 38, 38, .35);
+    filter: brightness(1.05);
+}
+
+
+.acciones-fila {
+    display: flex;
+    flex-wrap: nowrap !important;
+    /* Evita terminantemente que se apilen verticalmente */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* El <form> de "Eliminar" es un elemento de bloque por defecto:
+   sin esto, rompería la fila y el botón caería a la línea
+   siguiente, quedando apilado debajo de "Editar". */
+.acciones-fila form {
+    display: contents;
+}
+
+.btn-hoja-vida {
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: #fff;
+}
+
+.btn-hoja-vida:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .35);
+    filter: brightness(1.05);
+}
+
+/* =========================================================
+   BADGES DE ESTADO
+   ========================================================= */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   GLOSARIO COLAPSABLE
+   ========================================================= */
+.glosario {
+    padding: 16px 20px;
+}
+
+.glosario-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.glosario-toggle h3 {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.glosario-toggle .bx-chevron-down {
+    font-size: 22px;
+    flex-shrink: 0;
+    transition: transform .3s ease;
+}
+
+.glosario.abierto .glosario-toggle .bx-chevron-down {
+    transform: rotate(180deg);
+}
+
+.glosario-hint {
+    font-size: 12px;
+    opacity: .65;
+    font-weight: 400;
+}
+
+.glosario-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s ease;
+}
+
+.glosario.abierto .glosario-content {
+    grid-template-rows: 1fr;
+}
+
+.glosario-inner {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.glosario-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding-top: 16px;
+}
+
+.glosario-grupo h4 {
+    margin: 0 0 10px;
+    padding-top: 0;
+    text-align: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    opacity: .75;
+}
+
+.glosario-chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.glosario-chip {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px;
+    background: rgba(0, 0, 0, 0.15); color: #fff; font-size: 12.5px;
+    transition: background .2s ease;
+}
+.glosario-chip:hover { background: rgba(0, 0, 0, 0.3); }
+.glosario-chip b {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 34px; padding: 3px 6px; border-radius: 6px;
+    background: #3b82f6; color: #fff; font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .glosario-chips { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .glosario-body { grid-template-columns: 1fr; gap: 14px; }
+    .glosario-toggle h3 { font-size: 15px; }
+}
+
+/* =========================================================
+   TABLA DE EQUIPOS
+   Escritorio / tablet: scroll horizontal contenido.
+   Móvil angosto (≤680px): se transforma en tarjetas apiladas.
+   ========================================================= */
+.tabla-scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-start;
+    margin: 0 0 10px;
+    font-size: 12.5px;
+    opacity: .75;
+    color: #fff;
+}
+
+.tabla-scroll {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #94a3b8 rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    min-width: 0;
+    /* Previene que rompa el contenedor padre */
+}
+
+.tabla-equipos {
+    width: 100%;
+    min-width: max-content;
+    /* ESTO ES LA CLAVE: Forza a la tabla a no aplastarse */
+    border-collapse: collapse;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.tabla-equipos th,
+.tabla-equipos td {
+    white-space: nowrap;
+    /* Evita que textos como "Acción" se corten o salten de línea */
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-equipos th {
+    background: #111827;
+    color: #fff;
+}
+
+.tabla-equipos th,
+.tabla-equipos td {
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.tabla-equipos td:nth-child(4),
+.tabla-equipos td:nth-child(5) {
+    white-space: normal;
+    min-width: 130px;
+}
+
+/* La última columna (Hoja de Vida) queda "pegada" al borde derecho
+   del contenedor con scroll, para que nunca quede tapada ni se
+   pierda al desplazar la tabla horizontalmente. */
+.tabla-equipos th:last-child,
+.tabla-equipos td:last-child {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+    background: #f8fafc;
+    box-shadow: -6px 0 10px -6px rgba(0, 0, 0, .35);
+}
+
+.tabla-equipos thead th:last-child {
+    background: #111827;
+    z-index: 3;
+}
+
+
+@media (max-width: 900px) {
+    .tabla-equipos {
+        min-width: 900px;
+    }
+}
+
+/* En la vista de tarjetas (móvil) la columna ya no necesita
+   quedar fija: cada dato ocupa su propia fila. */
+@media (max-width: 680px) {
+
+    .tabla-equipos th:last-child,
+    .tabla-equipos td:last-child {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+/* ----- Vista en tarjetas para pantallas angostas ----- */
+@media (max-width: 680px) {
+    .tabla-scroll-hint {
+        display: none;
+    }
+
+    .tabla-scroll {
+        overflow: visible;
+    }
+
+    .tabla-equipos {
+        min-width: 0;
+        width: 100%;
+        display: block;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .tabla-equipos thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    .tabla-equipos tbody {
+        display: block;
+    }
+
+    .tabla-equipos tbody tr {
+        display: block;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        border: 1px solid #e5e9f0;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, .18);
+    }
+
+    .tabla-equipos tbody td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        white-space: normal;
+        text-align: right;
+        padding: 8px 0;
+        border-bottom: 1px dashed #eef1f5;
+        min-width: 0;
+    }
+
+    .tabla-equipos tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .tabla-equipos tbody td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        color: #64748b;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .tabla-equipos tbody td[data-label="Acción"] {
+        justify-content: flex-end;
+    }
+}
+
+/* =========================================================
+   PAGINACIÓN
+   ========================================================= */
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+    padding: 10px 5px;
+}
+
+.paginacion a {
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    background: #fff;
+    color: #111827;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.paginacion a:hover {
+    transform: translateY(-1px);
+    background: #e5e7eb;
+}
+
+.paginacion .activo-pagina {
+    background: #2563eb;
+    color: #fff;
+}
+
+.paginacion .indicador-paginacion {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: .85;
+}
+
+@media (max-width: 768px) {
+    /* Oculta los números sobrantes para mantener solo el bloque de 5 en móviles */
+    .paginacion a.d-mobile-none {
+        display: none !important;
+    }
+}
+/* =========================================================
+   RESPONSIVE GENERAL
+   ========================================================= */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1680px;
+    }
+
+    .tabla-equipos th,
+    .tabla-equipos td {
+        font-size: 15px;
+    }
+}

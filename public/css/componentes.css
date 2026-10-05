@@ -1,0 +1,154 @@
+/* =========================================================
+   COMPONENTES COMPARTIDOS
+   Piezas que se ven igual en todas las vistas. Se carga antes
+   del CSS propio de cada página, que puede ajustar la forma
+   (tamaño, padding) pero no los colores de estado.
+   ========================================================= */
+
+/* =========================================================
+   BADGES DE ESTADO (equipos y mantenimientos)
+   La forma la define cada vista con .badge / .badgeEstado.
+   ========================================================= */
+.estado-activo {
+    background: #16a34a;
+    color: #fff;
+}
+
+.estado-bodega {
+    background: #415885;
+    color: #fff;
+}
+
+.estado-reparacion {
+    background: #d97706;
+    color: #fff;
+}
+
+.estado-baja {
+    background: #dc2626;
+    color: #fff;
+}
+
+.estado-finalizado {
+    background: #0f766e;
+    color: #fff;
+}
+
+.estado-desconocido {
+    background: #64748b;
+    color: #fff;
+}
+
+/* =========================================================
+   MENSAJES (resultado de guardar, errores de validación)
+   ========================================================= */
+.alerta {
+    position: fixed;
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    right: 16px;
+    z-index: 2000;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 14px 16px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    animation: alerta-entrada .25s ease-out;
+}
+
+.alerta i {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.alerta-exito {
+    background: #15803d;
+}
+
+.alerta-error {
+    background: #b91c1c;
+}
+
+.alerta-cerrar {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: .8;
+}
+
+.alerta-cerrar:hover {
+    opacity: 1;
+}
+
+@keyframes alerta-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+.celda-vacia {
+    text-align: center;
+    padding: 24px;
+    white-space: normal;
+}
+
+.texto-centro {
+    text-align: center;
+}
+
+/* =========================================================
+   PÁGINA DE ERROR
+   ========================================================= */
+.pagina-error {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 16px;
+    background: linear-gradient(135deg, #c40c0c, #111827);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+.pagina-error-tarjeta {
+    max-width: 460px;
+    padding: 32px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+    text-align: center;
+}
+
+.pagina-error-tarjeta h1 {
+    margin: 0 0 12px;
+    font-size: 2.4rem;
+}
+
+.pagina-error-tarjeta a {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}

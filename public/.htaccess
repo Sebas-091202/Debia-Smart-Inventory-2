@@ -1,0 +1,4 @@
+# Carpeta pública: lo único que Apache debe servir.
+Require all granted
+Options -Indexes
+DirectoryIndex index.php

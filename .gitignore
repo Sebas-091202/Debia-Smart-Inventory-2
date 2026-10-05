@@ -1,0 +1,8 @@
+# Configuración con credenciales: nunca al repositorio.
+.env
+
+# Certificados y respaldos locales.
+*.crt
+*.pem
+*.sql.gz
+respaldos/

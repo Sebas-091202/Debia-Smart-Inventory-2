@@ -1,0 +1,5 @@
+# Solo public/ es accesible desde el navegador. Todo lo demás (app/, bin/,
+# database/, docs/, .env, .git) queda bloqueado aunque el servidor apunte
+# por error a la raíz del proyecto. En producción el DocumentRoot debe ser
+# public/ (ver deploy/apache-vhost.conf); esto es una segunda barrera.
+Require all denied

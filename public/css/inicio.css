@@ -1,0 +1,152 @@
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+      background-size: 600% 600%;
+      animation: gradientAnimation 22s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .admin-container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      width: 95%;
+      max-width: 1000px;
+      text-align: center;
+      color: #fff;
+    }
+
+    header img {
+      height: 250px;
+      border-radius: 50%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    nav ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li :is(a, button) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 25px 20px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul li :is(a, button) i {
+      font-size: 26px;
+      color: #60a5fa;
+      transition: transform 0.3s ease;
+    }
+
+    nav ul li :is(a, button):hover {
+      background-color: rgba(0, 119, 182, 0.9);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    nav ul li :is(a, button):hover i {
+      transform: scale(1.2);
+      color: #fff;
+    }
+
+    nav ul li .logout {
+      background-color: rgba(220, 38, 38, 0.9);
+    }
+
+    nav ul li .logout:hover {
+      background-color: #991b1b;
+    }
+
+    @media screen and (max-width: 480px) {
+      .admin-container {
+        padding: 25px 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      nav ul li :is(a, button) {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 14px 18px;
+        font-size: 14px;
+        text-align: left;
+        gap: 14px;
+      }
+
+      nav ul li :is(a, button) i {
+        font-size: 20px;
+      }
+    }
+    /* "Cerrar Sesión" es un botón dentro de un formulario POST
+       (protegido con CSRF) con el mismo aspecto que los enlaces. */
+    nav ul li form {
+      margin: 0;
+      height: 100%;
+    }
+
+    nav ul li button {
+      width: 100%;
+      height: 100%;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+    }

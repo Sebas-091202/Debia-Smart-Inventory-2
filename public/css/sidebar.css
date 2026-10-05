@@ -1,0 +1,243 @@
+/* =========================================================
+   SIDEBAR + LAYOUT PRINCIPAL
+   Este archivo es el ÚNICO responsable de:
+     - el menú lateral (colores, tamaños, márgenes, colapso)
+     - el desplazamiento del contenido según el estado del menú
+   El contenido propio de cada vista (tarjetas, tablas,
+   filtros, etc.) vive en su propio CSS (ej: ver_equipos.css).
+
+   Para que el menú se vea idéntico en todas las vistas, aquí se
+   fijan explícitamente las propiedades que los CSS de página
+   suelen tocar con reglas genéricas (h4, iconos .bx-*, fuente):
+   todos los selectores van bajo ".sidebar", que tiene más
+   especificidad que esas reglas.
+
+   Nota: se soportan ".container" y ".main-content" como
+   equivalentes para el desplazamiento del contenido.
+   ========================================================= */
+
+/* =========================
+   SIDEBAR BASE
+   ========================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #0b1526;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    transition: width 0.3s ease, left 0.3s ease;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar .sidebar-header {
+    margin: 0;
+    padding: 20px 10px;
+}
+
+.sidebar .logo-title {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    transition: font-size .3s ease;
+}
+
+.sidebar .logo-full {
+    display: inline;
+}
+
+.sidebar .logo-short {
+    display: none;
+}
+
+/* =========================
+   OPCIONES DEL MENÚ
+   (.sidebar-item: enlaces y el botón "Cerrar Sesión")
+   ========================= */
+.sidebar .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease, padding .2s ease;
+}
+
+.sidebar .sidebar-item i {
+    flex-shrink: 0;
+    min-width: 24px;
+    margin: 0;
+    font-size: 20px;
+    color: #60a5fa;
+    text-align: center;
+}
+
+.sidebar .sidebar-item span {
+    display: inline;
+    transition: opacity .2s ease;
+}
+
+.sidebar .sidebar-item:hover {
+    background: rgba(96, 165, 250, .2);
+    transform: translateX(5px);
+}
+
+/* "Cerrar Sesión" va en un <form> POST (con CSRF); solo cambia el color. */
+.sidebar .sidebar-salir {
+    margin: 0;
+}
+
+.sidebar .sidebar-salir .sidebar-item i {
+    color: #f87171;
+}
+
+.sidebar .sidebar-salir .sidebar-item:hover {
+    background: rgba(248, 113, 113, .2);
+}
+
+/* =========================
+   BOTÓN HAMBURGUESA
+   ========================= */
+.toggle-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: rgba(11, 21, 38, .95);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 22px;
+    line-height: normal;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1100;
+    transition: background .3s ease;
+}
+
+.toggle-btn:hover {
+    background: #2563eb;
+}
+
+/* =========================
+   CONTENIDO PRINCIPAL
+   ========================= */
+.container,
+.main-content {
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+}
+
+/* =========================
+   SIDEBAR COLAPSADO (ESCRITORIO)
+   ========================= */
+body.sidebar-collapsed .sidebar {
+    width: 70px;
+}
+
+body.sidebar-collapsed .container,
+body.sidebar-collapsed .main-content {
+    margin-left: 70px;
+}
+
+body.sidebar-collapsed .sidebar .sidebar-item span {
+    display: none;
+}
+
+body.sidebar-collapsed .sidebar .sidebar-item {
+    justify-content: center;
+    padding: 15px 0;
+}
+
+body.sidebar-collapsed .sidebar .logo-full {
+    display: none;
+}
+
+body.sidebar-collapsed .sidebar .logo-short {
+    display: inline;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   RESPONSIVE (MÓVIL)
+   ========================= */
+@media (max-width: 768px) {
+
+    /* Sidebar oculto fuera de pantalla */
+    .sidebar {
+        left: -260px;
+        width: 260px;
+    }
+
+    /* Sidebar visible al abrir */
+    body.sidebar-open .sidebar {
+        left: 0;
+    }
+
+    .sidebar .sidebar-item span {
+        display: none;
+    }
+
+    body.sidebar-open .sidebar .sidebar-item span {
+        display: inline;
+    }
+
+    body.sidebar-open .sidebar .sidebar-item {
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+
+    /* En móvil, siempre mostrar el logo corto salvo que el
+       sidebar esté abierto, donde cabe el logo completo */
+    .sidebar .logo-full {
+        display: none;
+    }
+
+    .sidebar .logo-short {
+        display: inline;
+    }
+
+    body.sidebar-open .sidebar .logo-full {
+        display: inline;
+    }
+
+    body.sidebar-open .sidebar .logo-short {
+        display: none;
+    }
+
+    /* Overlay oscuro detrás del sidebar abierto */
+    body.sidebar-open::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .5);
+        z-index: 999;
+    }
+
+    /* El contenido ocupa todo el ancho en móvil */
+    .container,
+    .main-content {
+        margin-left: 0;
+    }
+}
