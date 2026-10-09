@@ -21,9 +21,17 @@ final class Url
         return '../controller/' . $archivo;
     }
 
+    /**
+     * Archivo estático de public/ con su versión ("?v=<fecha de
+     * modificación>"): al publicar un cambio la URL cambia y los
+     * navegadores descargan el archivo nuevo en lugar de usar el guardado.
+     */
     public static function recurso(string $ruta): string
     {
-        return '../' . ltrim($ruta, '/');
+        $ruta = ltrim($ruta, '/');
+        $modificado = @filemtime(dirname(APP_ROOT) . '/public/' . $ruta);
+
+        return '../' . $ruta . ($modificado === false ? '' : '?v=' . $modificado);
     }
 
     /** "?a=1&b=2" omitiendo los valores vacíos; "" si no queda ninguno. */
