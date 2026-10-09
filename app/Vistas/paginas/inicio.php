@@ -5,6 +5,7 @@
  * @var App\Dominio\Rol $rol
  */
 
+use App\Core\Auth;
 use App\Core\Url;
 use App\Core\Vista;
 
@@ -19,7 +20,7 @@ Vista::mostrar('layout/inicio', ['titulo' => $titulo, 'estilos' => ['inicio.css'
     <h1>Bienvenido <?= $rol->esAdmin() ? 'Administrador' : 'Usuario' ?></h1>
     <nav aria-label="Módulos">
         <ul>
-            <?php foreach ($rol->menu() as $opcion): ?>
+            <?php foreach (Auth::cuenta()->menu() as $opcion): ?>
                 <li>
                     <a href="<?= e(Url::vista($opcion['archivo'])) ?>">
                         <i class='bx <?= e($opcion['icono']) ?>' aria-hidden="true"></i> <?= e($opcion['texto']) ?>

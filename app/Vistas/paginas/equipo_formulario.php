@@ -125,7 +125,7 @@ Vista::mostrar('layout/inicio', ['titulo' => $titulo, 'estilos' => ['formulario.
 
         <?php if ($esEdicion): ?>
             <div class="texto-centro">
-                <a href="<?= e(Url::vista('ver_equipos.php')) ?>" class="volver">Volver al Inventario</a>
+                <a href="<?= e(Url::vista($rol->vista('ver_equipos'))) ?>" class="volver">Volver al Inventario</a>
             </div>
         <?php endif; ?>
     </div>

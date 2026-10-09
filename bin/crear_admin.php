@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 /**
- * Crea un administrador desde la consola del servidor. Sirve para la
- * primera cuenta de una base nueva o para recuperar el acceso si nadie
- * recuerda la contraseña de un administrador (no hay registro público).
+ * Crea un administrador con todos los permisos desde la consola del
+ * servidor. Sirve para la primera cuenta de una base nueva (con el correo
+ * de App\Config::CORREO_CUENTA_PRINCIPAL se crea la cuenta principal, si
+ * aún no existe) o para recuperar el acceso si nadie recuerda la
+ * contraseña de un administrador (no hay registro público).
  *
  * Uso:
  *     php bin/crear_admin.php <usuario> "<Nombre completo>" <correo> <identificación>
@@ -15,6 +17,7 @@ declare(strict_types=1);
  */
 
 use App\Dominio\ErrorDeNegocio;
+use App\Dominio\Permiso;
 use App\Dominio\Rol;
 use App\Servicios\UsuarioServicio;
 
@@ -51,6 +54,7 @@ try {
         'numero_identificacion' => $identificacion,
         'contrasena'            => $contrasena,
         'rol'                   => Rol::Admin->value,
+        'permisos'              => Permiso::valores(Permiso::cases()),
     ], null);
 } catch (ErrorDeNegocio $error) {
     fwrite(STDERR, $error->getMessage() . "\n");

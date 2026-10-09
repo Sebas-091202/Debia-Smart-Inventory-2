@@ -35,10 +35,17 @@ CREATE TABLE IF NOT EXISTS usuarios (
     numero_identificacion varchar(50),
     contrasena            varchar(255) NOT NULL,
     rol                   varchar(10)  NOT NULL CHECK (rol IN ('ADMIN', 'USUARIO')),
+    -- Permisos asignados por la cuenta principal (App\Dominio\Permiso).
+    -- La cuenta principal (App\Config::CORREO_CUENTA_PRINCIPAL) los tiene
+    -- todos sin importar este valor.
+    permisos              text[]       NOT NULL DEFAULT '{}',
     activo                boolean      NOT NULL DEFAULT true,
     fecha_creacion        timestamptz  NOT NULL DEFAULT now(),
     CONSTRAINT usuarios_usuario_unico UNIQUE (usuario),
-    CONSTRAINT usuarios_usuario_normalizado_unico UNIQUE (usuario_normalizado)
+    CONSTRAINT usuarios_usuario_normalizado_unico UNIQUE (usuario_normalizado),
+    CONSTRAINT usuarios_permisos_validos CHECK (
+        permisos <@ ARRAY['EDITAR_EQUIPO', 'CREAR_USUARIO', 'EDITAR_USUARIO', 'CAMBIAR_CONTRASENA']::text[]
+    )
 );
 
 -- ---------------------------------------------------------------------

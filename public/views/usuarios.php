@@ -2,19 +2,12 @@
 
 declare(strict_types=1);
 
-/** Gestión de usuarios (solo administrador). */
+/** Gestión de usuarios (permiso "Crear nuevo usuario" o "Editar usuario"). */
 
 require __DIR__ . '/../../app/bootstrap.php';
 
 use App\Core\Auth;
-use App\Core\Vista;
-use App\Dominio\Rol;
-use App\Repositorios\UsuarioRepositorio;
+use App\Dominio\Permiso;
+use App\Paginas\ListadoUsuarios;
 
-Auth::exigirRol(Rol::Admin);
-
-Vista::mostrar('paginas/usuarios_listado', [
-    'rol'      => Rol::Admin,
-    'usuarios' => (new UsuarioRepositorio())->listar(),
-    'actualId' => Auth::id(),
-]);
+ListadoUsuarios::mostrar(Auth::exigirPermiso(Permiso::CrearUsuario, Permiso::EditarUsuario));

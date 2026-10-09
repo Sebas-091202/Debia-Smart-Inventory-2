@@ -7,6 +7,7 @@
  */
 
 use App\Core\Url;
+use App\Core\Vista;
 
 ?>
 <!DOCTYPE html>
@@ -16,6 +17,7 @@ use App\Core\Url;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error <?= (int) $codigo ?> | Debia Smart Inventory</title>
+    <?php Vista::mostrar('parciales/iconos'); ?>
     <link rel="stylesheet" href="<?= e(Url::recurso('css/componentes.css')) ?>">
 </head>
 

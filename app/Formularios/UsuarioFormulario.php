@@ -8,11 +8,15 @@ use App\Config;
 use App\Core\Peticion;
 use App\Core\Validador;
 use App\Dominio\ErrorDeNegocio;
+use App\Dominio\Permiso;
 use App\Dominio\Rol;
 
 /**
- * Lee y valida los formularios de usuarios: alta y edición (administrador)
- * y cambio de la propia contraseña (cualquier usuario).
+ * Lee y valida los formularios de usuarios: alta y edición (gestión de
+ * usuarios) y cambio de la propia contraseña (cualquier usuario).
+ *
+ * Qué campos aplica cada quién (permisos, nombre de usuario...) lo decide
+ * UsuarioServicio; aquí solo se valida el formato.
  *
  * Las contraseñas se leen sin recortar: los espacios son parte de ellas.
  */
@@ -26,12 +30,8 @@ final class UsuarioFormulario
             'contrasena' => Peticion::formularioExacto('contrasena'),
         ];
 
-        $validador = self::validarDatosPersonales($datos)
-            ->requerido($datos['usuario'], 'Usuario')
-            ->longitudMinima($datos['usuario'], 3, 'Usuario')
-            ->longitudMaxima($datos['usuario'], 50, 'Usuario')
-            ->patron($datos['usuario'], '/^[A-Za-z0-9._-]+$/', 'El usuario solo puede tener letras, números, punto, guion y guion bajo.');
-
+        $validador = self::validarDatosPersonales($datos);
+        self::validarUsuario($validador, $datos['usuario']);
         self::validarContrasenaNueva($validador, $datos['contrasena'], Peticion::formularioExacto('contrasena_confirmacion'));
         $validador->exigirValido();
 
@@ -41,16 +41,22 @@ final class UsuarioFormulario
     /**
      * La contraseña es opcional al editar: vacía significa "no cambiarla".
      *
+     * @param bool $conUsuario true si quien edita puede cambiar el nombre de usuario.
      * @throws ErrorDeNegocio
      */
-    public static function edicion(): array
+    public static function edicion(bool $conUsuario): array
     {
         $datos = self::datosPersonales() + [
+            'usuario'    => $conUsuario ? Peticion::formulario('usuario') : '',
             'activo'     => Peticion::formulario('activo') === '1',
             'contrasena' => Peticion::formularioExacto('contrasena'),
         ];
 
         $validador = self::validarDatosPersonales($datos);
+
+        if ($conUsuario) {
+            self::validarUsuario($validador, $datos['usuario']);
+        }
 
         if ($datos['contrasena'] !== '') {
             self::validarContrasenaNueva($validador, $datos['contrasena'], Peticion::formularioExacto('contrasena_confirmacion'));
@@ -88,6 +94,7 @@ final class UsuarioFormulario
             'correo'                => Peticion::formulario('correo'),
             'numero_identificacion' => Peticion::formulario('numero_identificacion'),
             'rol'                   => Peticion::formulario('rol'),
+            'permisos'              => array_values(array_unique(Peticion::formularioLista('permisos'))),
         ];
     }
 
@@ -102,7 +109,20 @@ final class UsuarioFormulario
             ->requerido($datos['numero_identificacion'], 'Identificación')
             ->patron($datos['numero_identificacion'], '/^\d{5,20}$/', 'La identificación debe tener entre 5 y 20 dígitos.')
             ->requerido($datos['rol'], 'Rol')
-            ->enLista($datos['rol'], array_column(Rol::cases(), 'value'), 'Rol');
+            ->enLista($datos['rol'], array_column(Rol::cases(), 'value'), 'Rol')
+            ->verdadero(
+                count(Permiso::desdeValores($datos['permisos'])) === count($datos['permisos']),
+                'Uno de los permisos seleccionados no es válido.'
+            );
+    }
+
+    private static function validarUsuario(Validador $validador, string $usuario): void
+    {
+        $validador
+            ->requerido($usuario, 'Usuario')
+            ->longitudMinima($usuario, 3, 'Usuario')
+            ->longitudMaxima($usuario, 50, 'Usuario')
+            ->patron($usuario, '/^[A-Za-z0-9._-]+$/', 'El usuario solo puede tener letras, números, punto, guion y guion bajo.');
     }
 
     private static function validarContrasenaNueva(Validador $validador, string $contrasena, string $confirmacion): void

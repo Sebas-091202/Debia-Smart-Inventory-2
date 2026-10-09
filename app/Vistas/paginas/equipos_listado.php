@@ -3,6 +3,7 @@
  * Inventario de equipos.
  *
  * @var App\Dominio\Rol           $rol
+ * @var bool                      $puedeEditar  Permiso "Editar equipo".
  * @var App\Dominio\FiltrosEquipo $filtros
  * @var App\Core\Paginador        $paginador
  * @var array[]                   $equipos
@@ -14,7 +15,8 @@ use App\Core\Vista;
 use App\Dominio\Catalogo;
 
 $esAdmin = $rol->esAdmin();
-$totalColumnas = $esAdmin ? 13 : 12;
+$conAcciones = $esAdmin || $puedeEditar;
+$totalColumnas = $conAcciones ? 13 : 12;
 
 Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' => ['ver_equipos.css'], 'rol' => $rol]);
 ?>
@@ -71,7 +73,7 @@ Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' 
                         <th>Disco D:</th>
                         <th>Estado</th>
                         <th>Ubicación</th>
-                        <?php if ($esAdmin): ?>
+                        <?php if ($conAcciones): ?>
                             <th>Acción</th>
                         <?php endif; ?>
                         <th>Hoja de Vida</th>
@@ -99,16 +101,20 @@ Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' 
                             <td data-label="Disco D:"><?= e($equipo['disco2']) ?></td>
                             <td data-label="Estado"><?= badge_estado($equipo['estado']) ?></td>
                             <td data-label="Ubicación"><?= e($equipo['ubicacion']) ?></td>
-                            <?php if ($esAdmin): ?>
+                            <?php if ($conAcciones): ?>
                                 <td data-label="Acción">
                                     <div class="acciones-fila">
-                                        <a href="<?= e(Url::vista('editar_equipos.php', ['id' => $equipo['id']])) ?>" class="btn-update">Editar</a>
-                                        <form method="POST" action="<?= e(Url::controlador('eliminar_equipo.php')) ?>"
-                                            data-confirmar="¿Eliminar el equipo <?= e($equipo['identificador']) ?>? También se borrará todo su historial de mantenimientos.">
-                                            <?= campo_csrf() ?>
-                                            <input type="hidden" name="id_equipo" value="<?= (int) $equipo['id'] ?>">
-                                            <button type="submit" class="btn-delete">Eliminar</button>
-                                        </form>
+                                        <?php if ($puedeEditar): ?>
+                                            <a href="<?= e(Url::vista('editar_equipos.php', ['id' => $equipo['id']])) ?>" class="btn-update">Editar</a>
+                                        <?php endif; ?>
+                                        <?php if ($esAdmin): ?>
+                                            <form method="POST" action="<?= e(Url::controlador('eliminar_equipo.php')) ?>"
+                                                data-confirmar="¿Eliminar el equipo <?= e($equipo['identificador']) ?>? También se borrará todo su historial de mantenimientos.">
+                                                <?= campo_csrf() ?>
+                                                <input type="hidden" name="id_equipo" value="<?= (int) $equipo['id'] ?>">
+                                                <button type="submit" class="btn-delete">Eliminar</button>
+                                            </form>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             <?php endif; ?>

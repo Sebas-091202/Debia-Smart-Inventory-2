@@ -36,6 +36,12 @@ final class Config
     /** bcrypt solo considera los primeros 72 bytes de la contraseña. */
     public const CONTRASENA_LONGITUD_MAXIMA = 72;
 
+    /**
+     * Correo de la cuenta principal: la única que asigna permisos y cambia
+     * nombres de usuario, y que siempre tiene todos los permisos.
+     */
+    public const CORREO_CUENTA_PRINCIPAL = 'sistemas@consultoriasdebia.com.co';
+
     /** @var array<string, string>|null Contenido del .env, leído una sola vez. */
     private static ?array $archivoEntorno = null;
 

@@ -139,16 +139,47 @@
             accent-color: #2563eb;
         }
 
-        .grupo-contrasena {
+        .grupo-contrasena,
+        .grupo-permisos {
             margin: 6px 0 20px;
             padding: 16px 16px 0;
             border: 1px solid rgba(255, 255, 255, .25);
             border-radius: 14px;
         }
 
-        .grupo-contrasena legend {
+        .grupo-contrasena legend,
+        .grupo-permisos legend {
             padding: 0 8px;
             font-weight: 700;
+        }
+
+        /* Cada permiso: casilla + nombre + explicación breve. */
+        .casilla-permiso {
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .casilla-permiso input {
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .casilla-permiso span {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .casilla-permiso small {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: .8;
+        }
+
+        .casilla-permiso input:disabled,
+        .casilla-permiso input:disabled + span {
+            cursor: not-allowed;
+            opacity: .7;
         }
 
         /* =========================================================

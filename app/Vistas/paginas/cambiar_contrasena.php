@@ -1,6 +1,6 @@
 <?php
 /**
- * Cambio de la propia contraseña (cualquier rol).
+ * Cambio de la propia contraseña (permiso "Cambio de contraseña").
  *
  * @var App\Dominio\Rol $rol
  */

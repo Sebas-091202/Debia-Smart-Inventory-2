@@ -122,8 +122,9 @@ body {
 
 .tabla-usuarios th,
 .tabla-usuarios td {
-    padding: 10px 12px;
+    padding: 10px 8px;
     border-bottom: 1px solid #ddd;
+    font-size: 14px;
     text-align: center;
     white-space: nowrap;
 }
@@ -133,10 +134,24 @@ body {
     color: #fff;
 }
 
-/* Nombre y correo pueden ser largos: se parten para que la columna
-   "Acción" siempre quede a la vista sin desplazar la tabla. */
-.tabla-usuarios td:nth-child(2),
-.tabla-usuarios td:nth-child(3) {
+/* Usuario con el nombre completo debajo (una columna menos) y correo:
+   pueden ser largos, así que se parten con un ancho mínimo para que la
+   columna "Acción" quede a la vista sin desplazar la tabla. */
+.tabla-usuarios td:nth-child(1) {
+    min-width: 120px;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.nombre-completo {
+    display: block;
+    margin-top: 2px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.tabla-usuarios td:nth-child(2) {
+    min-width: 150px;
     white-space: normal;
     overflow-wrap: anywhere;
 }
@@ -156,23 +171,117 @@ body {
 }
 
 /* =========================================================
-   MÓVIL: cada usuario se muestra como una tarjeta
+   PERMISOS
+   ========================================================= */
+.tabla-usuarios td[data-label="Permisos"] {
+    min-width: 150px;
+    white-space: normal;
+}
+
+.lista-permisos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+}
+
+.permiso {
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.permiso-principal {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.sin-permisos {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* =========================================================
+   PAGINACIÓN (mismo estilo que el inventario)
+   ========================================================= */
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+    padding: 10px 5px;
+}
+
+.paginacion a {
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    background: #fff;
+    color: #111827;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.paginacion a:hover {
+    transform: translateY(-1px);
+    background: #e5e7eb;
+}
+
+.paginacion .activo-pagina {
+    background: #2563eb;
+    color: #fff;
+}
+
+.paginacion .indicador-paginacion {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: .85;
+}
+
+/* =========================================================
+   PANTALLAS MEDIANAS Y MÓVIL: cada usuario se muestra como una
+   tarjeta (dos o más por fila en tableta, una en móvil)
    ========================================================= */
 @media (max-width: 768px) {
     .container {
         padding-top: 72px;
     }
+
+    .paginacion a.d-mobile-none {
+        display: none;
+    }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 1150px) {
     .tabla-scroll {
         overflow: visible;
     }
 
-    .tabla-usuarios,
-    .tabla-usuarios tbody {
+    .tabla-usuarios {
         display: block;
         background: transparent;
+    }
+
+    .tabla-usuarios tbody {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px;
     }
 
     .tabla-usuarios thead {
@@ -185,7 +294,6 @@ body {
 
     .tabla-usuarios tbody tr {
         display: block;
-        margin-bottom: 14px;
         padding: 12px 14px;
         border-radius: 12px;
         background: #fff;
@@ -222,5 +330,13 @@ body {
 
     .tabla-usuarios tbody td:last-child::before {
         content: none;
+    }
+
+    .tabla-usuarios tbody td:nth-child(n) {
+        min-width: 0;
+    }
+
+    .lista-permisos {
+        justify-content: flex-end;
     }
 }

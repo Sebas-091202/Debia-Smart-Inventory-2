@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Paginas;
 
+use App\Core\Auth;
 use App\Core\Paginador;
 use App\Core\Peticion;
 use App\Core\Vista;
 use App\Dominio\FiltrosEquipo;
+use App\Dominio\Permiso;
 use App\Dominio\Rol;
 use App\Repositorios\EquipoRepositorio;
 
 /**
  * Inventario de equipos con filtros y paginación.
- * El administrador ve además las acciones Editar / Eliminar.
+ * Con el permiso "Editar equipo" se ve la acción Editar; el
+ * administrador ve además Eliminar.
  */
 final class ListadoEquipos
 {
@@ -27,6 +30,7 @@ final class ListadoEquipos
 
         Vista::mostrar('paginas/equipos_listado', [
             'rol'             => $rol,
+            'puedeEditar'     => Auth::cuenta()->puede(Permiso::EditarEquipo),
             'filtros'         => $filtros,
             'paginador'       => $paginador,
             'equipos'         => $equipos->listar($filtros, self::POR_PAGINA, $paginador->desplazamiento()),

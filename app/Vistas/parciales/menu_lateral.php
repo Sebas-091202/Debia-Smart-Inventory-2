@@ -5,12 +5,13 @@
  * @var App\Dominio\Rol $rol
  */
 
+use App\Core\Auth;
 use App\Core\Url;
 
 $paginaActual = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
 $opciones = [
     ['archivo' => $rol->paginaInicio(), 'icono' => 'bx-home', 'texto' => 'Inicio'],
-    ...$rol->menu(),
+    ...Auth::cuenta()->menu(),
 ];
 ?>
 <button class="toggle-btn" id="btnToggleSidebar" type="button" aria-label="Abrir o cerrar el menú" aria-controls="sidebar">

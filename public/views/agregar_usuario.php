@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-/** Formulario de alta de un usuario (solo administrador). */
+/** Formulario de alta de un usuario (permiso "Crear nuevo usuario"). */
 
 require __DIR__ . '/../../app/bootstrap.php';
 
 use App\Core\Auth;
 use App\Core\Flash;
 use App\Core\Vista;
-use App\Dominio\Rol;
+use App\Dominio\Permiso;
 
-Auth::exigirRol(Rol::Admin);
+$rol = Auth::exigirPermiso(Permiso::CrearUsuario);
 
 Vista::mostrar('paginas/usuario_formulario', [
-    'rol'      => Rol::Admin,
-    'usuario'  => null,
-    'valores'  => Flash::extraerEntrada(),
-    'esPropio' => false,
+    'rol'     => $rol,
+    'cuenta'  => Auth::cuenta(),
+    'usuario' => null,
+    'valores' => Flash::extraerEntrada(),
 ]);

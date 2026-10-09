@@ -182,8 +182,9 @@ Abre `https://inventario.tudominio.com` y entra con un administrador migrado.
   sudo -u www-data php bin/crear_admin.php admin.dsi "Nombre Apellido" correo@empresa.com 1234567890
   ```
   El script muestra una contraseña temporal **una sola vez**. Cámbiala desde el menú *Cambiar Contraseña*.
+  Si usas el correo de `App\Config::CORREO_CUENTA_PRINCIPAL` (sistemas@consultoriasdebia.com.co), esa cuenta queda como **cuenta principal**.
 
-- **Cuentas de las demás personas.** No hay registro público. El administrador las crea en *Usuarios* → *Nuevo Usuario* y entrega la contraseña por un canal seguro.
+- **Cuentas de las demás personas.** No hay registro público. La cuenta principal las crea en *Usuarios* → *Nuevo Usuario*, les asigna permisos (*Editar equipo*, *Crear nuevo usuario*, *Editar usuario*, *Cambio de contraseña*) y entrega la contraseña por un canal seguro. Solo la cuenta principal asigna permisos y cambia nombres de usuario.
 
 ---
 
@@ -192,6 +193,7 @@ Abre `https://inventario.tudominio.com` y entra con un administrador migrado.
 | Tarea | Cómo |
 |---|---|
 | **Actualizar la app** | `cd /var/www/debia-smart-inventory && sudo git pull && sudo systemctl reload apache2` |
+| **Cambios en la base** | Si la actualización trae un archivo nuevo en `database/migraciones/`, ejecútalo en Supabase → *SQL Editor* **antes** de actualizar la app. Cada archivo se ejecuta una sola vez y en orden de fecha. |
 | **Respaldo de la base** | Plan Pro de Supabase (diario automático). Además, o como única opción en el plan gratuito, un volcado diario desde la instancia, ver abajo. |
 | **Respaldo de la instancia** | Lightsail → instancia → *Snapshots* → *Enable automatic snapshots*. |
 | **Errores de la app** | `sudo tail -f /var/log/apache2/debia-smart-inventory-error.log`. Los usuarios solo ven un mensaje genérico; el detalle queda en este log. |

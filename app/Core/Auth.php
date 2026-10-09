@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Dominio\Cuenta;
+use App\Dominio\Permiso;
 use App\Dominio\Rol;
 use App\Repositorios\UsuarioRepositorio;
+use LogicException;
 
 /**
- * Estado de autenticación del usuario actual y control de acceso por rol.
+ * Estado de autenticación del usuario actual y control de acceso por rol
+ * y por permiso.
  */
 final class Auth
 {
     private const CLAVE_SESION = 'usuario_autenticado';
+
+    /** Cuenta leída de la base de datos en esta petición. */
+    private static ?Cuenta $cuenta = null;
 
     /** @param array{id: int|string, usuario: string, rol: string} $usuario */
     public static function iniciarSesion(array $usuario): void
@@ -48,8 +55,8 @@ final class Auth
      * Detiene la petición si no hay una sesión válida y devuelve el rol.
      *
      * El usuario se vuelve a leer de la base de datos en cada petición: si
-     * el administrador lo desactiva o le cambia el rol, el cambio aplica de
-     * inmediato y no al expirar la sesión.
+     * lo desactivan o le cambian el rol, los permisos o el nombre de
+     * usuario, el cambio aplica de inmediato y no al expirar la sesión.
      */
     public static function exigirSesion(): Rol
     {
@@ -67,11 +74,37 @@ final class Auth
             Respuesta::redirigir(Url::vista('index_Login.php'));
         }
 
-        if ($usuario['rol'] !== self::datos()['rol']) {
-            Sesion::poner(self::CLAVE_SESION, ['rol' => $usuario['rol']] + self::datos());
+        $enSesion = ['usuario' => $usuario['usuario'], 'rol' => $usuario['rol']];
+
+        if (array_intersect_assoc($enSesion, self::datos()) !== $enSesion) {
+            Sesion::poner(self::CLAVE_SESION, $enSesion + self::datos());
         }
 
-        return Rol::from($usuario['rol']);
+        self::$cuenta = new Cuenta($usuario);
+
+        return self::$cuenta->rol();
+    }
+
+    /**
+     * Exige sesión y al menos uno de los permisos indicados; sin ellos
+     * vuelve a la pantalla de inicio con un aviso.
+     */
+    public static function exigirPermiso(Permiso ...$permisos): Rol
+    {
+        $rol = self::exigirSesion();
+
+        if (!self::cuenta()->puede(...$permisos)) {
+            Flash::error('No tienes permiso para realizar esa acción.');
+            Respuesta::redirigir(Url::vista($rol->paginaInicio()));
+        }
+
+        return $rol;
+    }
+
+    /** Cuenta del usuario actual; disponible después de exigirSesion(). */
+    public static function cuenta(): Cuenta
+    {
+        return self::$cuenta ?? throw new LogicException('Auth::cuenta() requiere llamar antes a exigirSesion().');
     }
 
     /** Detiene la petición si no hay sesión o el rol no corresponde. */
