@@ -14,6 +14,7 @@ use App\Dominio\Catalogo;
 $esEdicion = $equipo !== null;
 $titulo = $esEdicion ? 'Editar Equipo' : 'Registrar Nuevo Equipo';
 $valor = static fn (string $campo): string => (string) ($valores[$campo] ?? '');
+$esCelular = $valor('tipo') === Catalogo::TIPO_CELULAR;
 
 /**
  * Al editar, un valor guardado que ya no está en el catálogo se ofrece
@@ -77,6 +78,13 @@ Vista::mostrar('layout/inicio', ['titulo' => $titulo, 'estilos' => ['formulario.
             <label for="equipo-asignado">Asignado a</label>
             <input type="text" name="asignado_a" id="equipo-asignado" maxlength="100"
                 placeholder="Usuario o área" value="<?= e($valor('asignado_a')) ?>" <?= $esEdicion ? '' : 'required' ?>>
+
+            <!-- Solo para celulares: js/app.js lo muestra u oculta al cambiar el Tipo -->
+            <div data-mostrar-si-campo="equipo-tipo" data-mostrar-si-valor="<?= e(Catalogo::TIPO_CELULAR) ?>" <?= $esCelular ? '' : 'hidden' ?>>
+                <label for="equipo-simcard">SIMCARD Relacionada</label>
+                <input type="tel" name="simcard" id="equipo-simcard" maxlength="20"
+                    placeholder="Número de celular" value="<?= e($valor('simcard')) ?>" <?= $esCelular ? '' : 'disabled' ?>>
+            </div>
 
             <label for="equipo-serial">Serial</label>
             <input type="text" name="serial" id="equipo-serial" maxlength="100"

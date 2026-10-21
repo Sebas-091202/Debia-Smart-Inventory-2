@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS equipos (
     marca          varchar(20),
     identificador  varchar(50),
     asignado_a     varchar(100),
+    -- Número de la SIMCARD relacionada; solo en celulares (tipo 'CE').
+    simcard        varchar(20),
     serial         varchar(100),
     procesador     varchar(100),
     ram            varchar(20),

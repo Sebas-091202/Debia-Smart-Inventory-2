@@ -365,8 +365,8 @@ h4 {
     white-space: nowrap;
 }
 
-.tabla-equipos td:nth-child(4),
-.tabla-equipos td:nth-child(5) {
+.tabla-equipos td[data-label="Asignado"],
+.tabla-equipos td[data-label="Serial"] {
     white-space: normal;
     min-width: 130px;
 }

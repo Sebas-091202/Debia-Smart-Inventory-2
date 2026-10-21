@@ -31,6 +31,9 @@ final class Catalogo
     /** Tipos de equipo de cómputo a los que se les mide el mantenimiento. */
     public const TIPOS_COMPUTO = ['PO', 'TO', 'ES'];
 
+    /** Tipo de equipo que registra la SIMCARD relacionada (número de celular). */
+    public const TIPO_CELULAR = 'CE';
+
     public const MARCAS = [
         'DE' => 'DELL',
         'IN' => 'INPOWER',

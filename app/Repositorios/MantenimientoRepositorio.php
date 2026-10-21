@@ -25,7 +25,7 @@ final class MantenimientoRepositorio extends Repositorio
         return $this->filas(
             'SELECT m.id, m.fecha, m.responsable, m.descripcion, m.estado, m.observaciones,
                     e.id AS equipo_id, e.tipo AS equipo_tipo, e.marca AS equipo_marca,
-                    e.identificador, e.ubicacion '
+                    e.identificador, e.ubicacion, e.simcard '
             . self::DESDE . " {$filtro->where()}
              ORDER BY m.fecha DESC, m.id DESC
              LIMIT :limite OFFSET :desplazamiento",

@@ -358,15 +358,13 @@ body {
     white-space: nowrap;
 }
 
-.tabla-preventivos td:nth-child(7) {
-    /* Descripción */
+.tabla-preventivos td[data-label="Descripción"] {
     white-space: normal;
     min-width: 220px;
     text-align: left;
 }
 
-.tabla-preventivos td:nth-child(9) {
-    /* Observaciones */
+.tabla-preventivos td[data-label="Observaciones"] {
     white-space: normal;
     min-width: 180px;
     text-align: left;

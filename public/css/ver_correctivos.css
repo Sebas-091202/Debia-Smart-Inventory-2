@@ -277,8 +277,8 @@ body.sidebar-collapsed .main-content {
     border-bottom: 1px solid #e2e8f0;
 }
 
-.tabla-correctivos td:nth-child(7), /* Descripción */
-.tabla-correctivos td:nth-child(9) { /* Observaciones */
+.tabla-correctivos td[data-label="Descripción"],
+.tabla-correctivos td[data-label="Observaciones"] {
     white-space: normal;
     min-width: 180px;
     text-align: left;

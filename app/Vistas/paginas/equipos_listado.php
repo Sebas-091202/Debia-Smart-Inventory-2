@@ -16,7 +16,9 @@ use App\Dominio\Catalogo;
 
 $esAdmin = $rol->esAdmin();
 $conAcciones = $esAdmin || $puedeEditar;
-$totalColumnas = $conAcciones ? 13 : 12;
+// El número de celular solo se muestra al filtrar por el tipo Celulares.
+$conSimcard = $filtros->tipo === Catalogo::TIPO_CELULAR;
+$totalColumnas = 12 + (int) $conAcciones + (int) $conSimcard;
 
 Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' => ['ver_equipos.css'], 'rol' => $rol]);
 ?>
@@ -66,6 +68,9 @@ Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' 
                         <th>Marca</th>
                         <th>ID</th>
                         <th>Asignado</th>
+                        <?php if ($conSimcard): ?>
+                            <th>Número de Celular</th>
+                        <?php endif; ?>
                         <th>Serial</th>
                         <th>Procesador</th>
                         <th>RAM</th>
@@ -94,6 +99,9 @@ Vista::mostrar('layout/inicio', ['titulo' => 'Inventario de Equipos', 'estilos' 
                             <td data-label="Marca"><?= e($equipo['marca']) ?></td>
                             <td data-label="ID"><?= e($equipo['identificador']) ?></td>
                             <td data-label="Asignado"><?= e($equipo['asignado_a']) ?></td>
+                            <?php if ($conSimcard): ?>
+                                <td data-label="Número de Celular"><?= e($equipo['simcard']) ?></td>
+                            <?php endif; ?>
                             <td data-label="Serial"><?= e($equipo['serial']) ?></td>
                             <td data-label="Procesador"><?= e($equipo['procesador']) ?></td>
                             <td data-label="RAM"><?= e($equipo['ram']) ?></td>

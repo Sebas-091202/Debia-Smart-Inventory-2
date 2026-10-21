@@ -13,6 +13,7 @@
         ['Marca', 'marca'],
         ['Ubicación', 'ubicacion'],
         ['Asignado a', 'asignado_a'],
+        ['SIMCARD Relacionada', 'simcard'], // Solo en celulares (conSimcard).
         ['Serial', 'serial'],
         ['Procesador', 'procesador'],
         ['RAM', 'ram'],
@@ -36,16 +37,17 @@
     const nombreArchivo = (identificador) =>
         'Hoja_Vida_' + texto(identificador).replace(/[^\w.-]+/g, '_') + '.pdf';
 
-    function generarPdf({ equipo, historial }) {
+    function generarPdf({ equipo, historial, conSimcard }) {
         const { jsPDF } = window.jspdf;
         const documento = new jsPDF();
+        const camposFicha = CAMPOS_FICHA.filter(([, campo]) => campo !== 'simcard' || conSimcard);
 
         documento.setFontSize(16);
         documento.text('HOJA DE VIDA DEL EQUIPO', 50, 15);
         documento.setFontSize(10);
 
         let y = 30;
-        for (const [etiqueta, campo] of CAMPOS_FICHA) {
+        for (const [etiqueta, campo] of camposFicha) {
             documento.text(`${etiqueta}: ${texto(equipo[campo])}`, 10, y);
             y += 7;
         }

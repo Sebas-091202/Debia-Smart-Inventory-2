@@ -9,6 +9,9 @@
  *                            su estado se recuerda en localStorage con la clave X.
  *   form[data-confirmar]     Pide confirmación antes de enviar.
  *   [data-alerta]            Mensaje que se cierra solo o con su botón.
+ *   [data-mostrar-si-campo]  Bloque visible solo cuando el campo con ese id vale
+ *                            data-mostrar-si-valor; oculto, sus campos se
+ *                            deshabilitan para que no se envíen.
  */
 (() => {
     'use strict';
@@ -74,10 +77,30 @@
         window.setTimeout(cerrar, DURACION_ALERTA_MS);
     }
 
+    function inicializarBloqueCondicional(bloque) {
+        const campo = document.getElementById(bloque.dataset.mostrarSiCampo);
+
+        if (!campo) {
+            return;
+        }
+
+        const actualizar = () => {
+            const visible = campo.value === bloque.dataset.mostrarSiValor;
+            bloque.hidden = !visible;
+            bloque.querySelectorAll('input, select, textarea').forEach((control) => {
+                control.disabled = !visible;
+            });
+        };
+
+        actualizar();
+        campo.addEventListener('change', actualizar);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btnToggleSidebar')?.addEventListener('click', alternarMenuLateral);
         document.querySelectorAll('[data-colapsable]').forEach(inicializarColapsable);
         document.querySelectorAll('form[data-confirmar]').forEach(inicializarConfirmacion);
         document.querySelectorAll('[data-alerta]').forEach(inicializarAlerta);
+        document.querySelectorAll('[data-mostrar-si-campo]').forEach(inicializarBloqueCondicional);
     });
 })();

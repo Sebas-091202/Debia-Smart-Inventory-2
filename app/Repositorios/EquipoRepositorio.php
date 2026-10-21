@@ -11,7 +11,7 @@ final class EquipoRepositorio extends Repositorio
 {
     /** Columnas editables desde el formulario, en orden. */
     public const CAMPOS = [
-        'tipo', 'marca', 'identificador', 'asignado_a', 'serial', 'procesador',
+        'tipo', 'marca', 'identificador', 'asignado_a', 'simcard', 'serial', 'procesador',
         'ram', 'disco', 'disco2', 'estado', 'ubicacion', 'codigo_barras',
     ];
 

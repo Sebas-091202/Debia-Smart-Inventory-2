@@ -17,12 +17,17 @@ use App\Core\Url;
 use App\Core\Vista;
 use App\Dominio\Catalogo;
 
+// El número de celular solo aparece en celulares o al filtrar por ese tipo.
+$equipoEsCelular = $equipo !== null && $equipo['tipo'] === Catalogo::TIPO_CELULAR;
+$resultadosConSimcard = $filtros->tipo === Catalogo::TIPO_CELULAR;
+
 $fichaTecnica = $equipo === null ? [] : [
     'Tipo'          => $equipo['tipo'],
     'Marca'         => $equipo['marca'],
     'Identificador' => $equipo['identificador'],
     'Ubicación'     => $equipo['ubicacion'],
     'Asignado a'    => $equipo['asignado_a'],
+    ...($equipoEsCelular ? ['SIMCARD Relacionada' => o_si_vacio($equipo['simcard'], 'No registrada')] : []),
     'Serial'        => o_si_vacio($equipo['serial'], 'No registrado'),
     'Procesador'    => o_si_vacio($equipo['procesador'], 'No registrado'),
     'Memoria RAM'   => o_si_vacio($equipo['ram'], 'No registrada'),
@@ -89,6 +94,9 @@ Vista::mostrar('layout/inicio', [
                                 <th>Tipo</th>
                                 <th>Marca</th>
                                 <th>ID</th>
+                                <?php if ($resultadosConSimcard): ?>
+                                    <th>Número de Celular</th>
+                                <?php endif; ?>
                                 <th>Ubicación</th>
                                 <th>Acción</th>
                             </tr>
@@ -99,6 +107,9 @@ Vista::mostrar('layout/inicio', [
                                     <td data-label="Tipo"><?= e($resultado['tipo']) ?></td>
                                     <td data-label="Marca"><?= e($resultado['marca']) ?></td>
                                     <td data-label="ID"><?= e($resultado['identificador']) ?></td>
+                                    <?php if ($resultadosConSimcard): ?>
+                                        <td data-label="Número de Celular"><?= e($resultado['simcard']) ?></td>
+                                    <?php endif; ?>
                                     <td data-label="Ubicación"><?= e($resultado['ubicacion']) ?></td>
                                     <td data-label="Acción">
                                         <a href="<?= e(Url::vista($rol->vista('hoja_vida_equipos'), ['id' => $resultado['id']])) ?>" class="btn-visualizar">
@@ -173,7 +184,7 @@ Vista::mostrar('layout/inicio', [
             </div>
 
             <!-- Datos para el PDF: JSON inerte (no se ejecuta), leído por js/hoja_vida.js -->
-            <script type="application/json" id="datos-hoja-vida"><?= json_para_html(['equipo' => $equipo, 'historial' => $historial]) ?></script>
+            <script type="application/json" id="datos-hoja-vida"><?= json_para_html(['equipo' => $equipo, 'historial' => $historial, 'conSimcard' => $equipoEsCelular]) ?></script>
             <button type="button" class="btn btn-pdf" id="btnDescargarPdf">Descargar Hoja de Vida PDF</button>
         </div>
 

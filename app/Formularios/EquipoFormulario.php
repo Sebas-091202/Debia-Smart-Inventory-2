@@ -27,6 +27,12 @@ final class EquipoFormulario
             $datos[$campo] = Peticion::formulario($campo);
         }
 
+        // La SIMCARD solo aplica a celulares: con otro tipo se descarta lo
+        // que haya llegado. Se aceptan espacios y guiones al escribirla.
+        $datos['simcard'] = $datos['tipo'] === Catalogo::TIPO_CELULAR
+            ? preg_replace('/[\s-]+/', '', $datos['simcard'])
+            : '';
+
         $permitidos = static fn (array $catalogo, string $campo): array =>
             ($equipoActual[$campo] ?? null) !== null ? [...$catalogo, $equipoActual[$campo]] : $catalogo;
 
@@ -40,6 +46,11 @@ final class EquipoFormulario
             ->requerido($datos['identificador'], 'Identificador')
             ->longitudMaxima($datos['identificador'], 50, 'Identificador')
             ->longitudMaxima($datos['asignado_a'], 100, 'Asignado a')
+            ->patron(
+                $datos['simcard'],
+                '/^\+?[0-9]{7,15}$/',
+                'La SIMCARD relacionada debe ser un número de celular de 7 a 15 dígitos (puede iniciar con +).'
+            )
             ->longitudMaxima($datos['serial'], 100, 'Serial')
             ->longitudMaxima($datos['procesador'], 100, 'Procesador')
             ->enLista($datos['ram'], $permitidos(Catalogo::RAM, 'ram'), 'RAM')
