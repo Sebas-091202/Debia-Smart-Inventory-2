@@ -196,28 +196,64 @@ Abre `https://inventario.tudominio.com` y entra con un administrador migrado.
 | **Cambios en la base** | Si la actualización trae un archivo nuevo en `database/migraciones/`, ejecútalo en Supabase → *SQL Editor* **antes** de actualizar la app. Cada archivo se ejecuta una sola vez y en orden de fecha. |
 | **Respaldo de la base** | Plan Pro de Supabase (diario automático). Además, o como única opción en el plan gratuito, un volcado diario desde la instancia, ver abajo. |
 | **Respaldo de la instancia** | Lightsail → instancia → *Snapshots* → *Enable automatic snapshots*. |
+| **Acceso a Supabase** | *Database* → *Settings* → *Network Restrictions*: solo la IP estática de la instancia y la de la oficina, cada una con `/32`, y *Enforce SSL* activado. Si cambia la IP de la oficina, actualízala ahí y en la regla SSH del firewall de Lightsail. |
 | **Errores de la app** | `sudo tail -f /var/log/apache2/debia-smart-inventory-error.log`. Los usuarios solo ven un mensaje genérico; el detalle queda en este log. |
 | **Bitácora de acciones** | Tabla `inventario.logs_sistema`: quién creó, editó o eliminó equipos, mantenimientos y usuarios. |
 
 ### Volcado diario de la base desde Lightsail
 
-1. Instala el cliente de PostgreSQL de la **misma versión mayor** que Supabase, la que aparece en *Settings* → *Infrastructure*. Por ejemplo:
+1. Instala el cliente de PostgreSQL de la **misma versión mayor** que Supabase, la que aparece en *Settings* → *Infrastructure* (hoy 17). Debian 12 solo trae la 15, y un `pg_dump` más viejo que el servidor se niega a trabajar, así que se usa el repositorio oficial de PostgreSQL:
    ```bash
-   sudo apt install postgresql-client-17
+   sudo apt install -y postgresql-common
+   sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   # pide pulsar Enter
+   sudo apt install -y postgresql-client-17
+   pg_dump --version   # debe decir 17.x
    ```
-2. Crea `/etc/cron.daily/respaldo-dsi`:
+   Si Supabase sube de versión mayor, instala el cliente de esa versión.
+2. Crea `/etc/cron.daily/respaldo-dsi` (sin punto en el nombre, o `run-parts` lo ignora):
    ```bash
-   #!/bin/sh
-   set -a; . /var/www/debia-smart-inventory/.env; set +a
-   mkdir -p /var/backups/dsi
-   PGPASSWORD="$DB_PASS" pg_dump "host=$DB_HOST port=$DB_PORT dbname=$DB_NAME user=$DB_USER sslmode=require" \
-       --schema=inventario --no-owner | gzip > /var/backups/dsi/inventario-$(date +%F).sql.gz
-   find /var/backups/dsi -name '*.sql.gz' -mtime +30 -delete
+   #!/bin/bash
+   # Volcado diario del esquema "inventario" de Supabase; conserva 30 días.
+   set -euo pipefail
+   umask 077
+
+   ENV=/var/www/debia-smart-inventory/.env
+   DESTINO=/var/backups/dsi
+
+   # Lee CLAVE=valor del .env igual que App\Config, sin ejecutarlo como
+   # script: una contraseña con $, ` o & llega intacta.
+   leer() {
+       local valor
+       valor=$(grep -E "^[[:space:]]*$1[[:space:]]*=" "$ENV" | tail -n 1 | cut -d= -f2- | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')
+       case $valor in
+           \"*\" | \'*\') valor=${valor:1:${#valor}-2} ;;
+       esac
+       printf '%s' "$valor"
+   }
+
+   export PGPASSWORD
+   PGPASSWORD=$(leer DB_PASS)
+   conexion="host=$(leer DB_HOST) port=$(leer DB_PORT) dbname=$(leer DB_NAME) user=$(leer DB_USER) sslmode=require"
+   archivo="$DESTINO/inventario-$(date +%F).sql.gz"
+   trap 'rm -f "$archivo.tmp"' EXIT
+
+   mkdir -p "$DESTINO"
+   # --enable-row-security: dsi_app no salta RLS; su política le deja leer todas las filas.
+   pg_dump "$conexion" --schema=inventario --no-owner --enable-row-security | gzip > "$archivo.tmp"
+   mv "$archivo.tmp" "$archivo"
+   find "$DESTINO" -name 'inventario-*.sql.gz' -mtime +30 -delete
    ```
-3. Dale permisos:
+3. Dale permisos y pruébalo a mano:
    ```bash
    sudo chmod 700 /etc/cron.daily/respaldo-dsi
+   sudo /etc/cron.daily/respaldo-dsi
+   sudo ls -lh /var/backups/dsi
+   sudo zcat /var/backups/dsi/inventario-$(date +%F).sql.gz | grep -c '^COPY inventario'   # 7: una por tabla
+   sudo run-parts --test /etc/cron.daily   # debe listar respaldo-dsi
    ```
+   Si al pegar el script la terminal del navegador de Lightsail duplica los saltos de línea, `#!/bin/bash` queda en la línea 2 y el script falla con `set: Illegal option -o pipefail`. Se arregla con `sudo sed -i -e 's/\r$//' -e '/^$/d' /etc/cron.daily/respaldo-dsi`.
+
+Los volcados quedan en el disco de la instancia, así que los snapshots de Lightsail también se los llevan.
 
 ---
 
@@ -246,3 +282,4 @@ En XAMPP, el `.htaccess` de la raíz bloquea todo lo que no está en `public/`, 
 - [ ] El puerto 22 está restringido a tu IP.
 - [ ] Las contraseñas de prueba se cambiaron y cada persona tiene su propia cuenta.
 - [ ] Los snapshots automáticos de Lightsail y el respaldo de la base están activos.
+- [ ] Supabase solo acepta conexiones desde la IP de la instancia y la de la oficina, y exige SSL.
