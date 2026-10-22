@@ -37,13 +37,18 @@ else
 fi
 
 titulo 'Respaldo de la base'
-ultimo=$(ls -1t "$RESPALDOS"/inventario-*.sql.gz 2>/dev/null | head -n 1)
-if [[ -z $ultimo ]]; then
-    echo 'ALERTA: no hay ningún respaldo'
-elif [[ -n $(find "$ultimo" -mmin -1500) ]]; then
-    echo "OK: $(basename "$ultimo") ($(du -h "$ultimo" | cut -f1))"
+# cron.daily corre a las 06:25 (hora del servidor, UTC): desde las 07:00
+# debe existir el respaldo de hoy; antes de esa hora basta el de ayer.
+if (( 10#$(date +%H) >= 7 )); then dia=$(date +%F); else dia=$(date -d yesterday +%F); fi
+esperado="$RESPALDOS/inventario-$dia.sql.gz"
+if [[ -s $esperado ]]; then
+    echo "OK: $(basename "$esperado") ($(du -h "$esperado" | cut -f1))"
 else
-    echo "ALERTA: el último respaldo tiene más de 25 horas: $(basename "$ultimo")"
+    ultimo=$(ls -1t "$RESPALDOS"/inventario-*.sql.gz 2>/dev/null | head -n 1 | xargs -r basename)
+    echo "ALERTA: falta el respaldo $(basename "$esperado"). El último es: ${ultimo:-ninguno}"
+fi
+if ! systemctl is-active --quiet cron; then
+    echo 'ALERTA: el programador de tareas (cron) no está activo: el respaldo nocturno no se ejecuta'
 fi
 
 titulo 'Errores de la aplicación (hoy y ayer)'
