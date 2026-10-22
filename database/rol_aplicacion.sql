@@ -36,7 +36,7 @@ DECLARE
 BEGIN
     FOREACH tabla IN ARRAY ARRAY[
         'usuarios', 'equipos', 'mantenimientos', 'repuestos',
-        'mantenimiento_repuestos', 'logs_sistema', 'intentos_login'
+        'mantenimiento_repuestos', 'logs_sistema', 'intentos_login', 'inicios_sesion'
     ] LOOP
         IF NOT EXISTS (
             SELECT 1 FROM pg_policies

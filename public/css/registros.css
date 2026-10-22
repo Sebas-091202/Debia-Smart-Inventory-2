@@ -1,0 +1,334 @@
+/* =========================================================
+   REGISTROS: INICIOS DE SESIÓN Y BITÁCORA DE CAMBIOS
+   Mismo fondo, tarjeta "glass" y tabla que la gestión de
+   usuarios. El menú lateral vive en sidebar.css y los colores
+   de los badges en componentes.css.
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #c40c0c, #111827, #ffffff);
+    background-size: 600% 600%;
+    animation: gradientAnimation 22s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    max-width: 1300px;
+    padding: 35px clamp(12px, 3vw, 35px);
+}
+
+.card {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: clamp(14px, 2.5vw, 25px);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+    color: #fff;
+}
+
+.card h2 {
+    margin: 0;
+    padding-top: 20px;
+    font-size: clamp(1.15rem, 1.6vw + .7rem, 1.6rem);
+}
+
+.nota-registros {
+    margin: 12px 0 6px;
+    font-size: 14px;
+    opacity: .85;
+}
+
+/* =========================================================
+   FILTROS (mismo estilo que los historiales de mantenimiento)
+   ========================================================= */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.filtros select,
+.filtros input[type="date"] {
+    flex: 1 1 180px;
+    min-width: 0;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    background: #fff;
+    color: #1e293b;
+    outline: none;
+    font-family: inherit;
+}
+
+.campo-fecha {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 200px;
+    background: rgba(255, 255, 255, .1);
+    padding: 2px 10px;
+    border-radius: 8px;
+}
+
+.campo-fecha span {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.filtros .btn-search {
+    flex: 1 1 150px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 16px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.filtros .btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, .4);
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+.tabla-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+}
+
+.tabla-registros {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    color: #1e293b;
+}
+
+.tabla-registros th,
+.tabla-registros td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.tabla-registros th {
+    background: #111827;
+    color: #fff;
+}
+
+/* El detalle de la bitácora puede ser largo: se parte en varias líneas. */
+.tabla-registros .celda-detalle {
+    min-width: 320px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+.celda-vacia {
+    padding: 24px 8px;
+    color: #64748b;
+}
+
+.nombre-completo {
+    display: block;
+    margin-top: 2px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.sin-dato {
+    color: #94a3b8;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.accion {
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   PAGINACIÓN (mismo estilo que el inventario)
+   ========================================================= */
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+    padding: 10px 5px;
+}
+
+.paginacion a {
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    background: #fff;
+    color: #111827;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.paginacion a:hover {
+    transform: translateY(-1px);
+    background: #e5e7eb;
+}
+
+.paginacion .activo-pagina {
+    background: #2563eb;
+    color: #fff;
+}
+
+.paginacion .indicador-paginacion {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: .85;
+}
+
+/* =========================================================
+   MÓVIL Y TABLETA: cada registro se muestra como una tarjeta
+   ========================================================= */
+@media (max-width: 768px) {
+    .container {
+        padding-top: 72px;
+    }
+
+    .filtros select,
+    .filtros input[type="date"],
+    .campo-fecha,
+    .filtros .btn-search {
+        flex: 1 1 100%;
+    }
+
+    .paginacion a.d-mobile-none {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    .tabla-scroll {
+        overflow: visible;
+    }
+
+    .tabla-registros {
+        display: block;
+        background: transparent;
+    }
+
+    .tabla-registros tbody {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px;
+    }
+
+    .tabla-registros thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .tabla-registros tbody tr {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, .18);
+    }
+
+    .tabla-registros tbody td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #eef1f5;
+        text-align: right;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .tabla-registros tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .tabla-registros tbody td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .03em;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .tabla-registros tbody td.celda-vacia {
+        justify-content: center;
+    }
+
+    .tabla-registros tbody td.celda-vacia::before {
+        content: none;
+    }
+
+    .tabla-registros .celda-detalle {
+        min-width: 0;
+        text-align: right;
+    }
+}

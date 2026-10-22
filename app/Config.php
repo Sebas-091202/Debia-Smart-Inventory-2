@@ -21,8 +21,16 @@ final class Config
     /** Cada cuántos segundos se renueva el ID de sesión (mitiga secuestro). */
     public const SESION_REGENERAR_CADA = 900;
 
-    /** Intentos fallidos permitidos antes de bloquear el login. */
+    /** Intentos fallidos permitidos (por usuario y IP) antes de bloquear el login. */
     public const LOGIN_INTENTOS_MAXIMOS = 5;
+
+    /**
+     * Intentos fallidos permitidos desde una misma IP, sin importar el
+     * usuario: frena a quien prueba una contraseña contra muchas cuentas.
+     * Es más alto que el límite por usuario porque toda la oficina sale a
+     * internet con la misma IP.
+     */
+    public const LOGIN_INTENTOS_MAXIMOS_IP = 30;
 
     /** Ventana (segundos) en la que se cuentan los intentos fallidos. */
     public const LOGIN_VENTANA_INTENTOS = 900;

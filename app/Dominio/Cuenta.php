@@ -124,6 +124,8 @@ final class Cuenta
             $opcion($rol->vista('indicadores_mantenimiento'), 'bx-bar-chart', 'Indicadores de Mantenimiento'),
             $opcion($rol->vista('hoja_vida_equipos'), 'bx-file', 'Hoja de Vida General'),
             ...($this->puede(Permiso::CrearUsuario, Permiso::EditarUsuario) ? [$opcion('usuarios.php', 'bx-group', 'Usuarios')] : []),
+            ...($this->puede(Permiso::VerIniciosSesion) ? [$opcion('inicios_sesion.php', 'bx-log-in-circle', 'Inicios de Sesión')] : []),
+            ...($this->puede(Permiso::VerBitacora) ? [$opcion('bitacora.php', 'bx-history', 'Bitácora de Cambios')] : []),
             ...($this->puede(Permiso::CambiarContrasena) ? [$opcion('cambiar_contrasena.php', 'bx-key', 'Cambiar Contraseña')] : []),
         ];
     }

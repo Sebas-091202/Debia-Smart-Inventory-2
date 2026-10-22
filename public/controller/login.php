@@ -18,7 +18,8 @@ AccionFormulario::ejecutar(null, Url::vista('index_Login.php'), static function 
     $usuario = (new AutenticacionServicio())->autenticar(
         Peticion::formularioExacto('usuario'),
         Peticion::formularioExacto('contrasena'),
-        Seguridad::ipCliente()
+        Seguridad::ipCliente(),
+        Seguridad::navegadorCliente()
     );
 
     Auth::iniciarSesion($usuario);

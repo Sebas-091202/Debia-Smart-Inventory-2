@@ -84,6 +84,10 @@ Vista::mostrar('layout/inicio', ['titulo' => $titulo, 'estilos' => ['formulario.
                 <label for="equipo-simcard">SIMCARD Relacionada</label>
                 <input type="tel" name="simcard" id="equipo-simcard" maxlength="20"
                     placeholder="Número de celular" value="<?= e($valor('simcard')) ?>" <?= $esCelular ? '' : 'disabled' ?>>
+
+                <label for="equipo-simcard2">SIMCARD 2 Relacionada</label>
+                <input type="tel" name="simcard2" id="equipo-simcard2" maxlength="20"
+                    placeholder="Segundo número (solo si el celular tiene dos SIM)" value="<?= e($valor('simcard2')) ?>" <?= $esCelular ? '' : 'disabled' ?>>
             </div>
 
             <label for="equipo-serial">Serial</label>

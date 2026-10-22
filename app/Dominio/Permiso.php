@@ -14,6 +14,8 @@ enum Permiso: string
     case CrearUsuario = 'CREAR_USUARIO';
     case EditarUsuario = 'EDITAR_USUARIO';
     case CambiarContrasena = 'CAMBIAR_CONTRASENA';
+    case VerIniciosSesion = 'VER_INICIOS_SESION';
+    case VerBitacora = 'VER_BITACORA';
 
     /** Permisos de una cuenta nueva cuando no los elige la cuenta principal. */
     public const PREDETERMINADOS = [self::CambiarContrasena];
@@ -25,6 +27,8 @@ enum Permiso: string
             self::CrearUsuario      => 'Crear nuevo usuario',
             self::EditarUsuario     => 'Editar usuario',
             self::CambiarContrasena => 'Cambio de contraseña',
+            self::VerIniciosSesion  => 'Ver inicios de sesión',
+            self::VerBitacora       => 'Ver bitácora de cambios',
         };
     }
 
@@ -35,6 +39,8 @@ enum Permiso: string
             self::CrearUsuario      => 'Crear cuentas nuevas (solo con rol y permisos iguales o menores a los suyos).',
             self::EditarUsuario     => 'Editar datos, estado y contraseña de cuentas con privilegios iguales o menores.',
             self::CambiarContrasena => 'Cambiar su propia contraseña desde el menú.',
+            self::VerIniciosSesion  => 'Consultar quién entró al sistema, cuándo, desde qué IP y los intentos fallidos.',
+            self::VerBitacora       => 'Consultar quién creó, editó o eliminó información y en qué fecha y hora, incluidos los administradores.',
         };
     }
 

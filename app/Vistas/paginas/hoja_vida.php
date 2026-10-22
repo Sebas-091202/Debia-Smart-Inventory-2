@@ -17,7 +17,7 @@ use App\Core\Url;
 use App\Core\Vista;
 use App\Dominio\Catalogo;
 
-// El número de celular solo aparece en celulares o al filtrar por ese tipo.
+// Los números de celular solo aparecen en celulares o al filtrar por ese tipo.
 $equipoEsCelular = $equipo !== null && $equipo['tipo'] === Catalogo::TIPO_CELULAR;
 $resultadosConSimcard = $filtros->tipo === Catalogo::TIPO_CELULAR;
 
@@ -27,7 +27,10 @@ $fichaTecnica = $equipo === null ? [] : [
     'Identificador' => $equipo['identificador'],
     'Ubicación'     => $equipo['ubicacion'],
     'Asignado a'    => $equipo['asignado_a'],
-    ...($equipoEsCelular ? ['SIMCARD Relacionada' => o_si_vacio($equipo['simcard'], 'No registrada')] : []),
+    ...($equipoEsCelular ? [
+        'SIMCARD Relacionada'   => o_si_vacio($equipo['simcard'], 'No registrada'),
+        'SIMCARD 2 Relacionada' => o_si_vacio($equipo['simcard2'], 'No registrada'),
+    ] : []),
     'Serial'        => o_si_vacio($equipo['serial'], 'No registrado'),
     'Procesador'    => o_si_vacio($equipo['procesador'], 'No registrado'),
     'Memoria RAM'   => o_si_vacio($equipo['ram'], 'No registrada'),
@@ -96,6 +99,7 @@ Vista::mostrar('layout/inicio', [
                                 <th>ID</th>
                                 <?php if ($resultadosConSimcard): ?>
                                     <th>Número de Celular</th>
+                                    <th>Número de Celular 2</th>
                                 <?php endif; ?>
                                 <th>Ubicación</th>
                                 <th>Acción</th>
@@ -109,6 +113,7 @@ Vista::mostrar('layout/inicio', [
                                     <td data-label="ID"><?= e($resultado['identificador']) ?></td>
                                     <?php if ($resultadosConSimcard): ?>
                                         <td data-label="Número de Celular"><?= e($resultado['simcard']) ?></td>
+                                        <td data-label="Número de Celular 2"><?= e($resultado['simcard2']) ?></td>
                                     <?php endif; ?>
                                     <td data-label="Ubicación"><?= e($resultado['ubicacion']) ?></td>
                                     <td data-label="Acción">
@@ -196,7 +201,7 @@ Vista::mostrar('layout/inicio', [
                     <input type="hidden" name="equipo_id" value="<?= (int) $equipo['id'] ?>">
 
                     <label for="mant-fecha">Fecha del mantenimiento</label>
-                    <input type="date" id="mant-fecha" name="fecha" value="<?= e($anterior('fecha')) ?>" required>
+                    <input type="date" id="mant-fecha" name="fecha" max="<?= e(date('Y-m-d')) ?>" value="<?= e($anterior('fecha')) ?>" required>
 
                     <label for="mant-responsable">Responsable</label>
                     <input type="text" id="mant-responsable" name="responsable" maxlength="100" value="<?= e($anterior('responsable')) ?>" required>

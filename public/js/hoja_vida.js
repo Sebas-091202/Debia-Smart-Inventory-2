@@ -13,7 +13,8 @@
         ['Marca', 'marca'],
         ['Ubicación', 'ubicacion'],
         ['Asignado a', 'asignado_a'],
-        ['SIMCARD Relacionada', 'simcard'], // Solo en celulares (conSimcard).
+        ['SIMCARD Relacionada', 'simcard'],
+        ['SIMCARD 2 Relacionada', 'simcard2'],
         ['Serial', 'serial'],
         ['Procesador', 'procesador'],
         ['RAM', 'ram'],
@@ -21,6 +22,9 @@
         ['Disco D', 'disco2'],
         ['Estado', 'estado'],
     ];
+
+    /** Campos de la ficha que solo se imprimen en celulares (conSimcard). */
+    const CAMPOS_CELULAR = ['simcard', 'simcard2'];
 
     const COLUMNAS_HISTORIAL = [
         ['Fecha', 'fecha'],
@@ -40,7 +44,7 @@
     function generarPdf({ equipo, historial, conSimcard }) {
         const { jsPDF } = window.jspdf;
         const documento = new jsPDF();
-        const camposFicha = CAMPOS_FICHA.filter(([, campo]) => campo !== 'simcard' || conSimcard);
+        const camposFicha = CAMPOS_FICHA.filter(([, campo]) => conSimcard || !CAMPOS_CELULAR.includes(campo));
 
         documento.setFontSize(16);
         documento.text('HOJA DE VIDA DEL EQUIPO', 50, 15);

@@ -24,13 +24,7 @@ final class FiltrosMantenimiento
 
     public static function desdeConsulta(string $tipoMantenimiento): self
     {
-        $desde = Peticion::consultaFecha('fecha_desde');
-        $hasta = Peticion::consultaFecha('fecha_hasta');
-
-        // Un rango invertido se corrige en lugar de devolver cero resultados.
-        if ($desde !== '' && $hasta !== '' && $desde > $hasta) {
-            [$desde, $hasta] = [$hasta, $desde];
-        }
+        [$desde, $hasta] = Peticion::consultaRangoFechas('fecha_desde', 'fecha_hasta');
 
         return new self(
             tipoMantenimiento: $tipoMantenimiento,

@@ -45,6 +45,20 @@ final class Peticion
         return self::fechaValida(self::texto($_GET, $campo)) ?? '';
     }
 
+    /**
+     * Rango "desde/hasta" de la URL. Uno invertido se corrige en lugar de
+     * devolver cero resultados.
+     *
+     * @return array{0: string, 1: string}
+     */
+    public static function consultaRangoFechas(string $campoDesde, string $campoHasta): array
+    {
+        $desde = self::consultaFecha($campoDesde);
+        $hasta = self::consultaFecha($campoHasta);
+
+        return ($desde !== '' && $hasta !== '' && $desde > $hasta) ? [$hasta, $desde] : [$desde, $hasta];
+    }
+
     /** Texto del formulario recortado; la validación de longitud la hace el Validador. */
     public static function formulario(string $campo): string
     {
@@ -76,7 +90,7 @@ final class Peticion
             return [];
         }
 
-        return array_map(static fn ($valor) => is_string($valor) ? trim($valor) : '', array_values($valores));
+        return array_map(static fn ($valor) => self::textoValido($valor), array_values($valores));
     }
 
     public static function fechaValida(string $valor): ?string
@@ -94,10 +108,16 @@ final class Peticion
 
     private static function texto(array $origen, string $campo): string
     {
-        $valor = $origen[$campo] ?? '';
+        return self::textoValido($origen[$campo] ?? '');
+    }
 
-        // Un array (campo[]=x) o cualquier otro tipo se trata como vacío.
-        return is_string($valor) ? trim($valor) : '';
+    /**
+     * Un array (campo[]=x), cualquier otro tipo o un texto que no es UTF-8
+     * válido (la base lo rechazaría con un error 500) se trata como vacío.
+     */
+    private static function textoValido(mixed $valor): string
+    {
+        return is_string($valor) && mb_check_encoding($valor, 'UTF-8') ? trim($valor) : '';
     }
 
     private static function enteroPositivo(mixed $valor): ?int

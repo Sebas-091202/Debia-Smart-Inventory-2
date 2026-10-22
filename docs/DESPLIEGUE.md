@@ -184,7 +184,7 @@ Abre `https://inventario.tudominio.com` y entra con un administrador migrado.
   El script muestra una contraseña temporal **una sola vez**. Cámbiala desde el menú *Cambiar Contraseña*.
   Si usas el correo de `App\Config::CORREO_CUENTA_PRINCIPAL` (sistemas@consultoriasdebia.com.co), esa cuenta queda como **cuenta principal**.
 
-- **Cuentas de las demás personas.** No hay registro público. La cuenta principal las crea en *Usuarios* → *Nuevo Usuario*, les asigna permisos (*Editar equipo*, *Crear nuevo usuario*, *Editar usuario*, *Cambio de contraseña*) y entrega la contraseña por un canal seguro. Solo la cuenta principal asigna permisos y cambia nombres de usuario.
+- **Cuentas de las demás personas.** No hay registro público. La cuenta principal las crea en *Usuarios* → *Nuevo Usuario*, les asigna permisos (*Editar equipo*, *Crear nuevo usuario*, *Editar usuario*, *Cambio de contraseña*, *Ver inicios de sesión*, *Ver bitácora de cambios*) y entrega la contraseña por un canal seguro. Solo la cuenta principal asigna permisos y cambia nombres de usuario.
 
 ---
 
@@ -197,8 +197,11 @@ Abre `https://inventario.tudominio.com` y entra con un administrador migrado.
 | **Respaldo de la base** | Plan Pro de Supabase (diario automático). Además, o como única opción en el plan gratuito, un volcado diario desde la instancia, ver abajo. |
 | **Respaldo de la instancia** | Lightsail → instancia → *Snapshots* → *Enable automatic snapshots*. |
 | **Acceso a Supabase** | *Database* → *Settings* → *Network Restrictions*: solo la IP estática de la instancia y la de la oficina, cada una con `/32`, y *Enforce SSL* activado. Si cambia la IP de la oficina, actualízala ahí y en la regla SSH del firewall de Lightsail. |
+| **Revisión matutina** | `sudo bash /var/www/debia-smart-inventory/bin/revision_matutina.sh`. Solo lee: estado de Apache, respaldo de anoche, errores de la app, intentos de login fallidos, cambios de usuarios, reinicio pendiente, disco y vencimiento del certificado. Cada línea dice OK, AVISO o ALERTA. |
 | **Errores de la app** | `sudo tail -f /var/log/apache2/debia-smart-inventory-error.log`. Los usuarios solo ven un mensaje genérico; el detalle queda en este log. |
-| **Bitácora de acciones** | Tabla `inventario.logs_sistema`: quién creó, editó o eliminó equipos, mantenimientos y usuarios. |
+| **Bitácora de acciones** | Menú *Bitácora de Cambios* (permiso *Ver bitácora de cambios*), tabla `inventario.logs_sistema`: quién creó, editó o eliminó equipos, mantenimientos y usuarios, con fecha y hora. En la edición de equipos guarda cada campo que cambió. |
+| **Inicios de sesión** | Menú *Inicios de Sesión* (permiso *Ver inicios de sesión*), tabla `inventario.inicios_sesion`: cada intento de ingreso con resultado, IP y navegador. El login se bloquea 15 minutos tras 5 fallos del mismo usuario e IP, o tras 30 fallos desde una misma IP. |
+| **Tablas nuevas** | `rol_aplicacion.sql` solo da permisos sobre las tablas que existían al ejecutarlo. Toda migración que cree una tabla debe dar a `dsi_app` sus `GRANT` y su política RLS (ver `2026-10-22_auditoria_accesos.sql`), o la app y el respaldo fallarán al usarla. |
 
 ### Volcado diario de la base desde Lightsail
 

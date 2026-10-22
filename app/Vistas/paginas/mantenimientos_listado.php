@@ -15,7 +15,7 @@ use App\Core\Url;
 use App\Core\Vista;
 use App\Dominio\Catalogo;
 
-// El número de celular solo se muestra al filtrar por el tipo Celulares.
+// Los números de celular solo se muestran al filtrar por el tipo Celulares.
 $conSimcard = $filtros->tipo === Catalogo::TIPO_CELULAR;
 
 Vista::mostrar('layout/inicio', ['titulo' => $presentacion['titulo'], 'estilos' => [$presentacion['estilo']], 'rol' => $rol]);
@@ -80,6 +80,7 @@ Vista::mostrar('layout/inicio', ['titulo' => $presentacion['titulo'], 'estilos' 
                         <th>Identificador</th>
                         <?php if ($conSimcard): ?>
                             <th>Número de Celular</th>
+                            <th>Número de Celular 2</th>
                         <?php endif; ?>
                         <th>Tipo</th>
                         <th>Marca</th>
@@ -94,7 +95,7 @@ Vista::mostrar('layout/inicio', ['titulo' => $presentacion['titulo'], 'estilos' 
                 <tbody>
                     <?php if ($mantenimientos === []): ?>
                         <tr>
-                            <td colspan="<?= $conSimcard ? 11 : 10 ?>" class="celda-vacia">
+                            <td colspan="<?= $conSimcard ? 12 : 10 ?>" class="celda-vacia">
                                 No se encontraron mantenimientos <?= e($presentacion['plural']) ?> con los filtros seleccionados.
                             </td>
                         </tr>
@@ -106,6 +107,7 @@ Vista::mostrar('layout/inicio', ['titulo' => $presentacion['titulo'], 'estilos' 
                             <td data-label="Identificador"><?= e($mantenimiento['identificador']) ?></td>
                             <?php if ($conSimcard): ?>
                                 <td data-label="Número de Celular"><?= e($mantenimiento['simcard']) ?></td>
+                                <td data-label="Número de Celular 2"><?= e($mantenimiento['simcard2']) ?></td>
                             <?php endif; ?>
                             <td data-label="Tipo"><?= e($mantenimiento['equipo_tipo']) ?></td>
                             <td data-label="Marca"><?= e($mantenimiento['equipo_marca']) ?></td>

@@ -33,6 +33,7 @@ final class MantenimientoFormulario
             ->verdadero($datos['equipo_id'] !== null, 'No se indicó el equipo.')
             ->requerido($datos['fecha'], 'Fecha del mantenimiento')
             ->fecha($datos['fecha'], 'Fecha del mantenimiento')
+            ->noFutura($datos['fecha'], 'Fecha del mantenimiento')
             ->requerido($datos['responsable'], 'Responsable')
             ->longitudMaxima($datos['responsable'], 100, 'Responsable')
             ->requerido($datos['tipo_mantenimiento'], 'Tipo de Mantenimiento')

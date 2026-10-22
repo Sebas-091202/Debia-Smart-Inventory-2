@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositorios;
 
 use App\Dominio\Rol;
+use PDO;
 
 final class UsuarioRepositorio extends Repositorio
 {
@@ -45,6 +46,12 @@ final class UsuarioRepositorio extends Repositorio
     public function contar(): int
     {
         return (int) $this->valor('SELECT COUNT(*) FROM usuarios');
+    }
+
+    /** @return array<int, string> id => usuario, para los filtros por usuario. */
+    public function opciones(): array
+    {
+        return $this->ejecutar('SELECT id, usuario FROM usuarios ORDER BY usuario_normalizado')->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 
     public function listar(int $limite, int $desplazamiento): array

@@ -65,4 +65,16 @@ final class Seguridad
     {
         return (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
     }
+
+    /**
+     * User-Agent del navegador para el historial de inicios de sesión. Lo
+     * envía el cliente: se limpia (UTF-8 válido, sin caracteres de control)
+     * y se recorta al largo de inicios_sesion.navegador.
+     */
+    public static function navegadorCliente(): string
+    {
+        $agente = mb_scrub((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 'UTF-8');
+
+        return mb_substr(trim((string) preg_replace('/[\x00-\x1F\x7F]+/', ' ', $agente)), 0, 255);
+    }
 }

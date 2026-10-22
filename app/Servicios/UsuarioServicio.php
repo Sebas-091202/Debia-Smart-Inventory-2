@@ -201,6 +201,16 @@ final class UsuarioServicio
             $cambios[] = "usuario {$antes['usuario']} → {$despues['usuario']}";
         }
 
+        // Los datos personales se nombran sin copiar sus valores.
+        $personales = array_keys(array_filter(
+            ['nombre' => 'nombre', 'correo' => 'correo', 'identificación' => 'numero_identificacion'],
+            static fn (string $campo) => (string) $antes[$campo] !== (string) $despues[$campo]
+        ));
+
+        if ($personales !== []) {
+            $cambios[] = 'cambió ' . implode(', ', $personales);
+        }
+
         if ($antes['rol'] !== $despues['rol']) {
             $cambios[] = "rol {$antes['rol']} → {$despues['rol']}";
         }

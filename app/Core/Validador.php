@@ -83,6 +83,16 @@ final class Validador
         return $this;
     }
 
+    /** Una fecha válida no puede ser posterior a hoy (zona horaria de la app). */
+    public function noFutura(string $valor, string $etiqueta): self
+    {
+        if (Peticion::fechaValida($valor) !== null && $valor > date('Y-m-d')) {
+            $this->errores[] = "El campo «{$etiqueta}» no puede ser una fecha futura.";
+        }
+
+        return $this;
+    }
+
     public function verdadero(bool $condicion, string $mensaje): self
     {
         if (!$condicion) {
