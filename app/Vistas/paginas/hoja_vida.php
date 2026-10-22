@@ -189,8 +189,17 @@ Vista::mostrar('layout/inicio', [
             </div>
 
             <!-- Datos para el PDF: JSON inerte (no se ejecuta), leído por js/hoja_vida.js -->
-            <script type="application/json" id="datos-hoja-vida"><?= json_para_html(['equipo' => $equipo, 'historial' => $historial, 'conSimcard' => $equipoEsCelular]) ?></script>
-            <button type="button" class="btn btn-pdf" id="btnDescargarPdf">Descargar Hoja de Vida PDF</button>
+            <script type="application/json" id="datos-hoja-vida"><?= json_para_html([
+                'equipo'     => $equipo,
+                'historial'  => $historial,
+                'conSimcard' => $equipoEsCelular,
+                // Nombres completos para el PDF: "Escritorio (ES)" en lugar de "ES".
+                'nombres'    => [
+                    'tipo'  => Catalogo::TIPOS_EQUIPO[$equipo['tipo']] ?? '',
+                    'marca' => Catalogo::MARCAS[$equipo['marca']] ?? '',
+                ],
+            ]) ?></script>
+            <button type="button" class="btn btn-pdf" id="btnDescargarPdf" data-logo="<?= e(Url::recurso('img/debia_consultoria.jpg')) ?>">Descargar Hoja de Vida PDF</button>
         </div>
 
         <?php if ($rol->esAdmin()): ?>
